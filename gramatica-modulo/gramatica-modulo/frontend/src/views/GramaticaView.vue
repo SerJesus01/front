@@ -21,6 +21,19 @@ const subtemaActual = ref(null);
 const contenido = ref([]);
 const reproduciendoId = ref(null);
 
+// Estado exclusivo de la microlección de abecedario. Las demás referencias
+// conservan sus tablas y grillas actuales.
+const referenciaActiva = ref(null);
+const letrasEscuchadas = ref(new Set());
+const esAbecedario = computed(() => subtemaActual.value?.slug === 'fase-1-abecedario');
+const referenciaAbecedarioActual = computed(
+  () => referenciaActiva.value || contenidoReferencias.value[0] || null,
+);
+const progresoEscuchaAbecedario = computed(() => {
+  const total = contenidoReferencias.value.length || 26;
+  return Math.min(100, Math.round((letrasEscuchadas.value.size / total) * 100));
+});
+
 // Anclaje visual (Fase 5 del plan de dinamismo): mismo ícono SIEMPRE para
 // toda regla de la misma familia gramatical -- la repetición es lo que
 // ancla, no la novedad. Por subtema (no por fila individual) porque el
@@ -459,18 +472,24 @@ async function elegirSubtema(subtema) {
   subtemaActual.value = subtema;
   pantallaActual.value = 'estudio';
   contenido.value = [];
+  referenciaActiva.value = null;
+  letrasEscuchadas.value = new Set();
   prediccionElegida.value = null;
   try {
     const resp = await fetch(`/gramatica/subtemas/${encodeURIComponent(subtema.slug)}/contenido?` + new URLSearchParams({ idioma: 'en' }));
     const data = resp.ok ? await resp.json() : { contenido: [] };
     contenido.value = data.contenido;
+    if (subtema.slug === 'fase-1-abecedario') {
+      referenciaActiva.value = data.contenido.find((item) => item.tipo === 'referencia') || null;
+    }
   } catch (e) {
     contenido.value = [];
   }
 }
 
-function _reproducirUnAudio(audioKey) {
+function _reproducirUnAudio(audioKey, velocidad = 1) {
   const audio = new Audio(`/gramatica/audio/${encodeURIComponent(audioKey)}`);
+  audio.playbackRate = velocidad;
   return new Promise((resolve) => {
     audio.onended = resolve;
     audio.onerror = resolve;
@@ -483,6 +502,22 @@ async function reproducirAudio(item) {
   reproduciendoId.value = item.id;
   try {
     await _reproducirUnAudio(item.audio_key);
+  } finally {
+    reproduciendoId.value = null;
+  }
+}
+
+async function seleccionarReferencia(item) {
+  referenciaActiva.value = item;
+  letrasEscuchadas.value.add(item.id);
+  await reproducirAudio(item);
+}
+
+async function reproducirAudioLento(item) {
+  if (!item?.audio_key) return;
+  reproduciendoId.value = item.id;
+  try {
+    await _reproducirUnAudio(item.audio_key, 0.7);
   } finally {
     reproduciendoId.value = null;
   }
@@ -815,6 +850,45 @@ cargarCruces();
       </div>
 
       <div v-else-if="gruposReferencias.length > 0" class="gramatica-view__grupos-referencias">
+        <section v-if="esAbecedario && referenciaAbecedarioActual" class="gramatica-view__abecedario-experiencia">
+          <div class="gramatica-view__abecedario-encabezado">
+            <div>
+              <span class="gramatica-view__micro-etiqueta">DESCUBRE Y ESCUCHA</span>
+              <h2>Escuchá, repetí y reconocé cada letra</h2>
+              <p>Tocá una letra y repetila en voz alta. Avanzá en grupos cortos, sin intentar memorizar las 26 de una vez.</p>
+            </div>
+            <div class="gramatica-view__abecedario-progreso">
+              <strong>{{ progresoEscuchaAbecedario }}%</strong>
+              <span>{{ letrasEscuchadas.size }} de {{ contenidoReferencias.length }} escuchadas</span>
+            </div>
+          </div>
+
+          <div class="gramatica-view__letra-escenario">
+            <div class="gramatica-view__letra-grande">{{ referenciaAbecedarioActual.texto_en }}</div>
+            <div class="gramatica-view__letra-acciones">
+              <span class="gramatica-view__micro-etiqueta">ASÍ SUENA</span>
+              <strong>Letra {{ referenciaAbecedarioActual.texto_en }}</strong>
+              <div>
+                <button
+                  class="gramatica-view__btn-escuchar-principal"
+                  :disabled="reproduciendoId === referenciaAbecedarioActual.id"
+                  @click="reproducirAudio(referenciaAbecedarioActual)"
+                >🔊 Escuchar de nuevo</button>
+                <button
+                  class="gramatica-view__btn-escuchar-lento"
+                  :disabled="reproduciendoId === referenciaAbecedarioActual.id"
+                  @click="reproducirAudioLento(referenciaAbecedarioActual)"
+                >Más lento</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="gramatica-view__coach-tip">
+            <span aria-hidden="true">💡</span>
+            <p><strong>Práctica eficaz:</strong> escuchá cinco letras, tapá la pantalla e intentá decirlas en el mismo orden.</p>
+          </div>
+        </section>
+
         <div v-for="grupo in gruposReferencias" :key="grupo.titulo || 'unico'" class="gramatica-view__grupo-referencia">
           <h3 v-if="grupo.titulo" class="gramatica-view__grupo-titulo">{{ grupo.titulo }}</h3>
 
@@ -836,11 +910,16 @@ cargarCruces();
               v-for="c in grupo.items"
               :key="c.id"
               class="gramatica-view__btn-referencia"
-              :class="{ 'gramatica-view__btn-referencia--sonando': reproduciendoId === c.id }"
+              :class="{
+                'gramatica-view__btn-referencia--sonando': reproduciendoId === c.id,
+                'gramatica-view__btn-referencia--activa': esAbecedario && referenciaAbecedarioActual?.id === c.id,
+                'gramatica-view__btn-referencia--escuchada': esAbecedario && letrasEscuchadas.has(c.id),
+              }"
+              :aria-pressed="esAbecedario ? referenciaAbecedarioActual?.id === c.id : undefined"
               :disabled="!c.audio_key || reproduciendoId === c.id"
               :title="c.audio_key ? 'Escuchar' : 'Audio no generado todavía'"
-              @click="reproducirAudio(c)"
-            >{{ c.texto_en }}<span v-if="esNumeralPuro(c.texto_es)" class="gramatica-view__referencia-numeral">{{ c.texto_es }}</span></button>
+              @click="esAbecedario ? seleccionarReferencia(c) : reproducirAudio(c)"
+            >{{ c.texto_en }}<span v-if="esNumeralPuro(c.texto_es)" class="gramatica-view__referencia-numeral">{{ c.texto_es }}</span><small v-if="esAbecedario" aria-hidden="true">🔊</small></button>
           </div>
         </div>
       </div>
@@ -2098,5 +2177,174 @@ cargarCruces();
   text-align: left;
   max-width: 480px;
   margin: 1rem auto;
+}
+
+/* Microlección dinámica: se activa solo para fase-1-abecedario. */
+.gramatica-view__abecedario-experiencia {
+  flex: 1 0 100%;
+  padding: 1.25rem;
+  border: 1px solid #dbe9df;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 8px 28px rgba(25, 72, 53, 0.07);
+}
+
+.gramatica-view__abecedario-encabezado {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.gramatica-view__abecedario-encabezado h2 {
+  margin: 0.2rem 0 0.35rem;
+  font-size: 1.15rem;
+}
+
+.gramatica-view__abecedario-encabezado p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--color-texto-secundario);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.gramatica-view__micro-etiqueta {
+  color: var(--color-verde);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.gramatica-view__abecedario-progreso {
+  display: flex;
+  flex-direction: column;
+  min-width: 130px;
+  text-align: right;
+}
+
+.gramatica-view__abecedario-progreso strong {
+  color: var(--color-verde);
+  font-size: 1.45rem;
+}
+
+.gramatica-view__abecedario-progreso span {
+  color: var(--color-texto-tenue);
+  font-size: 0.72rem;
+}
+
+.gramatica-view__letra-escenario {
+  display: grid;
+  grid-template-columns: 125px 1fr;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 1rem 0;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--color-verde-suave), #fff8e7);
+}
+
+.gramatica-view__letra-grande {
+  color: var(--color-verde);
+  font-family: Georgia, serif;
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.gramatica-view__letra-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.gramatica-view__letra-acciones > strong {
+  font-size: 1.05rem;
+}
+
+.gramatica-view__btn-escuchar-principal,
+.gramatica-view__btn-escuchar-lento {
+  border: 0;
+  border-radius: var(--radio-boton);
+  padding: 0.65rem 0.9rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.gramatica-view__btn-escuchar-principal {
+  background: var(--color-verde);
+  color: white;
+}
+
+.gramatica-view__btn-escuchar-lento {
+  margin-left: 0.4rem;
+  border: 1px solid var(--color-borde);
+  background: white;
+  color: var(--color-texto-secundario);
+}
+
+.gramatica-view__coach-tip {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px;
+  background: #f7faf7;
+}
+
+.gramatica-view__coach-tip p {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.gramatica-view__btn-referencia small {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.58rem;
+  opacity: 0.45;
+}
+
+.gramatica-view__btn-referencia--activa {
+  border-color: var(--color-verde);
+  background: var(--color-verde);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.gramatica-view__btn-referencia--escuchada:not(.gramatica-view__btn-referencia--activa)::after {
+  content: '✓';
+  display: block;
+  color: var(--color-verde);
+  font-size: 0.65rem;
+}
+
+@media (max-width: 620px) {
+  .gramatica-view__abecedario-encabezado {
+    flex-direction: column;
+  }
+
+  .gramatica-view__abecedario-progreso {
+    text-align: left;
+  }
+
+  .gramatica-view__letra-escenario {
+    grid-template-columns: 82px 1fr;
+    padding: 0.9rem;
+  }
+
+  .gramatica-view__letra-grande {
+    font-size: 3.8rem;
+  }
+
+  .gramatica-view__btn-escuchar-principal,
+  .gramatica-view__btn-escuchar-lento {
+    width: 100%;
+  }
+
+  .gramatica-view__btn-escuchar-lento {
+    margin: 0.4rem 0 0;
+  }
 }
 </style>
