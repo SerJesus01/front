@@ -565,8 +565,7 @@ async function siguienteEjercicio() {
     respondido.value = false;
     respuestaSeleccionada.value = null;
     marcarIncorrecta.value = null;
-    reproduciendoSecuencia.value = false;
-    turnoIndiceSonando.value = null;
+    reiniciarAudio();
     confianzaSeleccionada.value = null;
     tiempoInicioMs.value = Date.now();
     estadoExamen.value = '';
