@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { useGrammarAudio } from '../../composables/useGrammarAudio.js';
+import { useGrammarAudio } from '../../../composables/useGrammarAudio.js';
 
 const props = defineProps({
   evolucion: {
