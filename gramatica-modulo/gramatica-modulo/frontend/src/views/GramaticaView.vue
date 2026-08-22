@@ -11,6 +11,7 @@
 // endpoint "/siguiente" con repetición espaciada que sí tiene vocabulario.
 import { computed, ref } from 'vue';
 import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesson.vue';
+import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 
 const pantallaActual = ref('fases'); // 'fases' | 'subtemas' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
 
@@ -20,7 +21,19 @@ const subtemas = ref([]);
 const subtemaActual = ref(null);
 
 const contenido = ref([]);
-const reproduciendoId = ref(null);
+
+const {
+  reproduciendoId,
+  reproduciendoSecuencia,
+  turnoIndiceSonando,
+  reproducirAudio,
+  reproducirAudioLento,
+  reproducirSecuencia,
+  reproducirTurno,
+  reproducirConversacion,
+  reproducirFrase,
+  reiniciarAudio,
+} = useGrammarAudio();
 
 // Anclaje visual (Fase 5 del plan de dinamismo): mismo ícono SIEMPRE para
 // toda regla de la misma familia gramatical -- la repetición es lo que
@@ -471,103 +484,6 @@ async function elegirSubtema(subtema) {
   }
 }
 
-function _reproducirUnAudio(audioKey, velocidad = 1) {
-  const audio = new Audio(`/gramatica/audio/${encodeURIComponent(audioKey)}`);
-  audio.playbackRate = velocidad;
-  return new Promise((resolve) => {
-    audio.onended = resolve;
-    audio.onerror = resolve;
-    audio.play().catch(resolve);
-  });
-}
-
-async function reproducirAudio(item) {
-  if (!item.audio_key) return;
-  reproduciendoId.value = item.id;
-  try {
-    await _reproducirUnAudio(item.audio_key);
-  } finally {
-    reproduciendoId.value = null;
-  }
-}
-
-async function reproducirAudioLento(item) {
-  if (!item?.audio_key) return;
-  reproduciendoId.value = item.id;
-  try {
-    await _reproducirUnAudio(item.audio_key, 0.7);
-  } finally {
-    reproduciendoId.value = null;
-  }
-}
-
-// Ejercicios formato='audio_secuencia' (ver migración 038/040/043):
-// reproduce en orden cada token de la secuencia -- varias letras para
-// deletreo, o un solo token para "escuchá el número" -- reusando el
-// audio ya generado (abecedario o cardinales) que el backend resolvió
-// en `secuencia_audio` (ver routers/gramatica.py::_resolver_audio_secuencia).
-// No hay audio nuevo que generar por ejercicio en ningún caso.
-const reproduciendoSecuencia = ref(false);
-async function reproducirSecuencia(item) {
-  if (!item.secuencia_audio || reproduciendoSecuencia.value) return;
-  reproduciendoSecuencia.value = true;
-  try {
-    for (const paso of item.secuencia_audio) {
-      if (paso.audio_key) await _reproducirUnAudio(paso.audio_key);
-    }
-  } finally {
-    reproduciendoSecuencia.value = false;
-  }
-}
-
-// Ejercicios formato='conversacion_audio' (ver migración 051/052): a
-// diferencia de audio_secuencia, el audio_key de cada turno ya viene
-// DENTRO de metadata.turnos (lo escribe el script batch en el momento de
-// sembrar, ver generar_audio_gramatica.py::sembrar_audio_conversaciones)
-// -- no hace falta resolverlo contra ningún banco, el turno ya lo trae.
-const turnoIndiceSonando = ref(null);
-async function reproducirTurno(index) {
-  const turno = itemActual.value?.metadata?.turnos?.[index];
-  if (!turno?.audio_key || reproduciendoSecuencia.value) return;
-  turnoIndiceSonando.value = index;
-  try {
-    await _reproducirUnAudio(turno.audio_key);
-  } finally {
-    turnoIndiceSonando.value = null;
-  }
-}
-
-async function reproducirConversacion(item) {
-  if (!item.metadata?.turnos || reproduciendoSecuencia.value) return;
-  reproduciendoSecuencia.value = true;
-  try {
-    for (let i = 0; i < item.metadata.turnos.length; i++) {
-      const turno = item.metadata.turnos[i];
-      if (!turno.audio_key) continue;
-      turnoIndiceSonando.value = i;
-      await _reproducirUnAudio(turno.audio_key);
-    }
-  } finally {
-    turnoIndiceSonando.value = null;
-    reproduciendoSecuencia.value = false;
-  }
-}
-
-// Ejercicios formato='audio_frase' (ver migración 056): UNA sola voz
-// narra una oración corta con contexto real -- el audio_key ya viene
-// resuelto dentro de metadata (mismo mecanismo que conversacion_audio,
-// pero sin array de turnos), reusa reproduciendoSecuencia como "está
-// sonando" igual que el resto de los formatos de audio.
-async function reproducirFrase(item) {
-  if (!item.metadata?.audio_key || reproduciendoSecuencia.value) return;
-  reproduciendoSecuencia.value = true;
-  try {
-    await _reproducirUnAudio(item.metadata.audio_key);
-  } finally {
-    reproduciendoSecuencia.value = false;
-  }
-}
-
 function _mezclar(array) {
   const copia = [...array];
   for (let i = copia.length - 1; i > 0; i--) {
@@ -595,8 +511,7 @@ async function empezarEjercicios() {
   respondido.value = false;
   respuestaSeleccionada.value = null;
   marcarIncorrecta.value = null;
-  reproduciendoSecuencia.value = false;
-  turnoIndiceSonando.value = null;
+  reiniciarAudio();
   confianzaSeleccionada.value = null;
   tiempoInicioMs.value = Date.now();
   pantallaActual.value = 'ejercicios';
@@ -1084,7 +999,7 @@ cargarCruces();
               ]"
               :disabled="!turno.audio_key || reproduciendoSecuencia"
               title="Escuchar este turno"
-              @click="reproducirTurno(idx)"
+              @click="reproducirTurno(itemActual, idx)"
             >{{ turno.texto_en }}</button>
           </div>
           <p class="gramatica-view__tarjeta-contexto gramatica-view__pregunta-conversacion">{{ itemActual.contexto_en }}</p>
