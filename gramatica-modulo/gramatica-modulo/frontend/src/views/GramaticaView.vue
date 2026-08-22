@@ -11,6 +11,7 @@
 // endpoint "/siguiente" con repetición espaciada que sí tiene vocabulario.
 import { computed, ref } from 'vue';
 import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesson.vue';
+import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 
 const pantallaActual = ref('fases'); // 'fases' | 'subtemas' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
@@ -409,6 +410,11 @@ async function cargarEvolucionGusanito() {
   }
 }
 
+async function abrirCentroJuegos() {
+  pantallaActual.value = 'gusanito-juegos';
+  await cargarEvolucionGusanito();
+}
+
 async function irAGusanitoFases() {
   pantallaActual.value = 'gusanito-fases';
   await cargarEvolucionGusanito();
@@ -635,7 +641,7 @@ cargarCruces();
       <div v-if="totalVencidosRepaso > 0" class="gramatica-view__card-repaso">
         🔁 Repaso de hoy: {{ totalVencidosRepaso }}
       </div>
-      <button class="gramatica-view__link-cruces" @click="irAGusanitoFases">🐛 Jugar el Gusanito →</button>
+      <button class="gramatica-view__link-cruces" @click="abrirCentroJuegos">🐛 Alimentar y jugar con el Gusanito →</button>
       <button v-if="cruces.length > 0" class="gramatica-view__link-cruces" @click="pantallaActual = 'cruces'">🔀 Ver cruces entre reglas →</button>
       <p v-if="fases.length === 0" class="gramatica-view__subtitulo">Todavía no hay fases con contenido cargado.</p>
       <div v-else class="gramatica-view__grid">
@@ -1092,6 +1098,13 @@ cargarCruces();
       <button v-if="modoGusanito" class="btn btn-primario" @click="pantallaActual = 'gusanito-camino'">Volver al camino</button>
       <button v-else class="btn btn-primario" @click="modoCruce = false; pantallaActual = 'fases'">Volver a fases</button>
     </div>
+
+    <GrammarGameHub
+      v-else-if="pantallaActual === 'gusanito-juegos'"
+      :evolucion="gusanitoEvolucion"
+      @volver="pantallaActual = 'fases'"
+      @abrir-caminos="irAGusanitoFases"
+    />
 
     <div v-else-if="pantallaActual === 'gusanito-fases'">
       <button class="gramatica-view__link-volver" @click="pantallaActual = 'fases'">← Fases</button>
