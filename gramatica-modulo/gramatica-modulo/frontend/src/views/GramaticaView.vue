@@ -831,6 +831,7 @@ cargarCruces();
         v-else-if="esAbecedario && contenidoReferencias.length > 0"
         :items="contenidoReferencias"
         :reproduciendo-id="reproduciendoId"
+        :completado="Boolean(subtemaActual?.completado)"
         @reproducir="reproducirAudio"
         @reproducir-lento="reproducirAudioLento"
         @practicar="empezarEjercicios"
@@ -1002,6 +1003,7 @@ cargarCruces();
       </div>
 
       <button
+        v-if="!esAbecedario"
         class="gramatica-view__btn-empezar-ejercicios"
         :disabled="subtemaActual?.completado"
         @click="empezarEjercicios"
