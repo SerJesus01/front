@@ -1,0 +1,63 @@
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+.card {
+  background: white;
+  border-radius: var(--radio-card);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--sombra-card);
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radio-boton);
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+}
+
+.btn-primario {
+  background: var(--color-azul);
+  color: white;
+}
+
+.btn-primario:disabled {
+  background: #9fb8d9;
+  cursor: not-allowed;
+}
+
+.btn-secundario {
+  background: #e0e0e0;
+  color: var(--color-texto);
+}
+
+textarea,
+input[type='file'],
+input[type='text'],
+input[type='email'],
+input[type='password'],
+select {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: var(--radio-boton);
+}
+
+.fila {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
