@@ -10,6 +10,10 @@ const props = defineProps({
     type: [Number, String],
     default: null,
   },
+  completado: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['reproducir', 'reproducir-lento', 'practicar']);
@@ -107,8 +111,13 @@ function seleccionarLetra(item) {
       </button>
     </div>
 
-    <button class="alphabet-lesson__practice" @click="emit('practicar')">
-      Practicar ejercicios <span aria-hidden="true">→</span>
+    <button
+      class="alphabet-lesson__practice"
+      :disabled="completado"
+      @click="emit('practicar')"
+    >
+      {{ completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios' }}
+      <span v-if="!completado" aria-hidden="true">→</span>
     </button>
   </section>
 </template>
@@ -283,6 +292,12 @@ function seleccionarLetra(item) {
 
 .alphabet-lesson__practice span {
   float: right;
+}
+
+.alphabet-lesson__practice:disabled {
+  background: var(--color-verde);
+  cursor: default;
+  opacity: 0.85;
 }
 
 @media (max-width: 620px) {
