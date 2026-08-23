@@ -12,6 +12,7 @@
 import { computed, ref } from 'vue';
 import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesson.vue';
 import NumbersLesson from '../components/gramatica/numeros/NumbersLesson.vue';
+import DateLesson from '../components/gramatica/fecha/DateLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
@@ -31,6 +32,7 @@ const {
   turnoIndiceSonando,
   reproducirAudio,
   reproducirAudioLento,
+  reproducirTexto,
   reproducirSecuencia,
   reproducirTurno,
   reproducirConversacion,
@@ -78,6 +80,11 @@ const prediccionElegida = ref(null); // índice elegido por el alumno para la pr
 const contenidoReferencias = computed(() => contenido.value.filter((c) => c.tipo === 'referencia'));
 const esAbecedario = computed(() => subtemaActual.value?.slug === 'fase-1-abecedario');
 const esNumeros = computed(() => subtemaActual.value?.slug === 'fase-1-numeros');
+const esFecha = computed(() => {
+  const slug = subtemaActual.value?.slug || '';
+  const nombre = (subtemaActual.value?.nombre || '').trim().toLowerCase();
+  return slug === 'fase-1-fecha' || nombre === 'fecha';
+});
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
@@ -553,8 +560,15 @@ cargarCruces();
         </div>
       </div>
 
+      <DateLesson
+        v-if="esFecha"
+        :completado="Boolean(subtemaActual?.completado)"
+        @hablar="reproducirTexto"
+        @practicar="empezarEjercicios"
+      />
+
       <NumbersLesson
-        v-if="esNumeros && contenidoReferencias.length > 0"
+        v-else-if="esNumeros && contenidoReferencias.length > 0"
         :items="contenidoReferencias"
         :reproduciendo-id="reproduciendoId"
         :completado="Boolean(subtemaActual?.completado)"
@@ -631,7 +645,7 @@ cargarCruces();
         </div>
       </div>
 
-      <div v-if="gruposReloj.length > 0" class="gramatica-view__grupos-referencias">
+      <div v-if="!esFecha && gruposReloj.length > 0" class="gramatica-view__grupos-referencias">
         <div v-for="grupo in gruposReloj" :key="grupo.titulo" class="gramatica-view__grupo-referencia">
           <h3 class="gramatica-view__grupo-titulo">{{ grupo.titulo }}</h3>
           <div class="gramatica-view__tabla-numeros gramatica-view__tabla-numeros--reloj">
@@ -661,7 +675,7 @@ cargarCruces();
         </div>
       </div>
 
-      <div v-if="gruposFrases.length > 0" class="gramatica-view__grupos-referencias">
+      <div v-if="!esFecha && gruposFrases.length > 0" class="gramatica-view__grupos-referencias">
         <div v-for="grupo in gruposFrases" :key="grupo.titulo" class="gramatica-view__grupo-referencia">
           <h3 class="gramatica-view__grupo-titulo">{{ grupo.titulo }}</h3>
           <div class="gramatica-view__grid-frases">
@@ -766,7 +780,7 @@ cargarCruces();
       </div>
 
       <button
-        v-if="!esAbecedario && !esNumeros"
+        v-if="!esAbecedario && !esNumeros && !esFecha"
         class="gramatica-view__btn-empezar-ejercicios"
         :disabled="subtemaActual?.completado"
         @click="empezarEjercicios"
