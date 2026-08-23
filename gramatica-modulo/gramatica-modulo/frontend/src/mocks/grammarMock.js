@@ -84,6 +84,22 @@ function mockResponse(url, options = {}) {
   if (path === '/gramatica/subtemas/fase-1-abecedario/ejercicios') return json({ ejercicios });
   if (path === '/gramatica/repaso') return json({ total_vencidos: 0 });
   if (path === '/gramatica/relaciones') return json({ relaciones: [] });
+  if (path === '/gramatica/gusanito/evolucion') {
+    return json({ emoji: '🐛', pct_dominado: 20, dominados: 1, total: 5 });
+  }
+  if (path === '/gramatica/building-words') {
+    const pistas = ['Un animal que dice meow', 'Una fruta', 'Un animal que vive en los árboles', 'El animal terrestre más grande', 'Un medio de transporte que vuela'];
+    return json({
+      puzzles: ejercicios.map((item, index) => ({
+        id: item.id,
+        longitud: item.secuencia_audio.length,
+        pista: pistas[index],
+        alimento: index < 2 ? 1 : 2,
+        secuencia_audio: item.secuencia_audio,
+        nivel_cefr: index < 2 ? 'A1' : 'A2',
+      })),
+    });
+  }
   if (path === '/gramatica/subtemas/completar' && options.method === 'POST') return json({ ok: true });
 
   if (path === '/gramatica/ejercicios/evaluar' && options.method === 'POST') {

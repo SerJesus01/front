@@ -281,6 +281,62 @@ async def _resolver_audio_secuencia(conn, ejercicios: list[dict], idioma: str) -
             ]
 
 
+@router.get("/building-words")
+async def building_words_gramatica(
+    _sesion: Annotated[SesionInfo, Depends(sesion_actual)],
+    idioma: str = "en",
+    limit: int = 10,
+):
+    """Banco concentrado para Building Words.
+
+    Reutiliza ejercicios audio_secuencia existentes, oculta la respuesta
+    esperada y resuelve los audio_key de cada letra. La evaluación y el
+    progreso del Gusanito siguen pasando por POST /ejercicios/evaluar.
+    """
+    limite = max(1, min(limit, 20))
+    conn = await db_conn()
+    try:
+        filas = await conn.fetch(
+            """
+            SELECT e.id, e.nivel_cefr, e.metadata
+            FROM ejercicios e
+            JOIN gramatica_temas t ON t.id = e.tema_gramatica_id
+            WHERE e.idioma = $1
+              AND t.idioma = $1
+              AND e.formato = 'audio_secuencia'
+              AND e.tipo = 'cloze'
+            ORDER BY e.nivel_cefr, e.id
+            LIMIT $2
+            """,
+            idioma, limite,
+        )
+        ejercicios = [
+            {
+                "id": fila["id"],
+                "formato": "audio_secuencia",
+                "nivel_cefr": fila["nivel_cefr"],
+                "metadata": json.loads(fila["metadata"]) if fila["metadata"] else {},
+            }
+            for fila in filas
+        ]
+        await _resolver_audio_secuencia(conn, ejercicios, idioma)
+
+        puzzles = []
+        for ejercicio in ejercicios:
+            secuencia = ejercicio.get("secuencia_audio", [])
+            puzzles.append({
+                "id": ejercicio["id"],
+                "longitud": len(secuencia),
+                "pista": f"Palabra de {len(secuencia)} letras · nivel {ejercicio['nivel_cefr']}",
+                "alimento": 1 if ejercicio["nivel_cefr"] == "A1" else 2,
+                "nivel_cefr": ejercicio["nivel_cefr"],
+                "secuencia_audio": secuencia,
+            })
+        return {"puzzles": puzzles}
+    finally:
+        await conn.close()
+
+
 @router.get("/subtemas/{subtema_slug}/ejercicios", responses={404: {"description": _SUBTEMA_NO_ENCONTRADO}})
 async def ejercicios_gramatica(
     subtema_slug: str, _sesion: Annotated[SesionInfo, Depends(sesion_actual)], idioma: str = "en",
