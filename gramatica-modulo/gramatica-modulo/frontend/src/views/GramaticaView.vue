@@ -11,6 +11,7 @@
 // endpoint "/siguiente" con repetición espaciada que sí tiene vocabulario.
 import { computed, ref } from 'vue';
 import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesson.vue';
+import NumbersLesson from '../components/gramatica/numeros/NumbersLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
@@ -76,6 +77,7 @@ const prediccionElegida = ref(null); // índice elegido por el alumno para la pr
 // audio, sin ícono de parlante aparte.
 const contenidoReferencias = computed(() => contenido.value.filter((c) => c.tipo === 'referencia'));
 const esAbecedario = computed(() => subtemaActual.value?.slug === 'fase-1-abecedario');
+const esNumeros = computed(() => subtemaActual.value?.slug === 'fase-1-numeros');
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
@@ -551,7 +553,17 @@ cargarCruces();
         </div>
       </div>
 
-      <div v-if="filasNumeros" class="gramatica-view__tabla-numeros">
+      <NumbersLesson
+        v-if="esNumeros && contenidoReferencias.length > 0"
+        :items="contenidoReferencias"
+        :reproduciendo-id="reproduciendoId"
+        :completado="Boolean(subtemaActual?.completado)"
+        @reproducir="reproducirAudio"
+        @reproducir-lento="reproducirAudioLento"
+        @practicar="empezarEjercicios"
+      />
+
+      <div v-else-if="filasNumeros" class="gramatica-view__tabla-numeros">
         <div class="gramatica-view__fila-numero gramatica-view__fila-numero--encabezado">
           <span class="gramatica-view__numero-celda">Nº</span>
           <span class="gramatica-view__numero-celda">Cardinal</span>
@@ -754,7 +766,7 @@ cargarCruces();
       </div>
 
       <button
-        v-if="!esAbecedario"
+        v-if="!esAbecedario && !esNumeros"
         class="gramatica-view__btn-empezar-ejercicios"
         :disabled="subtemaActual?.completado"
         @click="empezarEjercicios"
