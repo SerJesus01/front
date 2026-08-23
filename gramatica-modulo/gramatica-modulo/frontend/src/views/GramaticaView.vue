@@ -316,10 +316,8 @@ function elegirOpcion(opcion) {
 
 async function cargarFases() {
   try {
-    const resp = await fetch('/gramatica/fases?' + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { fases: [] };
-    fases.value = data.fases;
-  } catch (e) {
+    fases.value = await gramaticaApi.obtenerFases();
+  } catch {
     fases.value = [];
   }
 }
@@ -335,10 +333,8 @@ const modoCruce = ref(false);
 
 async function cargarCruces() {
   try {
-    const resp = await fetch('/gramatica/relaciones?' + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { relaciones: [] };
-    cruces.value = data.relaciones;
-  } catch (e) {
+    cruces.value = await gramaticaApi.obtenerRelaciones();
+  } catch {
     cruces.value = [];
   }
 }
@@ -349,10 +345,9 @@ async function practicarCruce(cruce) {
   modoGusanito.value = false;
   estadoExamen.value = '';
   try {
-    const resp = await fetch(`/gramatica/relaciones/${cruce.id}/ejercicios?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { ejercicios: [] };
-    ejercicios.value = data.ejercicios.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
-  } catch (e) {
+    const lista = await gramaticaApi.obtenerEjerciciosRelacion(cruce.id);
+    ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
+  } catch {
     ejercicios.value = [];
   }
   indice.value = 0;
@@ -389,9 +384,8 @@ const gusanitoEvolucion = ref(null);
 
 async function cargarEvolucionGusanito() {
   try {
-    const resp = await fetch('/gramatica/gusanito/evolucion');
-    gusanitoEvolucion.value = resp.ok ? await resp.json() : null;
-  } catch (e) {
+    gusanitoEvolucion.value = await gramaticaApi.obtenerEvolucionGusanito();
+  } catch {
     gusanitoEvolucion.value = null;
   }
 }
@@ -409,12 +403,11 @@ async function abrirGusanito(fase) {
 
 async function cargarEstadoGusanito() {
   try {
-    const resp = await fetch(`/gramatica/gusanito/${encodeURIComponent(gusanitoFaseActual.value.slug)}?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { nodos: [], posicion: 0, meta_alcanzada: false };
-    gusanitoNodos.value = data.nodos;
-    gusanitoPosicion.value = data.posicion;
-    gusanitoMetaAlcanzada.value = data.meta_alcanzada;
-  } catch (e) {
+    const data = await gramaticaApi.obtenerCaminoGusanito(gusanitoFaseActual.value.slug);
+    gusanitoNodos.value = data.nodos || [];
+    gusanitoPosicion.value = data.posicion || 0;
+    gusanitoMetaAlcanzada.value = Boolean(data.meta_alcanzada);
+  } catch {
     gusanitoNodos.value = [];
   }
 }
@@ -425,13 +418,12 @@ async function jugarNodoGusanito(nodo) {
   modoCruce.value = false;
   estadoExamen.value = '';
   try {
-    const resp = await fetch(
-      `/gramatica/gusanito/${encodeURIComponent(gusanitoFaseActual.value.slug)}/${encodeURIComponent(nodo.slug)}/ejercicios?`
-      + new URLSearchParams({ idioma: 'en' }),
+    const lista = await gramaticaApi.obtenerEjerciciosGusanito(
+      gusanitoFaseActual.value.slug,
+      nodo.slug,
     );
-    const data = resp.ok ? await resp.json() : { ejercicios: [] };
-    ejercicios.value = data.ejercicios.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
-  } catch (e) {
+    ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
+  } catch {
     ejercicios.value = [];
   }
   indice.value = 0;
@@ -449,10 +441,8 @@ async function elegirFase(fase) {
   pantallaActual.value = 'subtemas';
   subtemas.value = [];
   try {
-    const resp = await fetch(`/gramatica/fases/${encodeURIComponent(fase.slug)}/subtemas?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { subtemas: [] };
-    subtemas.value = data.subtemas;
-  } catch (e) {
+    subtemas.value = await gramaticaApi.obtenerSubtemas(fase.slug);
+  } catch {
     subtemas.value = [];
   }
 }
@@ -463,10 +453,8 @@ async function elegirSubtema(subtema) {
   contenido.value = [];
   prediccionElegida.value = null;
   try {
-    const resp = await fetch(`/gramatica/subtemas/${encodeURIComponent(subtema.slug)}/contenido?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { contenido: [] };
-    contenido.value = data.contenido;
-  } catch (e) {
+    contenido.value = await gramaticaApi.obtenerContenido(subtema.slug);
+  } catch {
     contenido.value = [];
   }
 }
@@ -585,18 +573,16 @@ async function empezarEjercicios() {
   estadoExamen.value = 'Cargando ejercicios...';
   ejercicios.value = [];
   try {
-    const resp = await fetch(`/gramatica/subtemas/${encodeURIComponent(subtemaActual.value.slug)}/ejercicios?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { ejercicios: [] };
-    ejercicios.value = data.ejercicios.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
+    const lista = await gramaticaApi.obtenerEjercicios(subtemaActual.value.slug);
+    ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
     estadoExamen.value = '';
-  } catch (e) {
+  } catch {
     estadoExamen.value = 'Error de red al cargar los ejercicios.';
   }
   respondido.value = false;
   respuestaSeleccionada.value = null;
   marcarIncorrecta.value = null;
-  reproduciendoSecuencia.value = false;
-  turnoIndiceSonando.value = null;
+  reiniciarAudio();
   confianzaSeleccionada.value = null;
   tiempoInicioMs.value = Date.now();
   pantallaActual.value = 'ejercicios';
@@ -608,19 +594,12 @@ async function comprobarRespuesta() {
   comprobando.value = true;
   estadoExamen.value = '';
   try {
-    const resp = await fetch('/gramatica/ejercicios/evaluar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ejercicio_id: item.id,
-        respuesta_usuario: respuestaSeleccionada.value,
-        confianza: confianzaSeleccionada.value,
-        tiempo_respuesta_ms: Date.now() - tiempoInicioMs.value,
-      }),
+    const data = await gramaticaApi.evaluarEjercicio({
+      ejercicio_id: item.id,
+      respuesta_usuario: respuestaSeleccionada.value,
+      confianza: confianzaSeleccionada.value,
+      tiempo_respuesta_ms: Date.now() - tiempoInicioMs.value,
     });
-    if (resp.status === 401) { window.location.href = '/'; return; }
-    if (!resp.ok) { estadoExamen.value = 'No se pudo evaluar, intentá de nuevo.'; return; }
-    const data = await resp.json();
     if (data.correcto) {
       respondido.value = true;
       item.opciones_correctas = data.respuesta_esperada;
@@ -628,16 +607,13 @@ async function comprobarRespuesta() {
     } else {
       marcarIncorrecta.value = respuestaSeleccionada.value;
       respuestaSeleccionada.value = null;
-      // Error consolidado (seguro+rápido+incorrecto): idea equivocada muy
-      // asentada -- se avisa para que el alumno vuelva a leer la regla,
-      // no solo reintente el ejercicio a ciegas.
       if (data.error_consolidado) {
         estadoExamen.value = 'Estabas muy seguro y no era -- puede valer la pena repasar la regla de nuevo.';
       }
       confianzaSeleccionada.value = null;
       tiempoInicioMs.value = Date.now();
     }
-  } catch (e) {
+  } catch {
     estadoExamen.value = 'Error de red al evaluar.';
   } finally {
     comprobando.value = false;
@@ -658,11 +634,7 @@ async function siguienteEjercicio() {
     return;
   }
   if (!modoCruce.value && !modoGusanito.value) {
-    await fetch('/gramatica/subtemas/completar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug: subtemaActual.value.slug, idioma: 'en' }),
-    });
+    await gramaticaApi.completarSubtema(subtemaActual.value.slug);
   }
   if (modoGusanito.value) {
     await cargarEstadoGusanito();
@@ -674,22 +646,18 @@ async function siguienteEjercicio() {
 }
 
 async function enviarAutoexplicacion() {
-  if (!autoexplicacionTexto.value.trim()) return;
+  if (!autoexplicacionTexto.value.trim() || autoexplicacionEnviando.value) return;
   autoexplicacionEnviando.value = true;
   autoexplicacionError.value = '';
   try {
-    const resp = await fetch(`/gramatica/subtemas/${encodeURIComponent(subtemaActual.value.slug)}/autoexplicacion?` + new URLSearchParams({ idioma: 'en' }), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ explicacion: autoexplicacionTexto.value.trim() }),
-    });
-    if (resp.status === 401) { window.location.href = '/'; return; }
-    if (resp.status === 429) { autoexplicacionError.value = 'Ya usaste varias veces esto en el último minuto, esperá un poco.'; return; }
-    if (!resp.ok) { autoexplicacionError.value = 'No se pudo evaluar tu explicación, intentá de nuevo.'; return; }
-    const data = await resp.json();
-    autoexplicacionResultado.value = data.evaluacion;
-  } catch (e) {
-    autoexplicacionError.value = 'Error de red al evaluar.';
+    autoexplicacionResultado.value = await gramaticaApi.enviarAutoexplicacion(
+      subtemaActual.value.slug,
+      autoexplicacionTexto.value.trim(),
+    );
+  } catch (error) {
+    autoexplicacionError.value = error.status === 429
+      ? 'Ya usaste varias veces esto en el último minuto, esperá un poco.'
+      : 'No se pudo evaluar tu explicación, intentá de nuevo.';
   } finally {
     autoexplicacionEnviando.value = false;
   }
@@ -697,12 +665,10 @@ async function enviarAutoexplicacion() {
 
 async function cargarRepaso() {
   try {
-    const resp = await fetch('/gramatica/repaso?' + new URLSearchParams({ idioma: 'en' }));
-    if (!resp.ok) return;
-    const data = await resp.json();
+    const data = await gramaticaApi.obtenerRepaso();
     totalVencidosRepaso.value = data.total_vencidos;
-  } catch (e) {
-    // Silencioso a propósito -- el hub sigue siendo usable sin el dato de repaso.
+  } catch {
+    // Silencioso a propósito: el hub sigue siendo usable sin este dato.
   }
 }
 
