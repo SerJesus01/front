@@ -10,7 +10,7 @@ const fases = [
 const subtemas = [
   { id: 101, nombre: 'Abecedario y deletreo', slug: 'fase-1-abecedario', orden: 1, completado: false },
   { id: 102, nombre: 'Números', slug: 'fase-1-numeros', orden: 2, completado: false },
-  { id: 103, nombre: 'Hora y fecha', slug: 'fase-1-hora-fecha', orden: 3, completado: false },
+  { id: 103, nombre: 'Fecha', slug: 'fase-1-fecha', orden: 3, completado: false },
 ];
 
 const contenidoAbecedario = [
@@ -112,6 +112,7 @@ function mockResponse(url, options = {}) {
   if (path === '/gramatica/fases/fase-1-fundamentos/subtemas') return json({ subtemas });
   if (path === '/gramatica/subtemas/fase-1-abecedario/contenido') return json({ contenido: contenidoAbecedario });
   if (path === '/gramatica/subtemas/fase-1-numeros/contenido') return json({ contenido: contenidoNumeros });
+  if (path === '/gramatica/subtemas/fase-1-fecha/contenido') return json({ contenido: [] });
   if (path === '/gramatica/subtemas/fase-1-abecedario/ejercicios') return json({ ejercicios });
   if (path === '/gramatica/repaso') return json({ total_vencidos: 0 });
   if (path === '/gramatica/relaciones') return json({ relaciones: [] });

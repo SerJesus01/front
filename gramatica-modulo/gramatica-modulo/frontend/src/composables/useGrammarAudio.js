@@ -37,6 +37,21 @@ export function useGrammarAudio() {
     return reproducirAudio(item, 0.7);
   }
 
+  function reproducirTexto(texto, velocidad = 1) {
+    if (!texto || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return Promise.resolve();
+    window.speechSynthesis.cancel();
+    reproduciendoSecuencia.value = true;
+    return new Promise((resolve) => {
+      const voz = new SpeechSynthesisUtterance(texto);
+      voz.lang = 'en-US';
+      voz.rate = Math.max(0.5, Math.min(1, velocidad));
+      const terminar = () => { reproduciendoSecuencia.value = false; resolve(); };
+      voz.onend = terminar;
+      voz.onerror = terminar;
+      window.speechSynthesis.speak(voz);
+    });
+  }
+
   async function reproducirSecuencia(item) {
     if (!item?.secuencia_audio || reproduciendoSecuencia.value) return;
 
@@ -103,6 +118,7 @@ export function useGrammarAudio() {
     turnoIndiceSonando,
     reproducirAudio,
     reproducirAudioLento,
+    reproducirTexto,
     reproducirSecuencia,
     reproducirTurno,
     reproducirConversacion,
