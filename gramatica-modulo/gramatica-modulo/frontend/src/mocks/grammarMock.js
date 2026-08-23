@@ -51,6 +51,36 @@ const contenidoAbecedario = [
   },
 ];
 
+const cardinales = [
+  'one','two','three','four','five','six','seven','eight','nine','ten',
+  'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty',
+];
+const ordinales = [
+  'first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth',
+  'eleventh','twelfth','thirteenth','fourteenth','fifteenth','sixteenth','seventeenth','eighteenth','nineteenth','twentieth',
+];
+const grandes = [
+  ['100','one hundred'], ['1.000','one thousand'], ['10.000','ten thousand'],
+  ['100.000','one hundred thousand'], ['1.000.000','one million'],
+];
+const contenidoNumeros = [
+  ...cardinales.map((word, index) => ({
+    id: 3000 + index, tipo: 'referencia', variante: 'cardinal',
+    texto_es: `Número ${index + 1}`, texto_en: word,
+    audio_key: `mock-number-${word.replaceAll(' ', '-')}`, orden: index + 1,
+  })),
+  ...grandes.map(([value, word], index) => ({
+    id: 3100 + index, tipo: 'referencia', variante: 'cardinal',
+    texto_es: value, texto_en: word,
+    audio_key: `mock-number-${word.replaceAll(' ', '-')}`, orden: 24 + index,
+  })),
+  ...ordinales.map((word, index) => ({
+    id: 3200 + index, tipo: 'referencia', variante: 'ordinal',
+    texto_es: `${index + 1}º`, texto_en: word,
+    audio_key: `mock-number-${word.replaceAll(' ', '-')}`, orden: 30 + index,
+  })),
+];
+
 const ejercicios = [
   ['cat', ['cat', 'cap', 'can', 'hat'], ['C', 'A', 'T']],
   ['apple', ['apple', 'rice', 'grape', 'table'], ['A', 'P', 'P', 'L', 'E']],
@@ -81,6 +111,7 @@ function mockResponse(url, options = {}) {
   if (path === '/gramatica/fases') return json({ fases });
   if (path === '/gramatica/fases/fase-1-fundamentos/subtemas') return json({ subtemas });
   if (path === '/gramatica/subtemas/fase-1-abecedario/contenido') return json({ contenido: contenidoAbecedario });
+  if (path === '/gramatica/subtemas/fase-1-numeros/contenido') return json({ contenido: contenidoNumeros });
   if (path === '/gramatica/subtemas/fase-1-abecedario/ejercicios') return json({ ejercicios });
   if (path === '/gramatica/repaso') return json({ total_vencidos: 0 });
   if (path === '/gramatica/relaciones') return json({ relaciones: [] });
@@ -128,7 +159,7 @@ class MockGrammarAudio {
 
   play() {
     const key = decodeURIComponent(this.src.split('/').pop() || '');
-    const text = key.replace(/^mock-letter-/, '').replace(/^mock-phrase-/, '').replaceAll('-', ' ');
+    const text = key.replace(/^mock-letter-/, '').replace(/^mock-phrase-/, '').replace(/^mock-number-/, '').replaceAll('-', ' ');
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US';
     utterance.rate = Math.max(0.5, Math.min(1, this.playbackRate));
