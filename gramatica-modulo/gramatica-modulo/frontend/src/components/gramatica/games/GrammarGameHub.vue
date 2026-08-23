@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import { useGrammarAudio } from '../../../composables/useGrammarAudio.js';
+import { gramaticaApi } from '../../../services/gramaticaApi.js';
 
 const props = defineProps({
   evolucion: {
@@ -30,19 +31,10 @@ const casillas = computed(() => {
 const energia = computed(() => Math.min(100, (props.evolucion?.pct_dominado || 0) + alimentoGanado.value * 5));
 
 async function cargarJuego() {
-  cargando.value = true;
-  estado.value = '';
-  try {
-    const response = await fetch('/gramatica/building-words?idioma=en&limit=10');
-    const data = response.ok ? await response.json() : { puzzles: [] };
-    puzzles.value = data.puzzles;
-    pantalla.value = 'juego';
-    setTimeout(() => inputPuzzle.value?.focus(), 0);
-  } catch {
-    estado.value = 'No se pudo cargar el juego.';
-  } finally {
-    cargando.value = false;
-  }
+  cargando.value = true; estado.value = '';
+  try { puzzles.value = await gramaticaApi.obtenerBuildingWords(); pantalla.value = 'juego'; setTimeout(() => inputPuzzle.value?.focus(), 0); }
+  catch { estado.value = 'No se pudo cargar el juego.'; }
+  finally { cargando.value = false; }
 }
 
 function escribir(event) {
@@ -52,32 +44,11 @@ function escribir(event) {
 
 async function comprobar() {
   if (!puzzle.value || respuesta.value.length !== puzzle.value.longitud) return;
-
-  const response = await fetch('/gramatica/ejercicios/evaluar', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      ejercicio_id: puzzle.value.id,
-      respuesta_usuario: respuesta.value.toLowerCase(),
-      confianza: 'creo',
-      tiempo_respuesta_ms: 5000,
-    }),
-  });
-  if (!response.ok) {
-    estado.value = 'error';
-    return;
-  }
-
-  const data = await response.json();
-  if (data.correcto) {
-    estado.value = 'correcto';
-    alimentoGanado.value += puzzle.value.alimento || 1;
-  } else {
-    intentos.value -= 1;
-    estado.value = intentos.value <= 0 ? 'agotado' : 'incorrecto';
-    respuesta.value = '';
-    setTimeout(() => inputPuzzle.value?.focus(), 0);
-  }
+  try {
+    const data = await gramaticaApi.evaluarEjercicio({ ejercicio_id: puzzle.value.id, respuesta_usuario: respuesta.value.toLowerCase(), confianza: 'creo', tiempo_respuesta_ms: 5000 });
+    if (data.correcto) { estado.value = 'correcto'; alimentoGanado.value += puzzle.value.alimento || 1; }
+    else { intentos.value -= 1; estado.value = intentos.value <= 0 ? 'agotado' : 'incorrecto'; respuesta.value = ''; setTimeout(() => inputPuzzle.value?.focus(), 0); }
+  } catch { estado.value = 'error'; }
 }
 
 function siguiente() {
