@@ -11,6 +11,7 @@ const subtemas = [
   { id: 101, nombre: 'Abecedario y deletreo', slug: 'fase-1-abecedario', orden: 1, completado: false },
   { id: 102, nombre: 'Números', slug: 'fase-1-numeros', orden: 2, completado: false },
   { id: 103, nombre: 'Fecha', slug: 'fase-1-fecha', orden: 3, completado: false },
+  { id: 104, nombre: 'Hora', slug: 'fase-1-hora', orden: 4, completado: false },
 ];
 
 const contenidoAbecedario = [
@@ -81,6 +82,31 @@ const contenidoNumeros = [
   })),
 ];
 
+const contenidoHora = [
+  ['9:00', "It's nine o'clock.", 'en_punto'],
+  ['12:30', "It's half past twelve.", 'media'],
+  ['3:15', "It's a quarter past three.", 'cuarto'],
+  ['6:45', "It's a quarter to seven.", 'cuarto'],
+  ['8:20', "It's twenty past eight.", 'minutos'],
+  ['10:50', "It's ten to eleven.", 'minutos'],
+].map(([texto_es, texto_en, variante], index) => ({
+  id: 4000 + index, tipo: 'referencia', variante, texto_es, texto_en,
+  audio_key: `mock-phrase-${texto_en.replaceAll(' ', '-')}`, orden: index + 1,
+}));
+contenidoHora.push(
+  ...[
+    ['por la mañana', 'in the morning'],
+    ['por la tarde', 'in the afternoon'],
+    ['por la tarde-noche', 'in the evening'],
+    ['por la noche', 'at night'],
+    ['al mediodía', 'at noon'],
+    ['a medianoche', 'at midnight'],
+  ].map(([texto_es, texto_en], index) => ({
+    id: 4100 + index, tipo: 'referencia', variante: 'parte_dia', texto_es, texto_en,
+    audio_key: `mock-phrase-${texto_en.replaceAll(' ', '-')}`, orden: 20 + index,
+  })),
+);
+
 const ejercicios = [
   ['cat', ['cat', 'cap', 'can', 'hat'], ['C', 'A', 'T']],
   ['apple', ['apple', 'rice', 'grape', 'table'], ['A', 'P', 'P', 'L', 'E']],
@@ -113,6 +139,7 @@ function mockResponse(url, options = {}) {
   if (path === '/gramatica/subtemas/fase-1-abecedario/contenido') return json({ contenido: contenidoAbecedario });
   if (path === '/gramatica/subtemas/fase-1-numeros/contenido') return json({ contenido: contenidoNumeros });
   if (path === '/gramatica/subtemas/fase-1-fecha/contenido') return json({ contenido: [] });
+  if (path === '/gramatica/subtemas/fase-1-hora/contenido') return json({ contenido: contenidoHora });
   if (path === '/gramatica/subtemas/fase-1-abecedario/ejercicios') return json({ ejercicios });
   if (path === '/gramatica/repaso') return json({ total_vencidos: 0 });
   if (path === '/gramatica/relaciones') return json({ relaciones: [] });

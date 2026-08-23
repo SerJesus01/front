@@ -13,6 +13,7 @@ import { computed, ref } from 'vue';
 import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesson.vue';
 import NumbersLesson from '../components/gramatica/numeros/NumbersLesson.vue';
 import DateLesson from '../components/gramatica/fecha/DateLesson.vue';
+import TimeLesson from '../components/gramatica/hora/TimeLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
@@ -85,12 +86,17 @@ const esFecha = computed(() => {
   const nombre = (subtemaActual.value?.nombre || '').trim().toLowerCase();
   return slug === 'fase-1-fecha' || nombre === 'fecha';
 });
+const esHora = computed(() => {
+  const slug = subtemaActual.value?.slug || '';
+  const nombre = (subtemaActual.value?.nombre || '').trim().toLowerCase();
+  return slug === 'fase-1-hora' || slug.startsWith('fase-1-hora-') || nombre === 'hora';
+});
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
-// ninguna de las variantes de "Hora y fecha" en juego (ver filasNumeros y
-// gruposReloj/gruposFrases abajo, cada una arma su propia sección
-// especial) -- evita que la misma ficha se muestre dos veces.
+// ninguna de las variantes con módulo propio en juego. Números, Fecha y
+// Hora renderizan sus referencias dentro de componentes especializados,
+// evitando mostrar la misma ficha una segunda vez en la grilla genérica.
 const _VARIANTES_CON_SECCION_PROPIA = new Set([
   'ordinal', 'en_punto', 'media', 'cuarto', 'minutos', 'parte_dia', 'fecha_especifica', 'fecha_relativa', 'fecha_casual',
   'pron_sujeto', 'pron_objeto', 'pron_posesivo_adj', 'pron_posesivo_pron',
@@ -122,56 +128,6 @@ const gruposReferencias = computed(() => {
       .filter((grupo) => grupo.items.length > 0);
   }
   return contenidoReferencias.value.length > 0 ? [{ titulo: null, items: contenidoReferencias.value }] : [];
-});
-
-// "Hora y fecha" (migración 046): las fichas de reloj traen variante
-// en_punto/media/cuarto/minutos -- se agrupan por estilo (misma lógica de
-// dificultad creciente que se usó para sembrarlas) en vez de mezclarlas
-// en una sola grilla, para que se lea como una progresión pedagógica.
-const _ESTILOS_RELOJ = { en_punto: 'En punto', media: 'Y media', cuarto: 'Cuarto de hora', minutos: 'Minutos' };
-const gruposReloj = computed(() => {
-  const items = contenidoReferencias.value.filter((c) => c.variante in _ESTILOS_RELOJ);
-  return Object.entries(_ESTILOS_RELOJ)
-    .map(([variante, titulo]) => ({ titulo, items: items.filter((c) => c.variante === variante) }))
-    .filter((grupo) => grupo.items.length > 0);
-});
-
-// Ángulos de las manecillas -- compartido entre el reloj chico de la
-// tabla de referencia (a partir de texto_es "9:45") y el reloj grande del
-// ejercicio (a partir de metadata.hora/minuto, ver anguloReloj más abajo)
-// para no tener el cálculo duplicado. +0.5°/minuto en la hora: si no, la
-// manecilla se quedaría "pegada" en la hora exacta durante toda la hora.
-function _angulosReloj(hora, minuto) {
-  return { horas: (hora % 12) * 30 + minuto * 0.5, minutos: minuto * 6 };
-}
-
-// Pedido en vivo: mostrar un reloj chico (mismo dibujo CSS que el de los
-// ejercicios) junto a cada fila de la tabla, más entendible que solo el
-// texto digital -- se parsea "9:45" desde texto_es en vez de agregar una
-// columna hora/minuto nueva en gramatica_contenido.
-function angulosDeFicha(item) {
-  const match = item.texto_es.match(/^(\d{1,2}):(\d{2})$/);
-  if (!match) return null;
-  return _angulosReloj(Number(match[1]), Number(match[2]));
-}
-
-// Fichas de "frase" (partes del día, fechas específicas/relativas) -- sin
-// visual propio (a diferencia del reloj), se agrupan por variante con un
-// título igual que gruposReloj, pero en fichas anchas de una columna
-// (gramatica-view__grid-frases) en vez de la grilla cuadrada del
-// abecedario -- frases como "early in the morning" no entran cómodas en
-// una ficha de 64px (mismo problema de overflow que tuvimos con números).
-const _GRUPOS_FRASE = {
-  parte_dia: 'Partes del día',
-  fecha_especifica: 'Fechas específicas',
-  fecha_relativa: 'Fechas relativas',
-  fecha_casual: 'Expresiones casuales',
-};
-const gruposFrases = computed(() => {
-  const items = contenidoReferencias.value.filter((c) => c.variante in _GRUPOS_FRASE);
-  return Object.entries(_GRUPOS_FRASE)
-    .map(([variante, titulo]) => ({ titulo, items: items.filter((c) => c.variante === variante) }))
-    .filter((grupo) => grupo.items.length > 0);
 });
 
 // Los "hitos" redondos (100/1.000/10.000/100.000/1.000.000, ver migración
@@ -316,13 +272,16 @@ const contextoPartes = computed(() => {
   };
 });
 
-// Ejercicios formato='reloj_visual' (ver migración 045/047): las
-// manecillas se rotan por CSS a partir de metadata.hora/metadata.minuto
-// (ver _angulosReloj arriba, compartido con el reloj chico de la tabla).
+// Ejercicios heredados formato='reloj_visual'. La lección y sus fichas ya
+// viven en TimeLesson; este cálculo permanece aquí hasta extraer también
+// el render genérico de ejercicios en una fase posterior.
 const anguloReloj = computed(() => {
   const item = itemActual.value;
   if (!item || item.formato !== 'reloj_visual' || !item.metadata) return null;
-  return _angulosReloj(item.metadata.hora, item.metadata.minuto);
+  return {
+    horas: (item.metadata.hora % 12) * 30 + item.metadata.minuto * 0.5,
+    minutos: item.metadata.minuto * 6,
+  };
 });
 
 function claseOpcion(opcion) {
@@ -567,6 +526,16 @@ cargarCruces();
         @practicar="empezarEjercicios"
       />
 
+      <TimeLesson
+        v-else-if="esHora"
+        :items="contenidoReferencias"
+        :reproduciendo-id="reproduciendoId"
+        :completado="Boolean(subtemaActual?.completado)"
+        @reproducir="reproducirAudio"
+        @hablar="reproducirTexto"
+        @practicar="empezarEjercicios"
+      />
+
       <NumbersLesson
         v-else-if="esNumeros && contenidoReferencias.length > 0"
         :items="contenidoReferencias"
@@ -641,53 +610,6 @@ cargarCruces();
               :title="c.audio_key ? 'Escuchar' : 'Audio no generado todavía'"
               @click="reproducirAudio(c)"
             >{{ c.texto_en }}<span v-if="esNumeralPuro(c.texto_es)" class="gramatica-view__referencia-numeral">{{ c.texto_es }}</span></button>
-          </div>
-        </div>
-      </div>
-
-      <div v-if="!esFecha && gruposReloj.length > 0" class="gramatica-view__grupos-referencias">
-        <div v-for="grupo in gruposReloj" :key="grupo.titulo" class="gramatica-view__grupo-referencia">
-          <h3 class="gramatica-view__grupo-titulo">{{ grupo.titulo }}</h3>
-          <div class="gramatica-view__tabla-numeros gramatica-view__tabla-numeros--reloj">
-            <div v-for="c in grupo.items" :key="c.id" class="gramatica-view__fila-numero">
-              <span class="gramatica-view__numero-celda gramatica-view__numero-numeral">
-                <span class="gramatica-view__mini-reloj" aria-hidden="true">
-                  <span
-                    class="gramatica-view__mini-reloj-aguja gramatica-view__mini-reloj-aguja--hora"
-                    :style="{ transform: `translateX(-50%) rotate(${angulosDeFicha(c).horas}deg)` }"
-                  ></span>
-                  <span
-                    class="gramatica-view__mini-reloj-aguja gramatica-view__mini-reloj-aguja--minuto"
-                    :style="{ transform: `translateX(-50%) rotate(${angulosDeFicha(c).minutos}deg)` }"
-                  ></span>
-                </span>
-                {{ c.texto_es }}
-              </span>
-              <button
-                class="gramatica-view__numero-celda gramatica-view__numero-palabra"
-                :class="{ 'gramatica-view__numero-palabra--sonando': reproduciendoId === c.id }"
-                :disabled="!c.audio_key || reproduciendoId === c.id"
-                :title="c.audio_key ? 'Escuchar' : 'Audio no generado todavía'"
-                @click="reproducirAudio(c)"
-              >{{ c.texto_en }}</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div v-if="!esFecha && gruposFrases.length > 0" class="gramatica-view__grupos-referencias">
-        <div v-for="grupo in gruposFrases" :key="grupo.titulo" class="gramatica-view__grupo-referencia">
-          <h3 class="gramatica-view__grupo-titulo">{{ grupo.titulo }}</h3>
-          <div class="gramatica-view__grid-frases">
-            <button
-              v-for="c in grupo.items"
-              :key="c.id"
-              class="gramatica-view__btn-referencia gramatica-view__btn-referencia--frase"
-              :class="{ 'gramatica-view__btn-referencia--sonando': reproduciendoId === c.id }"
-              :disabled="!c.audio_key || reproduciendoId === c.id"
-              :title="c.audio_key ? 'Escuchar' : 'Audio no generado todavía'"
-              @click="reproducirAudio(c)"
-            >{{ c.texto_en }}</button>
           </div>
         </div>
       </div>
@@ -780,7 +702,7 @@ cargarCruces();
       </div>
 
       <button
-        v-if="!esAbecedario && !esNumeros && !esFecha"
+        v-if="!esAbecedario && !esNumeros && !esFecha && !esHora"
         class="gramatica-view__btn-empezar-ejercicios"
         :disabled="subtemaActual?.completado"
         @click="empezarEjercicios"
@@ -1282,48 +1204,10 @@ cargarCruces();
   font-size: 0.9rem;
 }
 
-/* La columna del numeral necesita más espacio acá que en la tabla de
-   números (icono de reloj + "12:00" en vez de solo el numeral). */
-.gramatica-view__tabla-numeros--reloj {
-  grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
-}
-
 /* Sujeto/objeto/posesivo/pron.posesivo -- 4 columnas iguales en vez de 3
-   (números) o 2 (reloj), mismo mecanismo de grilla única compartida. */
+   (números), mismo mecanismo de grilla única compartida. */
 .gramatica-view__tabla-numeros--pronombres {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.gramatica-view__mini-reloj {
-  position: relative;
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  flex: none;
-  border-radius: 50%;
-  background: white;
-  border: 2px solid var(--color-azul);
-  box-sizing: border-box;
-}
-
-.gramatica-view__mini-reloj-aguja {
-  position: absolute;
-  left: 50%;
-  bottom: 50%;
-  transform-origin: 50% 100%;
-  border-radius: 2px;
-  background: var(--color-azul);
-}
-
-.gramatica-view__mini-reloj-aguja--hora {
-  width: 2px;
-  height: 6px;
-}
-
-.gramatica-view__mini-reloj-aguja--minuto {
-  width: 1.5px;
-  height: 9px;
-  background: var(--color-texto-secundario);
 }
 
 .gramatica-view__numero-palabra {
@@ -1399,23 +1283,6 @@ cargarCruces();
 .gramatica-view__btn-referencia:disabled {
   opacity: 0.4;
   cursor: wait;
-}
-
-/* Partes del día: frases largas ("early in the morning") no entran cómodas
-   en la ficha cuadrada de 64px del abecedario (mismo problema de overflow
-   que tuvimos con números, ver gramatica-view__tabla-numeros) -- columnas
-   más anchas y texto normal en vez de bold/centrado. */
-.gramatica-view__grid-frases {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 0.5rem;
-}
-
-.gramatica-view__btn-referencia--frase {
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-align: left;
-  white-space: normal;
 }
 
 .gramatica-view__referencia-numeral {
