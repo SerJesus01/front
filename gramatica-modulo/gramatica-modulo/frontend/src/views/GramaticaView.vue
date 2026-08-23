@@ -13,6 +13,7 @@ import { computed, ref } from 'vue';
 import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
+import { gramaticaApi } from '../services/gramaticaApi.js';
 
 const pantallaActual = ref('fases'); // 'fases' | 'subtemas' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
 
@@ -328,15 +329,7 @@ function elegirOpcion(opcion) {
   marcarIncorrecta.value = null;
 }
 
-async function cargarFases() {
-  try {
-    const resp = await fetch('/gramatica/fases?' + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { fases: [] };
-    fases.value = data.fases;
-  } catch (e) {
-    fases.value = [];
-  }
-}
+async function cargarFases() { try { fases.value = await gramaticaApi.obtenerFases(); } catch { fases.value = []; } }
 
 // Mapa "VS" de cruces (Fase 6 del plan de dinamismo) -- tarjetas de
 // contraste curadas a mano, no un grafo dinámico. "Practicar el cruce"
@@ -347,36 +340,12 @@ const cruces = ref([]);
 const cruceActual = ref(null);
 const modoCruce = ref(false);
 
-async function cargarCruces() {
-  try {
-    const resp = await fetch('/gramatica/relaciones?' + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { relaciones: [] };
-    cruces.value = data.relaciones;
-  } catch (e) {
-    cruces.value = [];
-  }
-}
+async function cargarCruces() { try { cruces.value = await gramaticaApi.obtenerRelaciones(); } catch { cruces.value = []; } }
 
 async function practicarCruce(cruce) {
-  cruceActual.value = cruce;
-  modoCruce.value = true;
-  modoGusanito.value = false;
-  estadoExamen.value = '';
-  try {
-    const resp = await fetch(`/gramatica/relaciones/${cruce.id}/ejercicios?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { ejercicios: [] };
-    ejercicios.value = data.ejercicios.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
-  } catch (e) {
-    ejercicios.value = [];
-  }
-  indice.value = 0;
-  correctasCount.value = 0;
-  respondido.value = false;
-  respuestaSeleccionada.value = null;
-  marcarIncorrecta.value = null;
-  confianzaSeleccionada.value = null;
-  tiempoInicioMs.value = Date.now();
-  pantallaActual.value = 'ejercicios';
+  cruceActual.value = cruce; modoCruce.value = true; modoGusanito.value = false; estadoExamen.value = '';
+  try { const lista = await gramaticaApi.obtenerEjerciciosRelacion(cruce.id); ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) })); } catch { ejercicios.value = []; }
+  indice.value = 0; correctasCount.value = 0; respondido.value = false; respuestaSeleccionada.value = null; marcarIncorrecta.value = null; confianzaSeleccionada.value = null; tiempoInicioMs.value = Date.now(); pantallaActual.value = 'ejercicios';
 }
 
 // El Gusanito (Fase 9 del plan de dinamismo) -- arranca con 2 Fases
@@ -401,14 +370,7 @@ const modoGusanito = ref(false);
 // progreso justo después de jugar una ronda.
 const gusanitoEvolucion = ref(null);
 
-async function cargarEvolucionGusanito() {
-  try {
-    const resp = await fetch('/gramatica/gusanito/evolucion');
-    gusanitoEvolucion.value = resp.ok ? await resp.json() : null;
-  } catch (e) {
-    gusanitoEvolucion.value = null;
-  }
-}
+async function cargarEvolucionGusanito() { try { gusanitoEvolucion.value = await gramaticaApi.obtenerEvolucionGusanito(); } catch { gusanitoEvolucion.value = null; } }
 
 async function abrirCentroJuegos() {
   pantallaActual.value = 'gusanito-juegos';
@@ -427,68 +389,18 @@ async function abrirGusanito(fase) {
 }
 
 async function cargarEstadoGusanito() {
-  try {
-    const resp = await fetch(`/gramatica/gusanito/${encodeURIComponent(gusanitoFaseActual.value.slug)}?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { nodos: [], posicion: 0, meta_alcanzada: false };
-    gusanitoNodos.value = data.nodos;
-    gusanitoPosicion.value = data.posicion;
-    gusanitoMetaAlcanzada.value = data.meta_alcanzada;
-  } catch (e) {
-    gusanitoNodos.value = [];
-  }
+  try { const data = await gramaticaApi.obtenerCaminoGusanito(gusanitoFaseActual.value.slug); gusanitoNodos.value = data.nodos || []; gusanitoPosicion.value = data.posicion || 0; gusanitoMetaAlcanzada.value = Boolean(data.meta_alcanzada); } catch { gusanitoNodos.value = []; }
 }
 
 async function jugarNodoGusanito(nodo) {
-  gusanitoNodoActual.value = nodo;
-  modoGusanito.value = true;
-  modoCruce.value = false;
-  estadoExamen.value = '';
-  try {
-    const resp = await fetch(
-      `/gramatica/gusanito/${encodeURIComponent(gusanitoFaseActual.value.slug)}/${encodeURIComponent(nodo.slug)}/ejercicios?`
-      + new URLSearchParams({ idioma: 'en' }),
-    );
-    const data = resp.ok ? await resp.json() : { ejercicios: [] };
-    ejercicios.value = data.ejercicios.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
-  } catch (e) {
-    ejercicios.value = [];
-  }
-  indice.value = 0;
-  correctasCount.value = 0;
-  respondido.value = false;
-  respuestaSeleccionada.value = null;
-  marcarIncorrecta.value = null;
-  confianzaSeleccionada.value = null;
-  tiempoInicioMs.value = Date.now();
-  pantallaActual.value = 'ejercicios';
+  gusanitoNodoActual.value = nodo; modoGusanito.value = true; modoCruce.value = false; estadoExamen.value = '';
+  try { const lista = await gramaticaApi.obtenerEjerciciosGusanito(gusanitoFaseActual.value.slug, nodo.slug); ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) })); } catch { ejercicios.value = []; }
+  indice.value = 0; correctasCount.value = 0; respondido.value = false; respuestaSeleccionada.value = null; marcarIncorrecta.value = null; confianzaSeleccionada.value = null; tiempoInicioMs.value = Date.now(); pantallaActual.value = 'ejercicios';
 }
 
-async function elegirFase(fase) {
-  faseActual.value = fase;
-  pantallaActual.value = 'subtemas';
-  subtemas.value = [];
-  try {
-    const resp = await fetch(`/gramatica/fases/${encodeURIComponent(fase.slug)}/subtemas?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { subtemas: [] };
-    subtemas.value = data.subtemas;
-  } catch (e) {
-    subtemas.value = [];
-  }
-}
+async function elegirFase(fase) { faseActual.value = fase; pantallaActual.value = 'subtemas'; subtemas.value = []; try { subtemas.value = await gramaticaApi.obtenerSubtemas(fase.slug); } catch { subtemas.value = []; } }
 
-async function elegirSubtema(subtema) {
-  subtemaActual.value = subtema;
-  pantallaActual.value = 'estudio';
-  contenido.value = [];
-  prediccionElegida.value = null;
-  try {
-    const resp = await fetch(`/gramatica/subtemas/${encodeURIComponent(subtema.slug)}/contenido?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { contenido: [] };
-    contenido.value = data.contenido;
-  } catch (e) {
-    contenido.value = [];
-  }
-}
+async function elegirSubtema(subtema) { subtemaActual.value = subtema; pantallaActual.value = 'estudio'; contenido.value = []; prediccionElegida.value = null; try { contenido.value = await gramaticaApi.obtenerContenido(subtema.slug); } catch { contenido.value = []; } }
 
 function _mezclar(array) {
   const copia = [...array];
@@ -500,69 +412,16 @@ function _mezclar(array) {
 }
 
 async function empezarEjercicios() {
-  modoCruce.value = false;
-  modoGusanito.value = false;
-  indice.value = 0;
-  correctasCount.value = 0;
-  estadoExamen.value = 'Cargando ejercicios...';
-  ejercicios.value = [];
-  try {
-    const resp = await fetch(`/gramatica/subtemas/${encodeURIComponent(subtemaActual.value.slug)}/ejercicios?` + new URLSearchParams({ idioma: 'en' }));
-    const data = resp.ok ? await resp.json() : { ejercicios: [] };
-    ejercicios.value = data.ejercicios.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
-    estadoExamen.value = '';
-  } catch (e) {
-    estadoExamen.value = 'Error de red al cargar los ejercicios.';
-  }
-  respondido.value = false;
-  respuestaSeleccionada.value = null;
-  marcarIncorrecta.value = null;
-  reiniciarAudio();
-  confianzaSeleccionada.value = null;
-  tiempoInicioMs.value = Date.now();
-  pantallaActual.value = 'ejercicios';
+  modoCruce.value = false; modoGusanito.value = false; indice.value = 0; correctasCount.value = 0; estadoExamen.value = 'Cargando ejercicios...'; ejercicios.value = [];
+  try { const lista = await gramaticaApi.obtenerEjercicios(subtemaActual.value.slug); ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) })); estadoExamen.value = ''; } catch { estadoExamen.value = 'Error de red al cargar los ejercicios.'; }
+  respondido.value = false; respuestaSeleccionada.value = null; marcarIncorrecta.value = null; reiniciarAudio(); confianzaSeleccionada.value = null; tiempoInicioMs.value = Date.now(); pantallaActual.value = 'ejercicios';
 }
 
 async function comprobarRespuesta() {
-  const item = itemActual.value;
-  if (!item || !respuestaSeleccionada.value || !confianzaSeleccionada.value) return;
-  comprobando.value = true;
-  estadoExamen.value = '';
-  try {
-    const resp = await fetch('/gramatica/ejercicios/evaluar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ejercicio_id: item.id,
-        respuesta_usuario: respuestaSeleccionada.value,
-        confianza: confianzaSeleccionada.value,
-        tiempo_respuesta_ms: Date.now() - tiempoInicioMs.value,
-      }),
-    });
-    if (resp.status === 401) { window.location.href = '/'; return; }
-    if (!resp.ok) { estadoExamen.value = 'No se pudo evaluar, intentá de nuevo.'; return; }
-    const data = await resp.json();
-    if (data.correcto) {
-      respondido.value = true;
-      item.opciones_correctas = data.respuesta_esperada;
-      correctasCount.value++;
-    } else {
-      marcarIncorrecta.value = respuestaSeleccionada.value;
-      respuestaSeleccionada.value = null;
-      // Error consolidado (seguro+rápido+incorrecto): idea equivocada muy
-      // asentada -- se avisa para que el alumno vuelva a leer la regla,
-      // no solo reintente el ejercicio a ciegas.
-      if (data.error_consolidado) {
-        estadoExamen.value = 'Estabas muy seguro y no era -- puede valer la pena repasar la regla de nuevo.';
-      }
-      confianzaSeleccionada.value = null;
-      tiempoInicioMs.value = Date.now();
-    }
-  } catch (e) {
-    estadoExamen.value = 'Error de red al evaluar.';
-  } finally {
-    comprobando.value = false;
-  }
+  const item = itemActual.value; if (!item || !respuestaSeleccionada.value || !confianzaSeleccionada.value) return; comprobando.value = true; estadoExamen.value = '';
+  try { const data = await gramaticaApi.evaluarEjercicio({ ejercicio_id: item.id, respuesta_usuario: respuestaSeleccionada.value, confianza: confianzaSeleccionada.value, tiempo_respuesta_ms: Date.now() - tiempoInicioMs.value });
+    if (data.correcto) { respondido.value = true; item.opciones_correctas = data.respuesta_esperada; correctasCount.value++; } else { marcarIncorrecta.value = respuestaSeleccionada.value; respuestaSeleccionada.value = null; if (data.error_consolidado) estadoExamen.value = 'Estabas muy seguro y no era -- puede valer la pena repasar la regla de nuevo.'; confianzaSeleccionada.value = null; tiempoInicioMs.value = Date.now(); }
+  } catch { estadoExamen.value = 'Error de red al evaluar.'; } finally { comprobando.value = false; }
 }
 
 async function siguienteEjercicio() {
@@ -578,11 +437,7 @@ async function siguienteEjercicio() {
     return;
   }
   if (!modoCruce.value && !modoGusanito.value) {
-    await fetch('/gramatica/subtemas/completar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug: subtemaActual.value.slug, idioma: 'en' }),
-    });
+    await gramaticaApi.completarSubtema(subtemaActual.value.slug);
   }
   if (modoGusanito.value) {
     await cargarEstadoGusanito();
@@ -594,37 +449,13 @@ async function siguienteEjercicio() {
 }
 
 async function enviarAutoexplicacion() {
-  if (!autoexplicacionTexto.value.trim()) return;
-  autoexplicacionEnviando.value = true;
-  autoexplicacionError.value = '';
-  try {
-    const resp = await fetch(`/gramatica/subtemas/${encodeURIComponent(subtemaActual.value.slug)}/autoexplicacion?` + new URLSearchParams({ idioma: 'en' }), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ explicacion: autoexplicacionTexto.value.trim() }),
-    });
-    if (resp.status === 401) { window.location.href = '/'; return; }
-    if (resp.status === 429) { autoexplicacionError.value = 'Ya usaste varias veces esto en el último minuto, esperá un poco.'; return; }
-    if (!resp.ok) { autoexplicacionError.value = 'No se pudo evaluar tu explicación, intentá de nuevo.'; return; }
-    const data = await resp.json();
-    autoexplicacionResultado.value = data.evaluacion;
-  } catch (e) {
-    autoexplicacionError.value = 'Error de red al evaluar.';
-  } finally {
-    autoexplicacionEnviando.value = false;
-  }
+  if (!autoexplicacionTexto.value.trim() || autoexplicacionEnviando.value) return; autoexplicacionEnviando.value = true; autoexplicacionError.value = '';
+  try { autoexplicacionResultado.value = await gramaticaApi.enviarAutoexplicacion(subtemaActual.value.slug, autoexplicacionTexto.value.trim()); }
+  catch (error) { autoexplicacionError.value = error.status === 429 ? 'Ya usaste varias veces esto en el último minuto, esperá un poco.' : 'No se pudo evaluar tu explicación, intentá de nuevo.'; }
+  finally { autoexplicacionEnviando.value = false; }
 }
 
-async function cargarRepaso() {
-  try {
-    const resp = await fetch('/gramatica/repaso?' + new URLSearchParams({ idioma: 'en' }));
-    if (!resp.ok) return;
-    const data = await resp.json();
-    totalVencidosRepaso.value = data.total_vencidos;
-  } catch (e) {
-    // Silencioso a propósito -- el hub sigue siendo usable sin el dato de repaso.
-  }
-}
+async function cargarRepaso() { try { const data = await gramaticaApi.obtenerRepaso(); totalVencidosRepaso.value = data.total_vencidos; } catch { /* El hub sigue siendo usable sin este dato. */ } }
 
 cargarFases();
 cargarRepaso();
