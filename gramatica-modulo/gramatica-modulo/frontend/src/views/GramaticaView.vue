@@ -11,6 +11,10 @@
 // endpoint "/siguiente" con repetición espaciada que sí tiene vocabulario.
 import { computed, ref } from 'vue';
 import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesson.vue';
+import NumbersLesson from '../components/gramatica/numeros/NumbersLesson.vue';
+import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
+import { useGrammarAudio } from '../composables/useGrammarAudio.js';
+import { gramaticaApi } from '../services/gramaticaApi.js';
 
 const pantallaActual = ref('fases'); // 'fases' | 'subtemas' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
 
@@ -20,7 +24,19 @@ const subtemas = ref([]);
 const subtemaActual = ref(null);
 
 const contenido = ref([]);
-const reproduciendoId = ref(null);
+
+const {
+  reproduciendoId,
+  reproduciendoSecuencia,
+  turnoIndiceSonando,
+  reproducirAudio,
+  reproducirAudioLento,
+  reproducirSecuencia,
+  reproducirTurno,
+  reproducirConversacion,
+  reproducirFrase,
+  reiniciarAudio,
+} = useGrammarAudio();
 
 // Anclaje visual (Fase 5 del plan de dinamismo): mismo ícono SIEMPRE para
 // toda regla de la misma familia gramatical -- la repetición es lo que
@@ -61,6 +77,7 @@ const prediccionElegida = ref(null); // índice elegido por el alumno para la pr
 // audio, sin ícono de parlante aparte.
 const contenidoReferencias = computed(() => contenido.value.filter((c) => c.tipo === 'referencia'));
 const esAbecedario = computed(() => subtemaActual.value?.slug === 'fase-1-abecedario');
+const esNumeros = computed(() => subtemaActual.value?.slug === 'fase-1-numeros');
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
@@ -314,13 +331,7 @@ function elegirOpcion(opcion) {
   marcarIncorrecta.value = null;
 }
 
-async function cargarFases() {
-  try {
-    fases.value = await gramaticaApi.obtenerFases();
-  } catch {
-    fases.value = [];
-  }
-}
+async function cargarFases() { try { fases.value = await gramaticaApi.obtenerFases(); } catch { fases.value = []; } }
 
 // Mapa "VS" de cruces (Fase 6 del plan de dinamismo) -- tarjetas de
 // contraste curadas a mano, no un grafo dinámico. "Practicar el cruce"
@@ -331,33 +342,12 @@ const cruces = ref([]);
 const cruceActual = ref(null);
 const modoCruce = ref(false);
 
-async function cargarCruces() {
-  try {
-    cruces.value = await gramaticaApi.obtenerRelaciones();
-  } catch {
-    cruces.value = [];
-  }
-}
+async function cargarCruces() { try { cruces.value = await gramaticaApi.obtenerRelaciones(); } catch { cruces.value = []; } }
 
 async function practicarCruce(cruce) {
-  cruceActual.value = cruce;
-  modoCruce.value = true;
-  modoGusanito.value = false;
-  estadoExamen.value = '';
-  try {
-    const lista = await gramaticaApi.obtenerEjerciciosRelacion(cruce.id);
-    ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
-  } catch {
-    ejercicios.value = [];
-  }
-  indice.value = 0;
-  correctasCount.value = 0;
-  respondido.value = false;
-  respuestaSeleccionada.value = null;
-  marcarIncorrecta.value = null;
-  confianzaSeleccionada.value = null;
-  tiempoInicioMs.value = Date.now();
-  pantallaActual.value = 'ejercicios';
+  cruceActual.value = cruce; modoCruce.value = true; modoGusanito.value = false; estadoExamen.value = '';
+  try { const lista = await gramaticaApi.obtenerEjerciciosRelacion(cruce.id); ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) })); } catch { ejercicios.value = []; }
+  indice.value = 0; correctasCount.value = 0; respondido.value = false; respuestaSeleccionada.value = null; marcarIncorrecta.value = null; confianzaSeleccionada.value = null; tiempoInicioMs.value = Date.now(); pantallaActual.value = 'ejercicios';
 }
 
 // El Gusanito (Fase 9 del plan de dinamismo) -- arranca con 2 Fases
@@ -382,12 +372,11 @@ const modoGusanito = ref(false);
 // progreso justo después de jugar una ronda.
 const gusanitoEvolucion = ref(null);
 
-async function cargarEvolucionGusanito() {
-  try {
-    gusanitoEvolucion.value = await gramaticaApi.obtenerEvolucionGusanito();
-  } catch {
-    gusanitoEvolucion.value = null;
-  }
+async function cargarEvolucionGusanito() { try { gusanitoEvolucion.value = await gramaticaApi.obtenerEvolucionGusanito(); } catch { gusanitoEvolucion.value = null; } }
+
+async function abrirCentroJuegos() {
+  pantallaActual.value = 'gusanito-juegos';
+  await cargarEvolucionGusanito();
 }
 
 async function irAGusanitoFases() {
@@ -402,159 +391,18 @@ async function abrirGusanito(fase) {
 }
 
 async function cargarEstadoGusanito() {
-  try {
-    const data = await gramaticaApi.obtenerCaminoGusanito(gusanitoFaseActual.value.slug);
-    gusanitoNodos.value = data.nodos || [];
-    gusanitoPosicion.value = data.posicion || 0;
-    gusanitoMetaAlcanzada.value = Boolean(data.meta_alcanzada);
-  } catch {
-    gusanitoNodos.value = [];
-  }
+  try { const data = await gramaticaApi.obtenerCaminoGusanito(gusanitoFaseActual.value.slug); gusanitoNodos.value = data.nodos || []; gusanitoPosicion.value = data.posicion || 0; gusanitoMetaAlcanzada.value = Boolean(data.meta_alcanzada); } catch { gusanitoNodos.value = []; }
 }
 
 async function jugarNodoGusanito(nodo) {
-  gusanitoNodoActual.value = nodo;
-  modoGusanito.value = true;
-  modoCruce.value = false;
-  estadoExamen.value = '';
-  try {
-    const lista = await gramaticaApi.obtenerEjerciciosGusanito(
-      gusanitoFaseActual.value.slug,
-      nodo.slug,
-    );
-    ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
-  } catch {
-    ejercicios.value = [];
-  }
-  indice.value = 0;
-  correctasCount.value = 0;
-  respondido.value = false;
-  respuestaSeleccionada.value = null;
-  marcarIncorrecta.value = null;
-  confianzaSeleccionada.value = null;
-  tiempoInicioMs.value = Date.now();
-  pantallaActual.value = 'ejercicios';
+  gusanitoNodoActual.value = nodo; modoGusanito.value = true; modoCruce.value = false; estadoExamen.value = '';
+  try { const lista = await gramaticaApi.obtenerEjerciciosGusanito(gusanitoFaseActual.value.slug, nodo.slug); ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) })); } catch { ejercicios.value = []; }
+  indice.value = 0; correctasCount.value = 0; respondido.value = false; respuestaSeleccionada.value = null; marcarIncorrecta.value = null; confianzaSeleccionada.value = null; tiempoInicioMs.value = Date.now(); pantallaActual.value = 'ejercicios';
 }
 
-async function elegirFase(fase) {
-  faseActual.value = fase;
-  pantallaActual.value = 'subtemas';
-  subtemas.value = [];
-  try {
-    subtemas.value = await gramaticaApi.obtenerSubtemas(fase.slug);
-  } catch {
-    subtemas.value = [];
-  }
-}
+async function elegirFase(fase) { faseActual.value = fase; pantallaActual.value = 'subtemas'; subtemas.value = []; try { subtemas.value = await gramaticaApi.obtenerSubtemas(fase.slug); } catch { subtemas.value = []; } }
 
-async function elegirSubtema(subtema) {
-  subtemaActual.value = subtema;
-  pantallaActual.value = 'estudio';
-  contenido.value = [];
-  prediccionElegida.value = null;
-  try {
-    contenido.value = await gramaticaApi.obtenerContenido(subtema.slug);
-  } catch {
-    contenido.value = [];
-  }
-}
-
-function _reproducirUnAudio(audioKey, velocidad = 1) {
-  const audio = new Audio(`/gramatica/audio/${encodeURIComponent(audioKey)}`);
-  audio.playbackRate = velocidad;
-  return new Promise((resolve) => {
-    audio.onended = resolve;
-    audio.onerror = resolve;
-    audio.play().catch(resolve);
-  });
-}
-
-async function reproducirAudio(item) {
-  if (!item.audio_key) return;
-  reproduciendoId.value = item.id;
-  try {
-    await _reproducirUnAudio(item.audio_key);
-  } finally {
-    reproduciendoId.value = null;
-  }
-}
-
-async function reproducirAudioLento(item) {
-  if (!item?.audio_key) return;
-  reproduciendoId.value = item.id;
-  try {
-    await _reproducirUnAudio(item.audio_key, 0.7);
-  } finally {
-    reproduciendoId.value = null;
-  }
-}
-
-// Ejercicios formato='audio_secuencia' (ver migración 038/040/043):
-// reproduce en orden cada token de la secuencia -- varias letras para
-// deletreo, o un solo token para "escuchá el número" -- reusando el
-// audio ya generado (abecedario o cardinales) que el backend resolvió
-// en `secuencia_audio` (ver routers/gramatica.py::_resolver_audio_secuencia).
-// No hay audio nuevo que generar por ejercicio en ningún caso.
-const reproduciendoSecuencia = ref(false);
-async function reproducirSecuencia(item) {
-  if (!item.secuencia_audio || reproduciendoSecuencia.value) return;
-  reproduciendoSecuencia.value = true;
-  try {
-    for (const paso of item.secuencia_audio) {
-      if (paso.audio_key) await _reproducirUnAudio(paso.audio_key);
-    }
-  } finally {
-    reproduciendoSecuencia.value = false;
-  }
-}
-
-// Ejercicios formato='conversacion_audio' (ver migración 051/052): a
-// diferencia de audio_secuencia, el audio_key de cada turno ya viene
-// DENTRO de metadata.turnos (lo escribe el script batch en el momento de
-// sembrar, ver generar_audio_gramatica.py::sembrar_audio_conversaciones)
-// -- no hace falta resolverlo contra ningún banco, el turno ya lo trae.
-const turnoIndiceSonando = ref(null);
-async function reproducirTurno(index) {
-  const turno = itemActual.value?.metadata?.turnos?.[index];
-  if (!turno?.audio_key || reproduciendoSecuencia.value) return;
-  turnoIndiceSonando.value = index;
-  try {
-    await _reproducirUnAudio(turno.audio_key);
-  } finally {
-    turnoIndiceSonando.value = null;
-  }
-}
-
-async function reproducirConversacion(item) {
-  if (!item.metadata?.turnos || reproduciendoSecuencia.value) return;
-  reproduciendoSecuencia.value = true;
-  try {
-    for (let i = 0; i < item.metadata.turnos.length; i++) {
-      const turno = item.metadata.turnos[i];
-      if (!turno.audio_key) continue;
-      turnoIndiceSonando.value = i;
-      await _reproducirUnAudio(turno.audio_key);
-    }
-  } finally {
-    turnoIndiceSonando.value = null;
-    reproduciendoSecuencia.value = false;
-  }
-}
-
-// Ejercicios formato='audio_frase' (ver migración 056): UNA sola voz
-// narra una oración corta con contexto real -- el audio_key ya viene
-// resuelto dentro de metadata (mismo mecanismo que conversacion_audio,
-// pero sin array de turnos), reusa reproduciendoSecuencia como "está
-// sonando" igual que el resto de los formatos de audio.
-async function reproducirFrase(item) {
-  if (!item.metadata?.audio_key || reproduciendoSecuencia.value) return;
-  reproduciendoSecuencia.value = true;
-  try {
-    await _reproducirUnAudio(item.metadata.audio_key);
-  } finally {
-    reproduciendoSecuencia.value = false;
-  }
-}
+async function elegirSubtema(subtema) { subtemaActual.value = subtema; pantallaActual.value = 'estudio'; contenido.value = []; prediccionElegida.value = null; try { contenido.value = await gramaticaApi.obtenerContenido(subtema.slug); } catch { contenido.value = []; } }
 
 function _mezclar(array) {
   const copia = [...array];
@@ -566,58 +414,16 @@ function _mezclar(array) {
 }
 
 async function empezarEjercicios() {
-  modoCruce.value = false;
-  modoGusanito.value = false;
-  indice.value = 0;
-  correctasCount.value = 0;
-  estadoExamen.value = 'Cargando ejercicios...';
-  ejercicios.value = [];
-  try {
-    const lista = await gramaticaApi.obtenerEjercicios(subtemaActual.value.slug);
-    ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) }));
-    estadoExamen.value = '';
-  } catch {
-    estadoExamen.value = 'Error de red al cargar los ejercicios.';
-  }
-  respondido.value = false;
-  respuestaSeleccionada.value = null;
-  marcarIncorrecta.value = null;
-  reiniciarAudio();
-  confianzaSeleccionada.value = null;
-  tiempoInicioMs.value = Date.now();
-  pantallaActual.value = 'ejercicios';
+  modoCruce.value = false; modoGusanito.value = false; indice.value = 0; correctasCount.value = 0; estadoExamen.value = 'Cargando ejercicios...'; ejercicios.value = [];
+  try { const lista = await gramaticaApi.obtenerEjercicios(subtemaActual.value.slug); ejercicios.value = lista.map((ej) => ({ ...ej, opciones: _mezclar(ej.opciones || []) })); estadoExamen.value = ''; } catch { estadoExamen.value = 'Error de red al cargar los ejercicios.'; }
+  respondido.value = false; respuestaSeleccionada.value = null; marcarIncorrecta.value = null; reiniciarAudio(); confianzaSeleccionada.value = null; tiempoInicioMs.value = Date.now(); pantallaActual.value = 'ejercicios';
 }
 
 async function comprobarRespuesta() {
-  const item = itemActual.value;
-  if (!item || !respuestaSeleccionada.value || !confianzaSeleccionada.value) return;
-  comprobando.value = true;
-  estadoExamen.value = '';
-  try {
-    const data = await gramaticaApi.evaluarEjercicio({
-      ejercicio_id: item.id,
-      respuesta_usuario: respuestaSeleccionada.value,
-      confianza: confianzaSeleccionada.value,
-      tiempo_respuesta_ms: Date.now() - tiempoInicioMs.value,
-    });
-    if (data.correcto) {
-      respondido.value = true;
-      item.opciones_correctas = data.respuesta_esperada;
-      correctasCount.value++;
-    } else {
-      marcarIncorrecta.value = respuestaSeleccionada.value;
-      respuestaSeleccionada.value = null;
-      if (data.error_consolidado) {
-        estadoExamen.value = 'Estabas muy seguro y no era -- puede valer la pena repasar la regla de nuevo.';
-      }
-      confianzaSeleccionada.value = null;
-      tiempoInicioMs.value = Date.now();
-    }
-  } catch {
-    estadoExamen.value = 'Error de red al evaluar.';
-  } finally {
-    comprobando.value = false;
-  }
+  const item = itemActual.value; if (!item || !respuestaSeleccionada.value || !confianzaSeleccionada.value) return; comprobando.value = true; estadoExamen.value = '';
+  try { const data = await gramaticaApi.evaluarEjercicio({ ejercicio_id: item.id, respuesta_usuario: respuestaSeleccionada.value, confianza: confianzaSeleccionada.value, tiempo_respuesta_ms: Date.now() - tiempoInicioMs.value });
+    if (data.correcto) { respondido.value = true; item.opciones_correctas = data.respuesta_esperada; correctasCount.value++; } else { marcarIncorrecta.value = respuestaSeleccionada.value; respuestaSeleccionada.value = null; if (data.error_consolidado) estadoExamen.value = 'Estabas muy seguro y no era -- puede valer la pena repasar la regla de nuevo.'; confianzaSeleccionada.value = null; tiempoInicioMs.value = Date.now(); }
+  } catch { estadoExamen.value = 'Error de red al evaluar.'; } finally { comprobando.value = false; }
 }
 
 async function siguienteEjercicio() {
@@ -626,8 +432,7 @@ async function siguienteEjercicio() {
     respondido.value = false;
     respuestaSeleccionada.value = null;
     marcarIncorrecta.value = null;
-    reproduciendoSecuencia.value = false;
-    turnoIndiceSonando.value = null;
+    reiniciarAudio();
     confianzaSeleccionada.value = null;
     tiempoInicioMs.value = Date.now();
     estadoExamen.value = '';
@@ -646,31 +451,13 @@ async function siguienteEjercicio() {
 }
 
 async function enviarAutoexplicacion() {
-  if (!autoexplicacionTexto.value.trim() || autoexplicacionEnviando.value) return;
-  autoexplicacionEnviando.value = true;
-  autoexplicacionError.value = '';
-  try {
-    autoexplicacionResultado.value = await gramaticaApi.enviarAutoexplicacion(
-      subtemaActual.value.slug,
-      autoexplicacionTexto.value.trim(),
-    );
-  } catch (error) {
-    autoexplicacionError.value = error.status === 429
-      ? 'Ya usaste varias veces esto en el último minuto, esperá un poco.'
-      : 'No se pudo evaluar tu explicación, intentá de nuevo.';
-  } finally {
-    autoexplicacionEnviando.value = false;
-  }
+  if (!autoexplicacionTexto.value.trim() || autoexplicacionEnviando.value) return; autoexplicacionEnviando.value = true; autoexplicacionError.value = '';
+  try { autoexplicacionResultado.value = await gramaticaApi.enviarAutoexplicacion(subtemaActual.value.slug, autoexplicacionTexto.value.trim()); }
+  catch (error) { autoexplicacionError.value = error.status === 429 ? 'Ya usaste varias veces esto en el último minuto, esperá un poco.' : 'No se pudo evaluar tu explicación, intentá de nuevo.'; }
+  finally { autoexplicacionEnviando.value = false; }
 }
 
-async function cargarRepaso() {
-  try {
-    const data = await gramaticaApi.obtenerRepaso();
-    totalVencidosRepaso.value = data.total_vencidos;
-  } catch {
-    // Silencioso a propósito: el hub sigue siendo usable sin este dato.
-  }
-}
+async function cargarRepaso() { try { const data = await gramaticaApi.obtenerRepaso(); totalVencidosRepaso.value = data.total_vencidos; } catch { /* El hub sigue siendo usable sin este dato. */ } }
 
 cargarFases();
 cargarRepaso();
@@ -687,7 +474,7 @@ cargarCruces();
       <div v-if="totalVencidosRepaso > 0" class="gramatica-view__card-repaso">
         🔁 Repaso de hoy: {{ totalVencidosRepaso }}
       </div>
-      <button class="gramatica-view__link-cruces" @click="irAGusanitoFases">🐛 Jugar el Gusanito →</button>
+      <button class="gramatica-view__link-cruces" @click="abrirCentroJuegos">🐛 Alimentar y jugar con el Gusanito →</button>
       <button v-if="cruces.length > 0" class="gramatica-view__link-cruces" @click="pantallaActual = 'cruces'">🔀 Ver cruces entre reglas →</button>
       <p v-if="fases.length === 0" class="gramatica-view__subtitulo">Todavía no hay fases con contenido cargado.</p>
       <div v-else class="gramatica-view__grid">
@@ -766,7 +553,17 @@ cargarCruces();
         </div>
       </div>
 
-      <div v-if="filasNumeros" class="gramatica-view__tabla-numeros">
+      <NumbersLesson
+        v-if="esNumeros && contenidoReferencias.length > 0"
+        :items="contenidoReferencias"
+        :reproduciendo-id="reproduciendoId"
+        :completado="Boolean(subtemaActual?.completado)"
+        @reproducir="reproducirAudio"
+        @reproducir-lento="reproducirAudioLento"
+        @practicar="empezarEjercicios"
+      />
+
+      <div v-else-if="filasNumeros" class="gramatica-view__tabla-numeros">
         <div class="gramatica-view__fila-numero gramatica-view__fila-numero--encabezado">
           <span class="gramatica-view__numero-celda">Nº</span>
           <span class="gramatica-view__numero-celda">Cardinal</span>
@@ -969,7 +766,7 @@ cargarCruces();
       </div>
 
       <button
-        v-if="!esAbecedario"
+        v-if="!esAbecedario && !esNumeros"
         class="gramatica-view__btn-empezar-ejercicios"
         :disabled="subtemaActual?.completado"
         @click="empezarEjercicios"
@@ -1050,7 +847,7 @@ cargarCruces();
               ]"
               :disabled="!turno.audio_key || reproduciendoSecuencia"
               title="Escuchar este turno"
-              @click="reproducirTurno(idx)"
+              @click="reproducirTurno(itemActual, idx)"
             >{{ turno.texto_en }}</button>
           </div>
           <p class="gramatica-view__tarjeta-contexto gramatica-view__pregunta-conversacion">{{ itemActual.contexto_en }}</p>
@@ -1144,6 +941,13 @@ cargarCruces();
       <button v-if="modoGusanito" class="btn btn-primario" @click="pantallaActual = 'gusanito-camino'">Volver al camino</button>
       <button v-else class="btn btn-primario" @click="modoCruce = false; pantallaActual = 'fases'">Volver a fases</button>
     </div>
+
+    <GrammarGameHub
+      v-else-if="pantallaActual === 'gusanito-juegos'"
+      :evolucion="gusanitoEvolucion"
+      @volver="pantallaActual = 'fases'"
+      @abrir-caminos="irAGusanitoFases"
+    />
 
     <div v-else-if="pantallaActual === 'gusanito-fases'">
       <button class="gramatica-view__link-volver" @click="pantallaActual = 'fases'">← Fases</button>
