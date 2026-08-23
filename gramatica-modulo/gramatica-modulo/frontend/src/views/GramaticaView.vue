@@ -10,6 +10,7 @@
 // por subtema en la siembra inicial) -- se traen todos de una vez, sin el
 // endpoint "/siguiente" con repetición espaciada que sí tiene vocabulario.
 import { computed, ref } from 'vue';
+import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesson.vue';
 
 const pantallaActual = ref('fases'); // 'fases' | 'subtemas' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
 
@@ -59,6 +60,7 @@ const prediccionElegida = ref(null); // índice elegido por el alumno para la pr
 // como grilla de fichas tocables -- tocar la ficha ES reproducir el
 // audio, sin ícono de parlante aparte.
 const contenidoReferencias = computed(() => contenido.value.filter((c) => c.tipo === 'referencia'));
+const esAbecedario = computed(() => subtemaActual.value?.slug === 'fase-1-abecedario');
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
@@ -469,8 +471,9 @@ async function elegirSubtema(subtema) {
   }
 }
 
-function _reproducirUnAudio(audioKey) {
+function _reproducirUnAudio(audioKey, velocidad = 1) {
   const audio = new Audio(`/gramatica/audio/${encodeURIComponent(audioKey)}`);
+  audio.playbackRate = velocidad;
   return new Promise((resolve) => {
     audio.onended = resolve;
     audio.onerror = resolve;
@@ -483,6 +486,16 @@ async function reproducirAudio(item) {
   reproduciendoId.value = item.id;
   try {
     await _reproducirUnAudio(item.audio_key);
+  } finally {
+    reproduciendoId.value = null;
+  }
+}
+
+async function reproducirAudioLento(item) {
+  if (!item?.audio_key) return;
+  reproduciendoId.value = item.id;
+  try {
+    await _reproducirUnAudio(item.audio_key, 0.7);
   } finally {
     reproduciendoId.value = null;
   }
@@ -814,6 +827,16 @@ cargarCruces();
         </div>
       </div>
 
+      <AbecedarioLesson
+        v-else-if="esAbecedario && contenidoReferencias.length > 0"
+        :items="contenidoReferencias"
+        :reproduciendo-id="reproduciendoId"
+        :completado="Boolean(subtemaActual?.completado)"
+        @reproducir="reproducirAudio"
+        @reproducir-lento="reproducirAudioLento"
+        @practicar="empezarEjercicios"
+      />
+
       <div v-else-if="gruposReferencias.length > 0" class="gramatica-view__grupos-referencias">
         <div v-for="grupo in gruposReferencias" :key="grupo.titulo || 'unico'" class="gramatica-view__grupo-referencia">
           <h3 v-if="grupo.titulo" class="gramatica-view__grupo-titulo">{{ grupo.titulo }}</h3>
@@ -980,6 +1003,7 @@ cargarCruces();
       </div>
 
       <button
+        v-if="!esAbecedario"
         class="gramatica-view__btn-empezar-ejercicios"
         :disabled="subtemaActual?.completado"
         @click="empezarEjercicios"
