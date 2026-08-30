@@ -5,14 +5,37 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 const fases = [
   { id: 1, nombre: 'Fundamentos', slug: 'fase-1-fundamentos', orden: 1, disponible: true, completado: false },
+  { id: 2, nombre: 'Verbo to be y pronombres básicos', slug: 'fase-2-to-be-pronombres', orden: 2, disponible: true, completado: false },
+  { id: 3, nombre: 'Presente', slug: 'fase-3-presente', orden: 3, disponible: true, completado: false },
+  { id: 4, nombre: 'Pasado', slug: 'fase-4-pasado', orden: 4, disponible: true, completado: false },
 ];
 
-const subtemas = [
-  { id: 101, nombre: 'Abecedario y deletreo', slug: 'fase-1-abecedario', orden: 1, completado: false },
-  { id: 102, nombre: 'Números', slug: 'fase-1-numeros', orden: 2, completado: false },
-  { id: 103, nombre: 'Fecha', slug: 'fase-1-fecha', orden: 3, completado: false },
-  { id: 104, nombre: 'Hora', slug: 'fase-1-hora', orden: 4, completado: false },
-];
+const subtemasPorFase = {
+  'fase-1-fundamentos': [
+    { id: 101, nombre: 'Abecedario y deletreo', slug: 'fase-1-abecedario', orden: 1, completado: false },
+    { id: 102, nombre: 'Números', slug: 'fase-1-numeros', orden: 2, completado: false },
+    { id: 103, nombre: 'Fecha', slug: 'fase-1-fecha', orden: 3, completado: false },
+    { id: 104, nombre: 'Hora', slug: 'fase-1-hora', orden: 4, completado: false },
+    { id: 105, nombre: 'Saludos y despedidas', slug: 'fase-1-saludos', orden: 5, completado: false },
+    { id: 106, nombre: 'Familia coloquial', slug: 'fase-1-familia-coloquial', orden: 6, completado: false },
+    { id: 107, nombre: 'Abreviaturas', slug: 'fase-1-abreviaturas', orden: 7, completado: false },
+    { id: 108, nombre: 'Frutas', slug: 'fase-1-frutas', orden: 8, completado: false },
+  ],
+  'fase-2-to-be-pronombres': [
+    { id: 201, nombre: 'Verbo to be (afirmativo)', slug: 'fase-2-to-be-afirmativo', orden: 1, completado: false },
+    { id: 202, nombre: 'Pronombres sujeto y objeto', slug: 'fase-2-pronombres-sujeto-objeto', orden: 2, completado: false },
+  ],
+  'fase-3-presente': [
+    { id: 301, nombre: 'Presente simple', slug: 'fase-3-presente-simple', orden: 1, completado: false },
+    { id: 302, nombre: 'Presente continuo', slug: 'fase-3-presente-continuo', orden: 2, completado: false },
+    { id: 303, nombre: 'Presente simple vs. presente continuo', slug: 'fase-3-simple-vs-continuo', orden: 3, completado: false },
+  ],
+  'fase-4-pasado': [
+    { id: 401, nombre: 'was / were', slug: 'fase-4-was-were', orden: 1, completado: false },
+    { id: 402, nombre: 'Pasado simple', slug: 'fase-4-pasado-simple', orden: 2, completado: false },
+    { id: 403, nombre: 'Pasado continuo', slug: 'fase-4-pasado-continuo', orden: 3, completado: false },
+  ],
+};
 
 const contenidoAbecedario = [
   {
@@ -135,12 +158,15 @@ function mockResponse(url, options = {}) {
   const path = parsed.pathname;
 
   if (path === '/gramatica/fases') return json({ fases });
-  if (path === '/gramatica/fases/fase-1-fundamentos/subtemas') return json({ subtemas });
+  const faseMatch = path.match(/^\/gramatica\/fases\/([^/]+)\/subtemas$/);
+  if (faseMatch && subtemasPorFase[faseMatch[1]]) return json({ subtemas: subtemasPorFase[faseMatch[1]] });
   if (path === '/gramatica/subtemas/fase-1-abecedario/contenido') return json({ contenido: contenidoAbecedario });
   if (path === '/gramatica/subtemas/fase-1-numeros/contenido') return json({ contenido: contenidoNumeros });
   if (path === '/gramatica/subtemas/fase-1-fecha/contenido') return json({ contenido: [] });
   if (path === '/gramatica/subtemas/fase-1-hora/contenido') return json({ contenido: contenidoHora });
+  if (/^\/gramatica\/subtemas\/[^/]+\/contenido$/.test(path)) return json({ contenido: [] });
   if (path === '/gramatica/subtemas/fase-1-abecedario/ejercicios') return json({ ejercicios });
+  if (/^\/gramatica\/subtemas\/[^/]+\/ejercicios$/.test(path)) return json({ ejercicios });
   if (path === '/gramatica/repaso') return json({ total_vencidos: 0 });
   if (path === '/gramatica/relaciones') return json({ relaciones: [] });
   if (path === '/gramatica/gusanito/evolucion') {
