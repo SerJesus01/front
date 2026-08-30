@@ -21,6 +21,8 @@ import FruitLesson from '../components/gramatica/frutas/FruitLesson.vue';
 import ToBeLesson from '../components/gramatica/tobe/ToBeLesson.vue';
 import PronounLesson from '../components/gramatica/pronombres/PronounLesson.vue';
 import PresentSimpleLesson from '../components/gramatica/presente/PresentSimpleLesson.vue';
+import PresentContinuousLesson from '../components/gramatica/presente/PresentContinuousLesson.vue';
+import PresentContrastLesson from '../components/gramatica/presente/PresentContrastLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
@@ -105,6 +107,8 @@ const esFrutas = computed(() => subtemaActual.value?.slug === 'fase-1-frutas');
 const esToBe = computed(() => subtemaActual.value?.slug === 'fase-2-to-be-afirmativo');
 const esPronombres = computed(() => subtemaActual.value?.slug === 'fase-2-pronombres-sujeto-objeto');
 const esPresenteSimple = computed(() => subtemaActual.value?.slug === 'fase-3-presente-simple');
+const esPresenteContinuo = computed(() => subtemaActual.value?.slug === 'fase-3-presente-continuo');
+const esContrastePresente = computed(() => subtemaActual.value?.slug === 'fase-3-simple-vs-continuo');
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
@@ -516,7 +520,7 @@ cargarCruces();
         </p>
       </div>
 
-      <div v-if="contenidoReglas.length > 0 && !esSaludos && !esFamilia && !esAbreviaturas && !esFrutas && !esToBe && !esPronombres && !esPresenteSimple" class="gramatica-view__lista-contenido">
+      <div v-if="contenidoReglas.length > 0 && !esSaludos && !esFamilia && !esAbreviaturas && !esFrutas && !esToBe && !esPronombres && !esPresenteSimple && !esPresenteContinuo && !esContrastePresente" class="gramatica-view__lista-contenido">
         <div v-for="c in contenidoReglas" :key="c.id" class="gramatica-view__contenido-card gramatica-view__contenido-card--regla">
           <span class="gramatica-view__contenido-tipo">Regla</span>
           <p class="gramatica-view__contenido-texto-es">{{ c.texto_es }}</p>
@@ -599,6 +603,22 @@ cargarCruces();
         :reproduciendo-id="reproduciendoId"
         :completado="Boolean(subtemaActual?.completado)"
         @reproducir="reproducirAudio"
+        @hablar="reproducirTexto"
+        @practicar="empezarEjercicios"
+      />
+
+      <PresentContinuousLesson
+        v-else-if="esPresenteContinuo"
+        :items="contenidoReferencias"
+        :completado="Boolean(subtemaActual?.completado)"
+        @reproducir="reproducirAudio"
+        @hablar="reproducirTexto"
+        @practicar="empezarEjercicios"
+      />
+
+      <PresentContrastLesson
+        v-else-if="esContrastePresente"
+        :completado="Boolean(subtemaActual?.completado)"
         @hablar="reproducirTexto"
         @practicar="empezarEjercicios"
       />
