@@ -115,6 +115,12 @@ const modoPasado = computed(() => ({
   'fase-4-pasado-simple': 'simple',
   'fase-4-pasado-continuo': 'continuous',
 })[subtemaActual.value?.slug] || null);
+const usaLeccionEspecializada = computed(() => Boolean(
+  esAbecedario.value || esNumeros.value || esFecha.value || esHora.value
+  || esSaludos.value || esFamilia.value || esAbreviaturas.value || esFrutas.value
+  || esToBe.value || esPronombres.value || esPresenteSimple.value
+  || esPresenteContinuo.value || esContrastePresente.value || modoPasado.value,
+));
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
@@ -820,7 +826,7 @@ cargarCruces();
       </div>
 
       <button
-        v-if="!esAbecedario && !esNumeros && !esFecha && !esHora"
+        v-if="!usaLeccionEspecializada"
         class="gramatica-view__btn-empezar-ejercicios"
         :disabled="subtemaActual?.completado"
         @click="empezarEjercicios"

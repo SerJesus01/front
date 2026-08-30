@@ -114,7 +114,7 @@ function responder(id, opcion) {
       </div>
     </section>
 
-    <button class="date-practice" :disabled="props.completado" @click="emit('practicar')">{{ props.completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios →' }}</button>
+    <button class="date-practice" :disabled="props.completado" @click="emit('practicar')">{{ props.completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios del workbook →' }}</button>
   </section>
 </template>
 

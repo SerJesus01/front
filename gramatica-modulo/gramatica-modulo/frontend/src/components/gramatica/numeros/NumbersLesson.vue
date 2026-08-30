@@ -179,7 +179,7 @@ function comprobarAbaco() {
     </div>
 
     <div class="numbers-lesson__tip">💡 <span v-if="leccion === 1"><b>Valor posicional:</b> cada columna vale diez veces la que está a su derecha.</span><span v-else><b>Orden:</b> first, second y third son irregulares; después suele aparecer <i>-th</i>.</span></div>
-    <button class="numbers-lesson__practice" :disabled="completado" @click="emit('practicar')">{{ completado ? '✓ Ejercicios ya acreditados' : 'Practicar esta lección →' }}</button>
+    <button class="numbers-lesson__practice" :disabled="completado" @click="emit('practicar')">{{ completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios del workbook →' }}</button>
   </section>
 </template>
 

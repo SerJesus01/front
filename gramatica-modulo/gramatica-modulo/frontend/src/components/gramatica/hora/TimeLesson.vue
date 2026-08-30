@@ -120,7 +120,7 @@ function usarEjemplo(item) {
       <div class="time-quiz"><article v-for="pregunta in preguntas" :key="pregunta.id"><p>{{ pregunta.texto }}</p><button v-for="opcion in pregunta.opciones" :key="opcion" :class="{ correct: respuestas[pregunta.id] && opcion === pregunta.respuesta, wrong: respuestas[pregunta.id] === opcion && opcion !== pregunta.respuesta }" @click="responder(pregunta.id, opcion)">{{ opcion }}</button><small v-if="respuestas[pregunta.id]">{{ respuestas[pregunta.id] === pregunta.respuesta ? '✓ Correcto' : `La respuesta es “${pregunta.respuesta}”.` }}</small></article></div>
     </section>
 
-    <button class="time-practice" :disabled="completado" @click="emit('practicar')">{{ completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios →' }}</button>
+    <button class="time-practice" :disabled="completado" @click="emit('practicar')">{{ completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios del workbook →' }}</button>
   </section>
 </template>
 

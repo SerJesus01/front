@@ -116,7 +116,7 @@ function seleccionarLetra(item) {
       :disabled="completado"
       @click="emit('practicar')"
     >
-      {{ completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios' }}
+      {{ completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios del workbook' }}
       <span v-if="!completado" aria-hidden="true">→</span>
     </button>
   </section>
