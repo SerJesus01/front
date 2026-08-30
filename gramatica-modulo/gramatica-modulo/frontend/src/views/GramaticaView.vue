@@ -18,6 +18,7 @@ import GreetingLesson from '../components/gramatica/saludos/GreetingLesson.vue';
 import FamilyLesson from '../components/gramatica/familia/FamilyLesson.vue';
 import AbbreviationLesson from '../components/gramatica/abreviaturas/AbbreviationLesson.vue';
 import FruitLesson from '../components/gramatica/frutas/FruitLesson.vue';
+import ToBeLesson from '../components/gramatica/tobe/ToBeLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
@@ -99,6 +100,7 @@ const esSaludos = computed(() => subtemaActual.value?.slug === 'fase-1-saludos')
 const esFamilia = computed(() => subtemaActual.value?.slug === 'fase-1-familia-coloquial');
 const esAbreviaturas = computed(() => subtemaActual.value?.slug === 'fase-1-abreviaturas');
 const esFrutas = computed(() => subtemaActual.value?.slug === 'fase-1-frutas');
+const esToBe = computed(() => subtemaActual.value?.slug === 'fase-2-to-be-afirmativo');
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
@@ -510,7 +512,7 @@ cargarCruces();
         </p>
       </div>
 
-      <div v-if="contenidoReglas.length > 0 && !esSaludos && !esFamilia && !esAbreviaturas && !esFrutas" class="gramatica-view__lista-contenido">
+      <div v-if="contenidoReglas.length > 0 && !esSaludos && !esFamilia && !esAbreviaturas && !esFrutas && !esToBe" class="gramatica-view__lista-contenido">
         <div v-for="c in contenidoReglas" :key="c.id" class="gramatica-view__contenido-card gramatica-view__contenido-card--regla">
           <span class="gramatica-view__contenido-tipo">Regla</span>
           <p class="gramatica-view__contenido-texto-es">{{ c.texto_es }}</p>
@@ -559,6 +561,16 @@ cargarCruces();
 
       <FruitLesson
         v-else-if="esFrutas"
+        :items="contenidoReferencias"
+        :reproduciendo-id="reproduciendoId"
+        :completado="Boolean(subtemaActual?.completado)"
+        @reproducir="reproducirAudio"
+        @hablar="reproducirTexto"
+        @practicar="empezarEjercicios"
+      />
+
+      <ToBeLesson
+        v-else-if="esToBe"
         :items="contenidoReferencias"
         :reproduciendo-id="reproduciendoId"
         :completado="Boolean(subtemaActual?.completado)"
