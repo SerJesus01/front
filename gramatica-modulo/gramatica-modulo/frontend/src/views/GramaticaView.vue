@@ -14,6 +14,7 @@ import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesso
 import NumbersLesson from '../components/gramatica/numeros/NumbersLesson.vue';
 import DateLesson from '../components/gramatica/fecha/DateLesson.vue';
 import TimeLesson from '../components/gramatica/hora/TimeLesson.vue';
+import GreetingLesson from '../components/gramatica/saludos/GreetingLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
@@ -91,6 +92,7 @@ const esHora = computed(() => {
   const nombre = (subtemaActual.value?.nombre || '').trim().toLowerCase();
   return slug === 'fase-1-hora' || slug.startsWith('fase-1-hora-') || nombre === 'hora';
 });
+const esSaludos = computed(() => subtemaActual.value?.slug === 'fase-1-saludos');
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
@@ -502,7 +504,7 @@ cargarCruces();
         </p>
       </div>
 
-      <div v-if="contenidoReglas.length > 0" class="gramatica-view__lista-contenido">
+      <div v-if="contenidoReglas.length > 0 && !esSaludos" class="gramatica-view__lista-contenido">
         <div v-for="c in contenidoReglas" :key="c.id" class="gramatica-view__contenido-card gramatica-view__contenido-card--regla">
           <span class="gramatica-view__contenido-tipo">Regla</span>
           <p class="gramatica-view__contenido-texto-es">{{ c.texto_es }}</p>
@@ -519,8 +521,18 @@ cargarCruces();
         </div>
       </div>
 
+      <GreetingLesson
+        v-if="esSaludos"
+        :items="contenidoReferencias"
+        :reproduciendo-id="reproduciendoId"
+        :completado="Boolean(subtemaActual?.completado)"
+        @reproducir="reproducirAudio"
+        @hablar="reproducirTexto"
+        @practicar="empezarEjercicios"
+      />
+
       <DateLesson
-        v-if="esFecha"
+        v-else-if="esFecha"
         :completado="Boolean(subtemaActual?.completado)"
         @hablar="reproducirTexto"
         @practicar="empezarEjercicios"
