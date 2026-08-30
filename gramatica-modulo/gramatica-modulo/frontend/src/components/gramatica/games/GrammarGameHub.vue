@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { useGrammarAudio } from '../../../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../../../services/gramaticaApi.js';
+import BuildingSentencesGame from './BuildingSentencesGame.vue';
 
 const props = defineProps({
   evolucion: {
@@ -65,6 +66,12 @@ function siguiente() {
   setTimeout(() => inputPuzzle.value?.focus(), 0);
 }
 
+function abrirBuildingSentences() {
+  pantalla.value = 'frases';
+  estado.value = '';
+  reiniciarAudio();
+}
+
 onMounted(() => reiniciarAudio());
 </script>
 
@@ -96,21 +103,27 @@ onMounted(() => reiniciarAudio());
           <span><strong>Building Words</strong><small>Escuchá el deletreo y construí la palabra.</small></span>
           <b>{{ cargando ? 'Cargando…' : 'Jugar →' }}</b>
         </button>
+        <button class="pet-games__game-card pet-games__game-card--active" @click="abrirBuildingSentences">
+          <span class="pet-games__game-icon">1·4</span>
+          <span><strong>Building Sentences</strong><small>Ordená vocabulario conocido con números, toque o arrastre.</small></span>
+          <b>Jugar →</b>
+        </button>
         <button class="pet-games__game-card" @click="emit('abrir-caminos')">
           <span class="pet-games__game-icon">🐾</span>
           <span><strong>Caminos de gramática</strong><small>Practicá por fases y alcanzá la meta.</small></span>
           <b>Abrir →</b>
         </button>
-        <div class="pet-games__game-card pet-games__game-card--locked">
-          <span class="pet-games__game-icon">?</span>
-          <span><strong>Próximo juego</strong><small>Se desbloqueará con nuevas prácticas.</small></span>
-          <b>Próximamente</b>
-        </div>
       </div>
       <p v-if="estado" class="pet-games__message">{{ estado }}</p>
     </template>
 
-    <template v-else-if="puzzle">
+    <BuildingSentencesGame
+      v-else-if="pantalla === 'frases'"
+      @salir="pantalla = 'hub'"
+      @alimento="alimentoGanado += $event"
+    />
+
+    <template v-else-if="pantalla === 'juego' && puzzle">
       <div class="word-game">
         <header class="word-game__header">
           <div><span class="pet-games__eyebrow">BUILDING WORDS · {{ indice + 1 }} DE {{ puzzles.length }}</span><h2>Construí la palabra</h2></div>
