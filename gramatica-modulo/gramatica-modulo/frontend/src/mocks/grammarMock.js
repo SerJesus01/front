@@ -9,6 +9,7 @@ const fases = [
   { id: 3, nombre: 'Presente', slug: 'fase-3-presente', orden: 3, disponible: true, completado: false },
   { id: 4, nombre: 'Pasado', slug: 'fase-4-pasado', orden: 4, disponible: true, completado: false },
   { id: 5, nombre: 'Presente perfecto', slug: 'fase-5-presente-perfecto', orden: 5, disponible: true, completado: false },
+  { id: 6, nombre: 'Voz pasiva', slug: 'fase-6-voz-pasiva', orden: 6, disponible: true, completado: false },
 ];
 
 const subtemasPorFase = {
@@ -42,6 +43,10 @@ const subtemasPorFase = {
     { id: 503, nombre: 'ever / how long', slug: 'fase-5-ever-how-long', orden: 3, completado: false },
     { id: 504, nombre: 'for / since / ago', slug: 'fase-5-for-since-ago', orden: 4, completado: false },
     { id: 505, nombre: 'Presente perfecto vs. pasado simple', slug: 'fase-5-perfecto-vs-pasado', orden: 5, completado: false },
+  ],
+  'fase-6-voz-pasiva': [
+    { id: 601, nombre: 'Voz pasiva (presente)', slug: 'fase-6-pasiva-presente', orden: 1, completado: false },
+    { id: 602, nombre: 'Voz pasiva (pasado)', slug: 'fase-6-pasiva-pasado', orden: 2, completado: false },
   ],
 };
 
