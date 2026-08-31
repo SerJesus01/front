@@ -95,6 +95,38 @@ export const CHILD_MISSIONS = {
       { emoji: '📅', titulo: 'Al organizarte', texto: 'Confirmar el día de una actividad.' },
     ],
   },
+  'fase-1-hora': {
+    slug: 'fase-1-hora', icono: '🕒', zona: 'TU DÍA A TIEMPO', titulo: '¿Qué hora es?',
+    bajada: 'Pregunta y expresa la hora para seguir horarios y organizar tu día.', color: '#735b9b', suave: '#f2edfb', valor: 'Puntualidad y responsabilidad',
+    historia: [
+      { emoji: '⏰', texto: 'It is seven o’clock in the morning.' },
+      { emoji: '🏫', texto: 'School starts at eight o’clock.' },
+      { emoji: '🥪', texto: 'Lunch is at half past twelve.' },
+      { emoji: '⚽', texto: 'Soccer practice is at a quarter past four.' },
+      { emoji: '🌙', texto: 'I prepare my backpack before nine o’clock.' },
+    ],
+    palabras: [
+      { en: 'o’clock', es: 'en punto', emoji: '🕐' }, { en: 'half past', es: 'y media', emoji: '🕧' },
+      { en: 'quarter past', es: 'y cuarto', emoji: '🕒' }, { en: 'quarter to', es: 'menos cuarto', emoji: '🕘' },
+      { en: 'morning', es: 'mañana', emoji: '🌅' }, { en: 'night', es: 'noche', emoji: '🌙' },
+    ],
+    constructor: {
+      inicios: ['My class starts', 'Lunch begins', 'Practice starts', 'My day begins'],
+      acciones: ['at seven', 'at eight', 'at half past twelve', 'at a quarter past four'],
+      finales: ['in the morning.', 'every day.', 'on time.', 'as planned.'],
+    },
+    retos: [
+      { frase: '7:00 is seven ___.', correcta: 'o’clock', opciones: ['past', 'o’clock', 'half'], ayuda: 'Para una hora exacta usamos o’clock.' },
+      { frase: '3:30 is half ___ three.', correcta: 'past', opciones: ['to', 'past', 'at'], ayuda: 'Half past indica treinta minutos después.' },
+      { frase: 'School starts ___ eight.', correcta: 'at', opciones: ['on', 'in', 'at'], ayuda: 'Usamos at antes de una hora.' },
+      { frase: '8:45 is a quarter ___ nine.', correcta: 'to', opciones: ['past', 'to', 'on'], ayuda: 'Faltan quince minutos para las nueve.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Entender horarios de clases y descansos.' },
+      { emoji: '⚽', titulo: 'En actividades', texto: 'Llegar puntualmente a prácticas o reuniones.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Organizar tareas, comidas y descanso.' },
+    ],
+  },
   'fase-1-familia-coloquial': {
     slug: 'fase-1-familia-coloquial', icono: '🏡', zona: 'FAMILIA Y VIDA COTIDIANA', titulo: 'Mi familia y mi hogar',
     bajada: 'Aprende a presentar a tu familia y contar cómo colaboran en casa.', color: '#3478e5', suave: '#e8f2ff', valor: 'Amor, respeto y colaboración',
