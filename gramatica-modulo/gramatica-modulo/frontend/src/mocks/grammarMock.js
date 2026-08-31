@@ -13,6 +13,7 @@ const fases = [
   { id: 7, nombre: 'Futuro', slug: 'fase-7-futuro', orden: 7, disponible: true, completado: false },
   { id: 8, nombre: 'Modales e imperativo', slug: 'fase-8-modales-imperativo', orden: 8, disponible: true, completado: false },
   { id: 9, nombre: 'There is / there are y ubicación', slug: 'fase-9-there-is-are', orden: 9, disponible: true, completado: false },
+  { id: 10, nombre: 'Preguntas y negación', slug: 'fase-10-preguntas-negacion', orden: 10, disponible: true, completado: false },
 ];
 
 const subtemasPorFase = {
@@ -66,6 +67,11 @@ const subtemasPorFase = {
   'fase-9-there-is-are': [
     { id: 901, nombre: 'there is / there are', slug: 'fase-9-there-is-there-are', orden: 1, completado: false },
     { id: 902, nombre: 'Preposiciones de ubicación básicas', slug: 'fase-9-ubicacion-basica', orden: 2, completado: false },
+  ],
+  'fase-10-preguntas-negacion': [
+    { id: 1001, nombre: 'Wh-questions', slug: 'fase-10-wh-questions', orden: 1, completado: false },
+    { id: 1002, nombre: 'Question tags', slug: 'fase-10-question-tags', orden: 2, completado: false },
+    { id: 1003, nombre: 'Preguntas indirectas', slug: 'fase-10-preguntas-indirectas', orden: 3, completado: false },
   ],
 };
 
