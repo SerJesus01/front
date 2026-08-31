@@ -8,6 +8,7 @@ const fases = [
   { id: 2, nombre: 'Verbo to be y pronombres básicos', slug: 'fase-2-to-be-pronombres', orden: 2, disponible: true, completado: false },
   { id: 3, nombre: 'Presente', slug: 'fase-3-presente', orden: 3, disponible: true, completado: false },
   { id: 4, nombre: 'Pasado', slug: 'fase-4-pasado', orden: 4, disponible: true, completado: false },
+  { id: 5, nombre: 'Presente perfecto', slug: 'fase-5-presente-perfecto', orden: 5, disponible: true, completado: false },
 ];
 
 const subtemasPorFase = {
@@ -34,6 +35,13 @@ const subtemasPorFase = {
     { id: 401, nombre: 'was / were', slug: 'fase-4-was-were', orden: 1, completado: false },
     { id: 402, nombre: 'Pasado simple', slug: 'fase-4-pasado-simple', orden: 2, completado: false },
     { id: 403, nombre: 'Pasado continuo', slug: 'fase-4-pasado-continuo', orden: 3, completado: false },
+  ],
+  'fase-5-presente-perfecto': [
+    { id: 501, nombre: 'Presente perfecto (introducción)', slug: 'fase-5-perfecto-intro', orden: 1, completado: false },
+    { id: 502, nombre: 'just / already / yet', slug: 'fase-5-just-already-yet', orden: 2, completado: false },
+    { id: 503, nombre: 'ever / how long', slug: 'fase-5-ever-how-long', orden: 3, completado: false },
+    { id: 504, nombre: 'for / since / ago', slug: 'fase-5-for-since-ago', orden: 4, completado: false },
+    { id: 505, nombre: 'Presente perfecto vs. pasado simple', slug: 'fase-5-perfecto-vs-pasado', orden: 5, completado: false },
   ],
 };
 
