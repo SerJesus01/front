@@ -127,6 +127,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏠', titulo: 'En casa', texto: 'Organizar tareas, comidas y descanso.' },
     ],
   },
+  'fase-1-saludos': {
+    slug: 'fase-1-saludos', icono: '👋', zona: 'BUENAS CONVERSACIONES', titulo: 'Saluda con confianza',
+    bajada: 'Elige un saludo o una despedida según el momento y la situación.', color: '#b06b33', suave: '#fff3e4', valor: 'Amabilidad y respeto',
+    historia: [
+      { emoji: '🌅', texto: 'Good morning, Ms. Green.' },
+      { emoji: '👩‍🏫', texto: 'Good morning, Lucas. How are you?' },
+      { emoji: '😊', texto: 'I am fine, thank you.' },
+      { emoji: '👋', texto: 'Hi, Emma! Are you ready for class?' },
+      { emoji: '🎒', texto: 'Yes! See you in the classroom.' },
+    ],
+    palabras: [
+      { en: 'hello', es: 'hola', emoji: '👋' }, { en: 'good morning', es: 'buenos días', emoji: '🌅' },
+      { en: 'how are you?', es: '¿cómo estás?', emoji: '🙂' }, { en: 'thank you', es: 'gracias', emoji: '🙏' },
+      { en: 'see you', es: 'nos vemos', emoji: '➡️' }, { en: 'goodbye', es: 'adiós', emoji: '🎒' },
+    ],
+    constructor: {
+      inicios: ['Good morning,', 'Hello,', 'Hi,', 'Good afternoon,'],
+      acciones: ['Emma.', 'Lucas.', 'everyone.', 'my friend.'],
+      finales: ['How are you?', 'Nice to see you.', 'Have a good day.', 'Are you ready?'],
+    },
+    retos: [
+      { frase: 'At 8:00 a.m. we say ___.', correcta: 'Good morning', opciones: ['Good night', 'Good morning', 'Goodbye'], ayuda: 'Good morning se usa durante la mañana.' },
+      { frase: 'A neutral way to say hola is ___.', correcta: 'Hello', opciones: ['Goodbye', 'Hello', 'See you'], ayuda: 'Hello funciona en muchas situaciones.' },
+      { frase: 'To ask ¿cómo estás? say ___.', correcta: 'How are you?', opciones: ['Who are you?', 'How are you?', 'Where are you?'], ayuda: 'How are you? pregunta cómo está alguien.' },
+      { frase: 'A friendly farewell is ___.', correcta: 'See you', opciones: ['Thank you', 'Good morning', 'See you'], ayuda: 'See you significa nos vemos.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Saludar a docentes y compañeros con respeto.' },
+      { emoji: '🏠', titulo: 'En familia', texto: 'Iniciar y cerrar conversaciones amables.' },
+      { emoji: '🤝', titulo: 'Al conocer a alguien', texto: 'Dar una primera impresión cordial.' },
+    ],
+  },
   'fase-1-familia-coloquial': {
     slug: 'fase-1-familia-coloquial', icono: '🏡', zona: 'FAMILIA Y VIDA COTIDIANA', titulo: 'Mi familia y mi hogar',
     bajada: 'Aprende a presentar a tu familia y contar cómo colaboran en casa.', color: '#3478e5', suave: '#e8f2ff', valor: 'Amor, respeto y colaboración',
