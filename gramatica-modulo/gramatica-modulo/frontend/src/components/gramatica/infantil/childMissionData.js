@@ -319,6 +319,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🤝', titulo: 'En equipo', texto: 'Contar quién ayuda o escucha a otra persona.' },
     ],
   },
+  'fase-3-presente-simple': {
+    slug: 'fase-3-presente-simple', icono: '☀️', zona: 'HÁBITOS QUE CONSTRUYEN', titulo: 'Mi rutina diaria',
+    bajada: 'Usa el presente simple para hablar de hábitos, gustos y actividades frecuentes.', color: '#b06b33', suave: '#fff3e4', valor: 'Constancia y buenos hábitos',
+    historia: [
+      { emoji: '🌅', texto: 'I wake up early on school days.' },
+      { emoji: '🥣', texto: 'I eat breakfast with my family.' },
+      { emoji: '🏫', texto: 'My sister walks to school with me.' },
+      { emoji: '📚', texto: 'We do our homework in the afternoon.' },
+      { emoji: '🌙', texto: 'I prepare my backpack before I sleep.' },
+    ],
+    palabras: [
+      { en: 'wake up', es: 'despertarse', emoji: '⏰' }, { en: 'eat breakfast', es: 'desayunar', emoji: '🥣' },
+      { en: 'go to school', es: 'ir a la escuela', emoji: '🏫' }, { en: 'study', es: 'estudiar', emoji: '📚' },
+      { en: 'help', es: 'ayudar', emoji: '🤝' }, { en: 'every day', es: 'cada día', emoji: '📅' },
+    ],
+    constructor: {
+      inicios: ['Every day, I', 'After school, we', 'On weekdays, I', 'At home, we'],
+      acciones: ['practice', 'read', 'help with', 'prepare'],
+      finales: ['English.', 'a good book.', 'our chores.', 'our schoolwork.'],
+    },
+    retos: [
+      { frase: 'I ___ English every day.', correcta: 'study', opciones: ['studies', 'study', 'studying'], ayuda: 'Con I usamos el verbo base: study.' },
+      { frase: 'She ___ to school at eight.', correcta: 'goes', opciones: ['go', 'going', 'goes'], ayuda: 'Con she agregamos -s o -es.' },
+      { frase: 'We ___ our parents at home.', correcta: 'help', opciones: ['helps', 'help', 'helping'], ayuda: 'Con we usamos help sin -s.' },
+      { frase: 'He ___ breakfast with his family.', correcta: 'eats', opciones: ['eat', 'eats', 'eating'], ayuda: 'Con he usamos eats.' },
+    ],
+    aplicaciones: [
+      { emoji: '📚', titulo: 'En la escuela', texto: 'Describir materias y hábitos de estudio.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Contar tu rutina y cómo colaboras.' },
+      { emoji: '⚽', titulo: 'En tu tiempo libre', texto: 'Hablar de actividades que haces seguido.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
