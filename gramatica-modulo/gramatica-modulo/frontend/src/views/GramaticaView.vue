@@ -34,10 +34,12 @@ import GerundInfinitiveLesson from '../components/gramatica/gerundio/GerundInfin
 import PossessiveLesson from '../components/gramatica/posesivos/PossessiveLesson.vue';
 import AdvancedLesson from '../components/gramatica/avanzado/AdvancedLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
+import ChildMissionLesson from '../components/gramatica/infantil/ChildMissionLesson.vue';
+import { CHILD_MISSIONS, CHILD_MISSION_SLUGS } from '../components/gramatica/infantil/childMissionData.js';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
 
-const pantallaActual = ref('perfiles'); // 'perfiles' | 'fases' | 'subtemas' | 'infantil-preview' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
+const pantallaActual = ref('perfiles'); // 'perfiles' | 'fases' | 'subtemas' | 'infantil-estudio' | 'infantil-preview' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
 const perfilStudentbook = ref(null); // 'adulto' | 'nino'
 
 const fases = ref([]);
@@ -183,10 +185,10 @@ const _CAPITULOS = [
   { id: 'fluidez', nombre: 'Expresión con fluidez', lema: 'Dale precisión y naturalidad a tus frases', icono: '✨', desde: 14, hasta: 17 },
 ];
 const _CAPITULOS_NINO = [
-  { id: 'inicio', nombre: 'Campamento de inicio', lema: 'Prepará tu mochila de palabras', icono: '⛺', desde: 1, hasta: 4 },
-  { id: 'tiempo', nombre: 'Túnel del tiempo', lema: 'Viajá entre ayer, hoy y mañana', icono: '🚂', desde: 5, hasta: 8 },
-  { id: 'conexion', nombre: 'Puente de las ideas', lema: 'Uní preguntas, lugares y acciones', icono: '🌉', desde: 9, hasta: 13 },
-  { id: 'fluidez', nombre: 'Montaña de la fluidez', lema: 'Llegá a la cima con frases increíbles', icono: '🏔️', desde: 14, hasta: 17 },
+  { id: 'inicio', nombre: 'Punto de partida', lema: 'Construye tus primeras herramientas', icono: '🧭', desde: 1, hasta: 4 },
+  { id: 'tiempo', nombre: 'Ruta del tiempo', lema: 'Viaja entre ayer, hoy y mañana', icono: '🚆', desde: 5, hasta: 8 },
+  { id: 'conexion', nombre: 'Conexión de ideas', lema: 'Une preguntas, lugares y acciones', icono: '🌉', desde: 9, hasta: 13 },
+  { id: 'fluidez', nombre: 'Reto de fluidez', lema: 'Expresa ideas con mayor precisión', icono: '🏔️', desde: 14, hasta: 17 },
 ];
 const _ICONOS_FASE = ['🔤', '👋', '☀️', '📖', '🌉', '🔄', '🔮', '💬', '📍', '❓', '🧲', '🏷️', '🧺', '🎯', '🎨', '🔗', '🗺️'];
 const _DESCRIPCIONES_FASE = [
@@ -198,12 +200,12 @@ const _DESCRIPCIONES_FASE = [
   'Uní ideas y construí mensajes más completos.', 'Tiempo, espacio y movimiento.',
 ];
 const _DESCRIPCIONES_NINO = [
-  'Letras, números y primeras palabras mágicas.', 'Conocé a los personajes y contá quiénes son.', 'Descubrí hábitos y acciones en movimiento.',
-  'Abrí el libro de los recuerdos.', 'Construí un puente entre antes y ahora.', 'Cambiá el protagonista de la historia.',
-  'Imaginá planes y aventuras futuras.', 'Desbloqueá poderes, consejos y deseos.', 'Encontrá objetos escondidos en cada lugar.',
-  'Usá preguntas para resolver misterios.', 'Jugá con acciones, gustos e intenciones.', 'Descubrí de quién es cada tesoro.',
-  'Clasificá lo que podés contar y medir.', 'Señalá, elegí y compará cantidades.', 'Pintá tus frases con más detalles.',
-  'Construí puentes entre una idea y otra.', 'Seguí pistas de tiempo, lugar y dirección.',
+  'Letras, números y vocabulario para comenzar.', 'Conoce a los personajes y cuenta quiénes son.', 'Descubre hábitos y acciones en movimiento.',
+  'Cuenta historias y recuerdos.', 'Conecta lo que pasó con el presente.', 'Cambia el foco de una historia.',
+  'Expresa planes y decisiones futuras.', 'Practica habilidades, consejos y deseos.', 'Ubica objetos y personas en distintos lugares.',
+  'Usa preguntas para obtener información.', 'Combina acciones, gustos e intenciones.', 'Expresa a quién pertenece cada objeto.',
+  'Clasifica lo que puedes contar y medir.', 'Señala, elige y compara cantidades.', 'Añade detalles útiles a tus frases.',
+  'Conecta una idea con otra.', 'Sigue referencias de tiempo, lugar y dirección.',
 ];
 const _COLORES_FASE = [
   ['#b15f3b', '#fff0e7'], ['#39766a', '#e8f7f2'], ['#356f92', '#e8f4fa'], ['#735b9b', '#f2edfb'],
@@ -246,10 +248,20 @@ function cambiarStudentbook() {
 async function elegirLeccionSegunPerfil(subtema) {
   if (perfilStudentbook.value === 'nino') {
     subtemaActual.value = subtema;
-    pantallaActual.value = 'infantil-preview';
+    pantallaActual.value = CHILD_MISSION_SLUGS.has(subtema.slug) ? 'infantil-estudio' : 'infantil-preview';
     return;
   }
   await elegirSubtema(subtema);
+}
+
+function misionInfantil(slug = '') {
+  return CHILD_MISSIONS[slug] || null;
+}
+
+function nombreLeccion(subtema) {
+  return perfilStudentbook.value === 'nino'
+    ? (misionInfantil(subtema.slug)?.titulo || subtema.nombre)
+    : subtema.nombre;
 }
 
 function iconoLeccion(slug = '') {
@@ -612,24 +624,24 @@ cargarCruces();
 <template>
   <div class="gramatica-view">
     <section v-if="pantallaActual === 'perfiles'" class="gramatica-view__selector">
-      <header><span>STUDENTBOOK</span><h1>¿Quién comienza la aventura?</h1><p>Elegí una experiencia. Podrás cambiarla cuando quieras sin perder tu recorrido.</p></header>
+      <header><span>STUDENTBOOK</span><h1>¿Qué ruta quieres explorar?</h1><p>Elige una experiencia. Podrás cambiarla cuando quieras sin perder tu recorrido.</p></header>
       <div class="gramatica-view__perfiles">
         <button class="gramatica-view__perfil gramatica-view__perfil--nino" @click="elegirStudentbook('nino')">
           <span class="gramatica-view__perfil-escena"><i>☁️</i><b>🛩️</b><em>🌈</em></span>
-          <small>AVENTURA INFANTIL</small><strong>Studentbook para niños</strong><p>Misiones cortas, caminos visuales y recompensas.</p><span class="gramatica-view__perfil-accion">Explorar el mapa →</span>
+          <small>RUTA JUVENIL</small><strong>Studentbook de 9 a 15 años</strong><p>Historias breves, retos interactivos y progreso visual.</p><span class="gramatica-view__perfil-accion">Explorar el mapa →</span>
         </button>
         <button class="gramatica-view__perfil gramatica-view__perfil--adulto" @click="elegirStudentbook('adulto')">
           <span class="gramatica-view__perfil-escena"><i>☕</i><b>🧭</b><em>📘</em></span>
           <small>APRENDIZAJE COTIDIANO</small><strong>Adulto estándar</strong><p>Ejemplos naturales, práctica guiada y progreso claro.</p><span class="gramatica-view__perfil-accion">Continuar el recorrido →</span>
         </button>
       </div>
-      <aside>Los contenidos infantiles todavía están en construcción; este recorrido permite probar desde ahora toda su navegación exterior.</aside>
+      <aside>La ruta juvenil se construye como una sola experiencia que aumenta gradualmente su dificultad.</aside>
     </section>
 
     <div v-else-if="pantallaActual === 'fases'" :class="{ 'gramatica-view__modo-infantil': perfilStudentbook === 'nino' }">
       <button class="gramatica-view__cambiar-perfil" @click="cambiarStudentbook">↔ Cambiar Studentbook</button>
       <div class="gramatica-view__mapa-hero">
-        <div><span class="gramatica-view__sobre">{{ perfilStudentbook === 'nino' ? 'MISIÓN: APRENDER INGLÉS' : 'TU AVENTURA EN INGLÉS' }}</span><h1>{{ perfilStudentbook === 'nino' ? 'El gran mapa de las palabras' : 'El mapa de la gramática' }}</h1><p>{{ perfilStudentbook === 'nino' ? 'Seguí el camino, superá misiones y hacé volar tu avioncito.' : 'Avanzá a tu ritmo. Cada parada abre una forma nueva de expresarte.' }}</p></div>
+        <div><span class="gramatica-view__sobre">{{ perfilStudentbook === 'nino' ? 'MISIÓN: APRENDER INGLÉS' : 'TU AVENTURA EN INGLÉS' }}</span><h1>{{ perfilStudentbook === 'nino' ? 'Tu ruta de inglés' : 'El mapa de la gramática' }}</h1><p>{{ perfilStudentbook === 'nino' ? 'Sigue el camino, supera retos y haz avanzar tu avioncito.' : 'Avanzá a tu ritmo. Cada parada abre una forma nueva de expresarte.' }}</p></div>
         <div class="gramatica-view__brujula"><span>🧭</span><b>{{ avanceFases }}%</b><small>del viaje</small></div>
       </div>
       <div v-if="totalVencidosRepaso > 0" class="gramatica-view__card-repaso">
@@ -675,20 +687,27 @@ cargarCruces();
           :key="s.slug"
           class="gramatica-view__leccion-parada"
           :class="{ 'gramatica-view__leccion-parada--completada': s.completado }"
-          :aria-label="`Abrir ${perfilStudentbook === 'nino' ? 'misión' : 'lección'} ${index + 1}: ${s.nombre}`"
+          :aria-label="`Abrir ${perfilStudentbook === 'nino' ? 'misión' : 'lección'} ${index + 1}: ${nombreLeccion(s)}`"
           @click="elegirLeccionSegunPerfil(s)"
         >
           <span class="gramatica-view__leccion-nodo">{{ s.completado ? '✈️' : iconoLeccion(s.slug) }}</span>
-          <span class="gramatica-view__leccion-card"><small>{{ perfilStudentbook === 'nino' ? 'MISIÓN' : 'LECCIÓN' }} {{ String(index + 1).padStart(2, '0') }}</small><strong>{{ s.nombre }}</strong><em>{{ s.completado ? 'Lista para repasar' : (perfilStudentbook === 'nino' ? 'Una parada corta para aprender jugando' : 'Explorá, construí y practicá') }}</em></span>
-          <span class="gramatica-view__leccion-accion">{{ s.completado ? 'Repasar' : (perfilStudentbook === 'nino' ? 'Ver misión' : 'Comenzar') }} →</span>
+          <span class="gramatica-view__leccion-card"><small>{{ perfilStudentbook === 'nino' ? 'MISIÓN' : 'LECCIÓN' }} {{ String(index + 1).padStart(2, '0') }}</small><strong>{{ nombreLeccion(s) }}</strong><em>{{ s.completado ? 'Lista para repasar' : (perfilStudentbook === 'nino' ? (misionInfantil(s.slug) ? 'Historia, vocabulario y un reto interactivo' : 'Contenido juvenil en preparación') : 'Explorá, construí y practicá') }}</em></span>
+          <span class="gramatica-view__leccion-accion">{{ s.completado ? 'Repasar' : (perfilStudentbook === 'nino' ? (misionInfantil(s.slug) ? 'Comenzar' : 'Ver avance') : 'Comenzar') }} →</span>
         </button>
       </div>
     </div>
 
+    <ChildMissionLesson
+      v-else-if="pantallaActual === 'infantil-estudio'"
+      :slug="subtemaActual.slug"
+      @hablar="reproducirTexto"
+      @volver="pantallaActual = 'subtemas'"
+    />
+
     <section v-else-if="pantallaActual === 'infantil-preview'" class="gramatica-view__mision-preview">
       <button class="gramatica-view__link-volver" @click="pantallaActual = 'subtemas'">← Volver al camino</button>
       <article>
-        <span>{{ iconoLeccion(subtemaActual?.slug) }}</span><small>MISIÓN EN PREPARACIÓN</small><h1>{{ subtemaActual?.nombre }}</h1><p>El camino y la entrada ya están listos. En la siguiente etapa construiremos aquí la explicación, el juego y el workbook especiales para niños.</p><div><b>🗺️ Ruta conectada</b><b>🎨 Tema infantil activo</b><b>🔒 Sin contenido adulto</b></div>
+        <span>{{ iconoLeccion(subtemaActual?.slug) }}</span><small>MISIÓN EN PREPARACIÓN</small><h1>{{ subtemaActual?.nombre }}</h1><p>El camino y la entrada ya están listos. Aquí integraremos una historia, práctica interactiva y un reto con el estilo juvenil de 9 a 15 años.</p><div><b>🗺️ Ruta conectada</b><b>🎨 Estilo juvenil activo</b><b>🔒 Sin contenido adulto</b></div>
       </article>
     </section>
 

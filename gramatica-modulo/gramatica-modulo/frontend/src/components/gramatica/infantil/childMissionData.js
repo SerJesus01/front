@@ -1,0 +1,85 @@
+export const CHILD_MISSIONS = {
+  'fase-1-familia-coloquial': {
+    slug: 'fase-1-familia-coloquial', icono: '🏡', zona: 'FAMILIA Y VIDA COTIDIANA', titulo: 'Mi familia y mi hogar',
+    bajada: 'Aprende a presentar a tu familia y contar cómo colaboran en casa.', color: '#3478e5', suave: '#e8f2ff', valor: 'Amor, respeto y colaboración',
+    historia: [
+      { emoji: '👧', texto: 'My name is Mia. I live with my mom, my dad, and my brother Leo.' },
+      { emoji: '📚', texto: 'My mom helps me with my homework.' },
+      { emoji: '🥞', texto: 'My dad makes breakfast on Sunday.' },
+      { emoji: '🧹', texto: 'Leo and I clean our room together.' },
+      { emoji: '❤️', texto: 'We love, respect, and help each other.' },
+    ],
+    palabras: [
+      { en: 'mom', es: 'mamá', emoji: '👩' }, { en: 'dad', es: 'papá', emoji: '👨' },
+      { en: 'brother', es: 'hermano', emoji: '👦' }, { en: 'sister', es: 'hermana', emoji: '👧' },
+      { en: 'grandparents', es: 'abuelos', emoji: '👵👴' }, { en: 'family', es: 'familia', emoji: '🏡' },
+    ],
+    constructor: {
+      inicios: ['My brother and I', 'My parents and I', 'My family and I', 'We'],
+      acciones: ['help', 'respect', 'love', 'listen to'],
+      finales: ['one another.', 'our parents.', 'our grandparents.', 'our family.'],
+    },
+    retos: [
+      { frase: 'My mother is my ___.', correcta: 'mom', opciones: ['mom', 'sister', 'grandma'], ayuda: 'Mom significa mamá.' },
+      { frase: 'My father is my ___.', correcta: 'dad', opciones: ['brother', 'dad', 'grandpa'], ayuda: 'Dad significa papá.' },
+      { frase: 'My brother and I ___ our room.', correcta: 'clean', opciones: ['cleans', 'clean', 'cleaning'], ayuda: 'Con “My brother and I” usamos clean.' },
+      { frase: 'We help ___ other at home.', correcta: 'each', opciones: ['each', 'every', 'one'], ayuda: 'Each other significa mutuamente.' },
+    ],
+  },
+  'fase-7-will-shall': {
+    slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
+    bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
+    historia: [
+      { emoji: '🌅', texto: 'Tomorrow will be a busy day for Alex.' },
+      { emoji: '📝', texto: 'I will do my homework after school.' },
+      { emoji: '🌱', texto: 'Then I will help my dad water the plants.' },
+      { emoji: '📞', texto: 'I will call my grandparents in the evening.' },
+      { emoji: '⭐', texto: 'I will keep my promises and do my best.' },
+    ],
+    palabras: [
+      { en: 'tomorrow', es: 'mañana', emoji: '🌅' }, { en: 'homework', es: 'tarea', emoji: '📝' },
+      { en: 'promise', es: 'promesa', emoji: '🤝' }, { en: 'help', es: 'ayudar', emoji: '🙌' },
+      { en: 'later', es: 'más tarde', emoji: '🕒' }, { en: 'will', es: 'acción futura', emoji: '➡️' },
+    ],
+    constructor: {
+      inicios: ['Tomorrow, I', 'After school, I', 'This weekend, I', 'Later, I'],
+      acciones: ['will start', 'will finish', 'will organize', 'will review'],
+      finales: ['my homework.', 'my chores.', 'my plan.', 'my project.'],
+    },
+    retos: [
+      { frase: 'Tomorrow I ___ do my homework.', correcta: 'will', opciones: ['will', 'am', 'did'], ayuda: 'Will + verbo expresa una acción futura.' },
+      { frase: 'She will ___ her mom after school.', correcta: 'help', opciones: ['helps', 'help', 'helped'], ayuda: 'Después de will usamos el verbo sin cambios.' },
+      { frase: 'We ___ visit our grandparents on Sunday.', correcta: 'will', opciones: ['are', 'will', 'were'], ayuda: 'Will presenta el plan futuro.' },
+      { frase: 'I will keep my ___.', correcta: 'promise', opciones: ['promise', 'promised', 'promising'], ayuda: 'Keep my promise significa cumplir mi promesa.' },
+    ],
+  },
+  'fase-16-condicionales-if': {
+    slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
+    bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
+    historia: [
+      { emoji: '🏫', texto: 'Our class has a plan to care for the environment.' },
+      { emoji: '💧', texto: 'If we turn off the tap, we save water.' },
+      { emoji: '📄', texto: 'If we reuse paper, we protect trees.' },
+      { emoji: '🗑️', texto: 'If we pick up litter, our park stays clean.' },
+      { emoji: '🌳', texto: 'Small actions can make a big difference.' },
+    ],
+    palabras: [
+      { en: 'save water', es: 'ahorrar agua', emoji: '💧' }, { en: 'reuse', es: 'reutilizar', emoji: '♻️' },
+      { en: 'protect', es: 'proteger', emoji: '🛡️' }, { en: 'trees', es: 'árboles', emoji: '🌳' },
+      { en: 'clean', es: 'limpio', emoji: '✨' }, { en: 'environment', es: 'medio ambiente', emoji: '🌎' },
+    ],
+    constructor: {
+      inicios: ['If we save water,', 'If we reuse paper,', 'If we care for animals,', 'If we pick up litter,'],
+      acciones: ['we help protect', 'we take care of', 'we support', 'we make a difference for'],
+      finales: ['our planet.', 'nature.', 'our community.', 'the world around us.'],
+    },
+    retos: [
+      { frase: 'If we reuse paper, we ___ trees.', correcta: 'protect', opciones: ['protect', 'waste', 'cut'], ayuda: 'Reutilizar papel ayuda a proteger árboles.' },
+      { frase: 'If you turn off the tap, you ___ water.', correcta: 'save', opciones: ['drop', 'save', 'lose'], ayuda: 'Save water significa ahorrar agua.' },
+      { frase: 'If we ___ litter, the park stays clean.', correcta: 'pick up', opciones: ['leave', 'drop', 'pick up'], ayuda: 'Pick up litter significa recoger basura.' },
+      { frase: 'If we care for nature, we ___ our home.', correcta: 'protect', opciones: ['protect', 'forget', 'waste'], ayuda: 'El planeta es nuestro hogar compartido.' },
+    ],
+  },
+};
+
+export const CHILD_MISSION_SLUGS = new Set(Object.keys(CHILD_MISSIONS));
