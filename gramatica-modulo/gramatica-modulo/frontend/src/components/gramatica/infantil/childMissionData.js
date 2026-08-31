@@ -351,6 +351,38 @@ export const CHILD_MISSIONS = {
       { emoji: '⚽', titulo: 'En tu tiempo libre', texto: 'Hablar de actividades que haces seguido.' },
     ],
   },
+  'fase-3-presente-continuo': {
+    slug: 'fase-3-presente-continuo', icono: '🎬', zona: 'ACCIONES EN MOVIMIENTO', titulo: 'Lo que está pasando ahora',
+    bajada: 'Usa am, is o are más -ing para describir acciones en progreso.', color: '#39766a', suave: '#e8f7f2', valor: 'Atención y participación',
+    historia: [
+      { emoji: '🏫', texto: 'Our class is preparing an environment project.' },
+      { emoji: '✍️', texto: 'I am writing the introduction.' },
+      { emoji: '🎨', texto: 'Sofia is drawing a clean park.' },
+      { emoji: '♻️', texto: 'Daniel and Leo are building a recycling box.' },
+      { emoji: '🤝', texto: 'We are working together right now.' },
+    ],
+    palabras: [
+      { en: 'right now', es: 'ahora mismo', emoji: '⏱️' }, { en: 'writing', es: 'escribiendo', emoji: '✍️' },
+      { en: 'reading', es: 'leyendo', emoji: '📖' }, { en: 'drawing', es: 'dibujando', emoji: '🎨' },
+      { en: 'building', es: 'construyendo', emoji: '🧱' }, { en: 'working', es: 'trabajando', emoji: '🛠️' },
+    ],
+    constructor: {
+      inicios: ['Right now, I am', 'At the moment, we are', 'Today, they are', 'Look! She is'],
+      acciones: ['reading', 'writing', 'building', 'preparing'],
+      finales: ['a school project.', 'a new story.', 'a helpful poster.', 'an activity.'],
+    },
+    retos: [
+      { frase: 'I am ___ a book now.', correcta: 'reading', opciones: ['read', 'reads', 'reading'], ayuda: 'Después de am usamos el verbo con -ing.' },
+      { frase: 'She ___ drawing a poster.', correcta: 'is', opciones: ['am', 'is', 'are'], ayuda: 'Con she usamos is.' },
+      { frase: 'They are ___ together.', correcta: 'working', opciones: ['work', 'works', 'working'], ayuda: 'Are + working expresa una acción en progreso.' },
+      { frase: 'We ___ preparing the project.', correcta: 'are', opciones: ['is', 'are', 'am'], ayuda: 'Con we usamos are.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'En clase', texto: 'Contar qué está haciendo el grupo ahora.' },
+      { emoji: '📞', titulo: 'En una llamada', texto: 'Explicar qué haces en este momento.' },
+      { emoji: '🖼️', titulo: 'Al describir', texto: 'Narrar las acciones visibles en una imagen.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
