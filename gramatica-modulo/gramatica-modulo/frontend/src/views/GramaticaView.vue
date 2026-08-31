@@ -37,7 +37,8 @@ import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
 
-const pantallaActual = ref('fases'); // 'fases' | 'subtemas' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
+const pantallaActual = ref('perfiles'); // 'perfiles' | 'fases' | 'subtemas' | 'infantil-preview' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
+const perfilStudentbook = ref(null); // 'adulto' | 'nino'
 
 const fases = ref([]);
 const faseActual = ref(null);
@@ -181,6 +182,12 @@ const _CAPITULOS = [
   { id: 'conexion', nombre: 'Ideas que se conectan', lema: 'Preguntá, ubicá y enlazá acciones', icono: '🧭', desde: 9, hasta: 13 },
   { id: 'fluidez', nombre: 'Expresión con fluidez', lema: 'Dale precisión y naturalidad a tus frases', icono: '✨', desde: 14, hasta: 17 },
 ];
+const _CAPITULOS_NINO = [
+  { id: 'inicio', nombre: 'Campamento de inicio', lema: 'Prepará tu mochila de palabras', icono: '⛺', desde: 1, hasta: 4 },
+  { id: 'tiempo', nombre: 'Túnel del tiempo', lema: 'Viajá entre ayer, hoy y mañana', icono: '🚂', desde: 5, hasta: 8 },
+  { id: 'conexion', nombre: 'Puente de las ideas', lema: 'Uní preguntas, lugares y acciones', icono: '🌉', desde: 9, hasta: 13 },
+  { id: 'fluidez', nombre: 'Montaña de la fluidez', lema: 'Llegá a la cima con frases increíbles', icono: '🏔️', desde: 14, hasta: 17 },
+];
 const _ICONOS_FASE = ['🔤', '👋', '☀️', '📖', '🌉', '🔄', '🔮', '💬', '📍', '❓', '🧲', '🏷️', '🧺', '🎯', '🎨', '🔗', '🗺️'];
 const _DESCRIPCIONES_FASE = [
   'Sonidos, números y palabras para empezar.', 'Personas, identidad y el verbo esencial.', 'Hábitos y acciones que ocurren ahora.',
@@ -190,13 +197,22 @@ const _DESCRIPCIONES_FASE = [
   'Objetos que se cuentan o se miden.', 'Distancia, grupos y cantidades.', 'Descripciones, comparaciones y hábitos.',
   'Uní ideas y construí mensajes más completos.', 'Tiempo, espacio y movimiento.',
 ];
+const _DESCRIPCIONES_NINO = [
+  'Letras, números y primeras palabras mágicas.', 'Conocé a los personajes y contá quiénes son.', 'Descubrí hábitos y acciones en movimiento.',
+  'Abrí el libro de los recuerdos.', 'Construí un puente entre antes y ahora.', 'Cambiá el protagonista de la historia.',
+  'Imaginá planes y aventuras futuras.', 'Desbloqueá poderes, consejos y deseos.', 'Encontrá objetos escondidos en cada lugar.',
+  'Usá preguntas para resolver misterios.', 'Jugá con acciones, gustos e intenciones.', 'Descubrí de quién es cada tesoro.',
+  'Clasificá lo que podés contar y medir.', 'Señalá, elegí y compará cantidades.', 'Pintá tus frases con más detalles.',
+  'Construí puentes entre una idea y otra.', 'Seguí pistas de tiempo, lugar y dirección.',
+];
 const _COLORES_FASE = [
   ['#b15f3b', '#fff0e7'], ['#39766a', '#e8f7f2'], ['#356f92', '#e8f4fa'], ['#735b9b', '#f2edfb'],
   ['#b06b33', '#fff3e4'], ['#39766a', '#e8f7f2'], ['#356f92', '#e8f4fa'], ['#735b9b', '#f2edfb'],
   ['#b15f3b', '#fff0e7'], ['#39766a', '#e8f7f2'], ['#356f92', '#e8f4fa'], ['#735b9b', '#f2edfb'],
   ['#b06b33', '#fff3e4'], ['#39766a', '#e8f7f2'], ['#356f92', '#e8f4fa'], ['#735b9b', '#f2edfb'], ['#b15f3b', '#fff0e7'],
 ];
-const capitulosFases = computed(() => _CAPITULOS.map((capitulo) => ({
+const capitulosActivos = computed(() => perfilStudentbook.value === 'nino' ? _CAPITULOS_NINO : _CAPITULOS);
+const capitulosFases = computed(() => capitulosActivos.value.map((capitulo) => ({
   ...capitulo,
   fases: fases.value.filter((fase) => fase.orden >= capitulo.desde && fase.orden <= capitulo.hasta),
 })).filter((capitulo) => capitulo.fases.length));
@@ -209,10 +225,31 @@ function metaFase(fase) {
   const indice = Math.max(0, (fase.orden || 1) - 1);
   return {
     icono: _ICONOS_FASE[indice] || '📘',
-    descripcion: _DESCRIPCIONES_FASE[indice] || 'Una nueva parada en tu recorrido.',
+    descripcion: (perfilStudentbook.value === 'nino' ? _DESCRIPCIONES_NINO : _DESCRIPCIONES_FASE)[indice] || 'Una nueva parada en tu recorrido.',
     color: _COLORES_FASE[indice]?.[0] || '#356f92',
     suave: _COLORES_FASE[indice]?.[1] || '#e8f4fa',
   };
+}
+
+function elegirStudentbook(perfil) {
+  perfilStudentbook.value = perfil;
+  document.documentElement.dataset.studentbookTheme = perfil === 'nino' ? 'child' : 'adult';
+  pantallaActual.value = 'fases';
+}
+
+function cambiarStudentbook() {
+  perfilStudentbook.value = null;
+  document.documentElement.dataset.studentbookTheme = 'adult';
+  pantallaActual.value = 'perfiles';
+}
+
+async function elegirLeccionSegunPerfil(subtema) {
+  if (perfilStudentbook.value === 'nino') {
+    subtemaActual.value = subtema;
+    pantallaActual.value = 'infantil-preview';
+    return;
+  }
+  await elegirSubtema(subtema);
 }
 
 function iconoLeccion(slug = '') {
@@ -574,9 +611,25 @@ cargarCruces();
 
 <template>
   <div class="gramatica-view">
-    <div v-if="pantallaActual === 'fases'">
+    <section v-if="pantallaActual === 'perfiles'" class="gramatica-view__selector">
+      <header><span>STUDENTBOOK</span><h1>¿Quién comienza la aventura?</h1><p>Elegí una experiencia. Podrás cambiarla cuando quieras sin perder tu recorrido.</p></header>
+      <div class="gramatica-view__perfiles">
+        <button class="gramatica-view__perfil gramatica-view__perfil--nino" @click="elegirStudentbook('nino')">
+          <span class="gramatica-view__perfil-escena"><i>☁️</i><b>🛩️</b><em>🌈</em></span>
+          <small>AVENTURA INFANTIL</small><strong>Studentbook para niños</strong><p>Misiones cortas, caminos visuales y recompensas.</p><span class="gramatica-view__perfil-accion">Explorar el mapa →</span>
+        </button>
+        <button class="gramatica-view__perfil gramatica-view__perfil--adulto" @click="elegirStudentbook('adulto')">
+          <span class="gramatica-view__perfil-escena"><i>☕</i><b>🧭</b><em>📘</em></span>
+          <small>APRENDIZAJE COTIDIANO</small><strong>Adulto estándar</strong><p>Ejemplos naturales, práctica guiada y progreso claro.</p><span class="gramatica-view__perfil-accion">Continuar el recorrido →</span>
+        </button>
+      </div>
+      <aside>Los contenidos infantiles todavía están en construcción; este recorrido permite probar desde ahora toda su navegación exterior.</aside>
+    </section>
+
+    <div v-else-if="pantallaActual === 'fases'" :class="{ 'gramatica-view__modo-infantil': perfilStudentbook === 'nino' }">
+      <button class="gramatica-view__cambiar-perfil" @click="cambiarStudentbook">↔ Cambiar Studentbook</button>
       <div class="gramatica-view__mapa-hero">
-        <div><span class="gramatica-view__sobre">TU AVENTURA EN INGLÉS</span><h1>El mapa de la gramática</h1><p>Avanzá a tu ritmo. Cada parada abre una forma nueva de expresarte.</p></div>
+        <div><span class="gramatica-view__sobre">{{ perfilStudentbook === 'nino' ? 'MISIÓN: APRENDER INGLÉS' : 'TU AVENTURA EN INGLÉS' }}</span><h1>{{ perfilStudentbook === 'nino' ? 'El gran mapa de las palabras' : 'El mapa de la gramática' }}</h1><p>{{ perfilStudentbook === 'nino' ? 'Seguí el camino, superá misiones y hacé volar tu avioncito.' : 'Avanzá a tu ritmo. Cada parada abre una forma nueva de expresarte.' }}</p></div>
         <div class="gramatica-view__brujula"><span>🧭</span><b>{{ avanceFases }}%</b><small>del viaje</small></div>
       </div>
       <div v-if="totalVencidosRepaso > 0" class="gramatica-view__card-repaso">
@@ -586,8 +639,8 @@ cargarCruces();
       <button v-if="cruces.length > 0" class="gramatica-view__link-cruces" @click="pantallaActual = 'cruces'">🔀 Ver cruces entre reglas →</button>
       <p v-if="fases.length === 0" class="gramatica-view__subtitulo">Todavía no hay fases con contenido cargado.</p>
       <div v-else class="gramatica-view__mapa">
-        <section v-for="capitulo in capitulosFases" :key="capitulo.id" class="gramatica-view__capitulo">
-          <header><span>{{ capitulo.icono }}</span><div><small>CAPÍTULO {{ String(_CAPITULOS.findIndex((item) => item.id === capitulo.id) + 1).padStart(2, '0') }}</small><h2>{{ capitulo.nombre }}</h2><p>{{ capitulo.lema }}</p></div></header>
+        <section v-for="(capitulo, capituloIndex) in capitulosFases" :key="capitulo.id" class="gramatica-view__capitulo">
+          <header><span>{{ capitulo.icono }}</span><div><small>{{ perfilStudentbook === 'nino' ? 'ZONA' : 'CAPÍTULO' }} {{ String(capituloIndex + 1).padStart(2, '0') }}</small><h2>{{ capitulo.nombre }}</h2><p>{{ capitulo.lema }}</p></div></header>
           <div class="gramatica-view__sendero">
             <button
               v-for="f in capitulo.fases"
@@ -601,7 +654,7 @@ cargarCruces();
             >
               <span class="gramatica-view__parada-numero">{{ String(f.orden).padStart(2, '0') }}</span>
               <span class="gramatica-view__parada-icono">{{ f.completado ? '✈️' : metaFase(f).icono }}</span>
-              <span class="gramatica-view__parada-contenido"><small>{{ f.completado ? 'RUTA COMPLETADA' : 'SIGUIENTE PARADA' }}</small><strong>{{ f.nombre }}</strong><em>{{ metaFase(f).descripcion }}</em></span>
+              <span class="gramatica-view__parada-contenido"><small>{{ f.completado ? 'RUTA COMPLETADA' : (perfilStudentbook === 'nino' ? 'NUEVA MISIÓN' : 'SIGUIENTE PARADA') }}</small><strong>{{ f.nombre }}</strong><em>{{ metaFase(f).descripcion }}</em></span>
               <span class="gramatica-view__parada-flecha">{{ f.disponible ? '→' : '🔒' }}</span>
             </button>
           </div>
@@ -611,9 +664,9 @@ cargarCruces();
 
     <div v-else-if="pantallaActual === 'subtemas'">
       <button class="gramatica-view__link-volver" @click="pantallaActual = 'fases'">← Fases</button>
-      <div class="gramatica-view__lecciones-hero" :style="{ '--item-accent': metaFase(faseActual || {}).color, '--item-soft': metaFase(faseActual || {}).suave }">
+      <div class="gramatica-view__lecciones-hero" :class="{ 'gramatica-view__lecciones-hero--infantil': perfilStudentbook === 'nino' }" :style="{ '--item-accent': metaFase(faseActual || {}).color, '--item-soft': metaFase(faseActual || {}).suave }">
         <span>{{ metaFase(faseActual || {}).icono }}</span>
-        <div><small>FASE {{ String(faseActual?.orden || 0).padStart(2, '0') }}</small><h1>{{ faseActual?.nombre }}</h1><p>{{ metaFase(faseActual || {}).descripcion }}</p></div>
+        <div><small>{{ perfilStudentbook === 'nino' ? 'ZONA' : 'FASE' }} {{ String(faseActual?.orden || 0).padStart(2, '0') }}</small><h1>{{ faseActual?.nombre }}</h1><p>{{ metaFase(faseActual || {}).descripcion }}</p></div>
         <div class="gramatica-view__mini-progreso"><b>{{ subtemasCompletados }}/{{ subtemas.length }}</b><span><i :style="{ width: `${avanceSubtemas}%` }"></i></span><small>lecciones completas</small></div>
       </div>
       <div class="gramatica-view__ruta-lecciones" :style="{ '--item-accent': metaFase(faseActual || {}).color, '--item-soft': metaFase(faseActual || {}).suave }">
@@ -622,15 +675,22 @@ cargarCruces();
           :key="s.slug"
           class="gramatica-view__leccion-parada"
           :class="{ 'gramatica-view__leccion-parada--completada': s.completado }"
-          :aria-label="`Abrir lección ${index + 1}: ${s.nombre}`"
-          @click="elegirSubtema(s)"
+          :aria-label="`Abrir ${perfilStudentbook === 'nino' ? 'misión' : 'lección'} ${index + 1}: ${s.nombre}`"
+          @click="elegirLeccionSegunPerfil(s)"
         >
           <span class="gramatica-view__leccion-nodo">{{ s.completado ? '✈️' : iconoLeccion(s.slug) }}</span>
-          <span class="gramatica-view__leccion-card"><small>LECCIÓN {{ String(index + 1).padStart(2, '0') }}</small><strong>{{ s.nombre }}</strong><em>{{ s.completado ? 'Lista para repasar' : 'Explorá, construí y practicá' }}</em></span>
-          <span class="gramatica-view__leccion-accion">{{ s.completado ? 'Repasar' : 'Comenzar' }} →</span>
+          <span class="gramatica-view__leccion-card"><small>{{ perfilStudentbook === 'nino' ? 'MISIÓN' : 'LECCIÓN' }} {{ String(index + 1).padStart(2, '0') }}</small><strong>{{ s.nombre }}</strong><em>{{ s.completado ? 'Lista para repasar' : (perfilStudentbook === 'nino' ? 'Una parada corta para aprender jugando' : 'Explorá, construí y practicá') }}</em></span>
+          <span class="gramatica-view__leccion-accion">{{ s.completado ? 'Repasar' : (perfilStudentbook === 'nino' ? 'Ver misión' : 'Comenzar') }} →</span>
         </button>
       </div>
     </div>
+
+    <section v-else-if="pantallaActual === 'infantil-preview'" class="gramatica-view__mision-preview">
+      <button class="gramatica-view__link-volver" @click="pantallaActual = 'subtemas'">← Volver al camino</button>
+      <article>
+        <span>{{ iconoLeccion(subtemaActual?.slug) }}</span><small>MISIÓN EN PREPARACIÓN</small><h1>{{ subtemaActual?.nombre }}</h1><p>El camino y la entrada ya están listos. En la siguiente etapa construiremos aquí la explicación, el juego y el workbook especiales para niños.</p><div><b>🗺️ Ruta conectada</b><b>🎨 Tema infantil activo</b><b>🔒 Sin contenido adulto</b></div>
+      </article>
+    </section>
 
     <div v-else-if="pantallaActual === 'estudio'">
       <button class="gramatica-view__link-volver" @click="pantallaActual = 'subtemas'">← Subtemas</button>
@@ -1316,6 +1376,44 @@ cargarCruces();
   border: none;
   padding: 0;
 }
+
+.gramatica-view__selector { max-width: 820px; margin: 0 auto; padding: 1rem; }
+.gramatica-view__selector > header { max-width: 610px; margin: 0 auto 1.25rem; text-align: center; }
+.gramatica-view__selector > header > span { color: #356f92; font-size: .68rem; font-weight: 900; letter-spacing: .14em; }
+.gramatica-view__selector > header h1 { margin: .25rem 0; font-size: clamp(1.5rem,4vw,2.15rem); }
+.gramatica-view__selector > header p { margin: 0; color: var(--color-texto-secundario); }
+.gramatica-view__perfiles { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+.gramatica-view__perfil { display: flex; min-height: 300px; flex-direction: column; align-items: flex-start; overflow: hidden; padding: 1.2rem; border: 1px solid var(--color-borde); border-radius: 26px; color: inherit; cursor: pointer; text-align: left; box-shadow: 0 12px 30px rgba(49,68,85,.09); transition: transform .22s ease,box-shadow .22s ease; }
+.gramatica-view__perfil:hover { box-shadow: 0 18px 35px rgba(49,68,85,.14); transform: translateY(-5px); }
+.gramatica-view__perfil--nino { background: linear-gradient(145deg,#e8f8ff,#fff1c9 60%,#e5f8ed); }
+.gramatica-view__perfil--adulto { background: linear-gradient(145deg,#e8f4fa,#f2edfb 60%,#fff); }
+.gramatica-view__perfil-escena { position: relative; display: flex; align-items: center; justify-content: space-around; width: 100%; min-height: 118px; margin-bottom: 1rem; border-radius: 20px; background: rgba(255,255,255,.65); font-style: normal; }
+.gramatica-view__perfil-escena::after { content: ''; position: absolute; right: 8%; bottom: 18px; left: 8%; height: 3px; border-radius: 4px; background: repeating-linear-gradient(90deg,rgba(53,111,146,.3) 0 9px,transparent 9px 15px); }
+.gramatica-view__perfil-escena i,.gramatica-view__perfil-escena b,.gramatica-view__perfil-escena em { position: relative; z-index: 1; font-size: 2.2rem; font-style: normal; }
+.gramatica-view__perfil-escena b { font-size: 3.2rem; animation: perfil-flota 2.8s ease-in-out infinite; }
+@keyframes perfil-flota { 50% { transform: translateY(-7px) rotate(3deg); } }
+.gramatica-view__perfil > small { color: #356f92; font-size: .61rem; font-weight: 900; letter-spacing: .1em; }
+.gramatica-view__perfil > strong { margin: .2rem 0; font-size: 1.18rem; }
+.gramatica-view__perfil > p { margin: 0; color: var(--color-texto-secundario); font-size: .78rem; }
+.gramatica-view__perfil-accion { align-self: stretch; margin-top: auto; padding-top: 1rem; color: #356f92; font-size: .76rem; font-weight: 900; text-align: right; }
+.gramatica-view__selector > aside { margin-top: 1rem; padding: .7rem; border-radius: 12px; background: var(--color-fondo-suave); color: var(--color-texto-secundario); font-size: .72rem; text-align: center; }
+.gramatica-view__cambiar-perfil { margin-bottom: .7rem; padding: .42rem .7rem; border: 1px solid var(--color-borde); border-radius: 999px; background: var(--color-superficie); color: var(--color-texto-secundario); cursor: pointer; font-size: .7rem; }
+
+.gramatica-view__modo-infantil .gramatica-view__mapa-hero { position: relative; background: radial-gradient(circle at 18% 25%,rgba(255,255,255,.95) 0 4px,transparent 5px),radial-gradient(circle at 78% 18%,rgba(255,255,255,.9) 0 7px,transparent 8px),linear-gradient(145deg,#dff7ff,#fff1c9 55%,#e5f8ed); }
+.gramatica-view__modo-infantil .gramatica-view__mapa-hero::after { content: '🌳  🌲  🌳'; position: absolute; right: 1rem; bottom: -.3rem; opacity: .45; font-size: 1.45rem; letter-spacing: .35rem; }
+.gramatica-view__modo-infantil .gramatica-view__capitulo { border-width: 2px; box-shadow: var(--sombra-card); }
+.gramatica-view__modo-infantil .gramatica-view__capitulo > header { background: linear-gradient(90deg,#e5f8ed,rgba(255,255,255,.4)); }
+.gramatica-view__modo-infantil .gramatica-view__parada { border-width: 2px; }
+.gramatica-view__lecciones-hero--infantil { border-width: 2px; background: linear-gradient(135deg,var(--item-soft),#fff1c9 60%,#fff); }
+
+.gramatica-view__mision-preview { max-width: 680px; margin: 0 auto; padding: .5rem 1rem 2rem; }
+.gramatica-view__mision-preview article { display: flex; min-height: 430px; flex-direction: column; align-items: center; justify-content: center; margin-top: .8rem; padding: 1.5rem; border: 2px solid var(--color-borde); border-radius: 30px; background: radial-gradient(circle at 15% 18%,#fff 0 5px,transparent 6px),radial-gradient(circle at 84% 25%,#fff 0 8px,transparent 9px),linear-gradient(145deg,#dff7ff,#fff1c9 58%,#e5f8ed); box-shadow: var(--sombra-card); text-align: center; }
+.gramatica-view__mision-preview article > span { display: grid; place-items: center; width: 100px; height: 100px; margin-bottom: .8rem; border: 4px solid white; border-radius: 50%; background: #3478e5; box-shadow: 0 0 0 3px #3478e5,0 12px 28px rgba(47,73,125,.2); font-size: 3rem; }
+.gramatica-view__mision-preview article > small { color: #3478e5; font-size: .65rem; font-weight: 900; letter-spacing: .12em; }
+.gramatica-view__mision-preview h1 { margin: .25rem 0; font-size: 1.55rem; }
+.gramatica-view__mision-preview p { max-width: 520px; margin: .25rem 0 1rem; color: var(--color-texto-secundario); }
+.gramatica-view__mision-preview article > div { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.gramatica-view__mision-preview article > div b { padding: .45rem .65rem; border: 1px solid rgba(52,120,229,.18); border-radius: 999px; background: rgba(255,255,255,.72); color: #2256ad; font-size: .7rem; }
 
 .gramatica-view__mapa-hero {
   display: grid;
@@ -2362,6 +2460,10 @@ cargarCruces();
 .gramatica-view__acciones-workbook .gramatica-view__btn-comprobar:not(:disabled) { background: linear-gradient(135deg,#356f92,#735b9b); box-shadow: 0 8px 18px rgba(53,111,146,.2); }
 
 @media (max-width: 720px) {
+  .gramatica-view__selector { padding: .5rem; }
+  .gramatica-view__perfiles { grid-template-columns: 1fr; }
+  .gramatica-view__perfil { min-height: 245px; }
+  .gramatica-view__perfil-escena { min-height: 90px; }
   .gramatica-view__workbook { padding-inline: .35rem; }
   .gramatica-view__workbook-hero { grid-template-columns: auto 1fr; padding: .85rem; }
   .gramatica-view__workbook-hero > strong { grid-column: 1/-1; width: 100%; height: auto; padding: .35rem 0; border-radius: 10px; line-height: 1; }
@@ -2383,6 +2485,10 @@ cargarCruces();
 }
 
 @media (max-width: 480px) {
+  .gramatica-view__selector > header p { font-size: .8rem; }
+  .gramatica-view__perfil { padding: .9rem; }
+  .gramatica-view__mision-preview { padding-inline: .35rem; }
+  .gramatica-view__mision-preview article { min-height: 380px; padding: 1rem; }
   .gramatica-view__workbook-hero { grid-template-columns: 1fr; text-align: center; }
   .gramatica-view__workbook-icono { margin: auto; }
   .gramatica-view__workbook .gramatica-view__confianza { grid-template-columns: 1fr; }
