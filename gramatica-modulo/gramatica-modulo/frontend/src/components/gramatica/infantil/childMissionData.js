@@ -255,6 +255,38 @@ export const CHILD_MISSIONS = {
       { emoji: '💬', titulo: 'En conversación', texto: 'Hablar de padres, hermanos y abuelos.' },
     ],
   },
+  'fase-2-to-be-afirmativo': {
+    slug: 'fase-2-to-be-afirmativo', icono: '✨', zona: 'QUIÉN SOY Y CÓMO ESTOY', titulo: 'Soy, eres, somos',
+    bajada: 'Usa am, is y are para presentarte y describir personas o situaciones.', color: '#356f92', suave: '#e8f4fa', valor: 'Confianza y respeto por los demás',
+    historia: [
+      { emoji: '🏫', texto: 'I am a new student in this class.' },
+      { emoji: '😊', texto: 'My teacher is kind and patient.' },
+      { emoji: '👥', texto: 'My classmates are friendly.' },
+      { emoji: '📚', texto: 'We are ready to learn together.' },
+      { emoji: '⭐', texto: 'English is a new challenge, and I am excited.' },
+    ],
+    palabras: [
+      { en: 'I am', es: 'yo soy/estoy', emoji: '🙋' }, { en: 'you are', es: 'tú eres/estás', emoji: '👉' },
+      { en: 'he is', es: 'él es/está', emoji: '👦' }, { en: 'she is', es: 'ella es/está', emoji: '👧' },
+      { en: 'we are', es: 'nosotros somos/estamos', emoji: '👥' }, { en: 'they are', es: 'ellos son/están', emoji: '🧑‍🤝‍🧑' },
+    ],
+    constructor: {
+      inicios: ['I am', 'You are', 'He is', 'She is'],
+      acciones: ['ready to', 'happy to', 'excited to', 'proud to'],
+      finales: ['learn English.', 'help the class.', 'start the project.', 'do my best.'],
+    },
+    retos: [
+      { frase: 'I ___ ready.', correcta: 'am', opciones: ['is', 'am', 'are'], ayuda: 'Con I usamos am.' },
+      { frase: 'She ___ my classmate.', correcta: 'is', opciones: ['am', 'are', 'is'], ayuda: 'Con she usamos is.' },
+      { frase: 'We ___ a team.', correcta: 'are', opciones: ['are', 'is', 'am'], ayuda: 'Con we usamos are.' },
+      { frase: 'My parents ___ at home.', correcta: 'are', opciones: ['is', 'am', 'are'], ayuda: 'Parents es plural, por eso usamos are.' },
+    ],
+    aplicaciones: [
+      { emoji: '🙋', titulo: 'Al presentarte', texto: 'Decir quién eres y cómo te sientes.' },
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Describir compañeros, materias y lugares.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Contar dónde están tus familiares.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
