@@ -9,7 +9,7 @@
 // respuesta. Los ejercicios de un subtema son una lista chica y fija (2
 // por subtema en la siembra inicial) -- se traen todos de una vez, sin el
 // endpoint "/siguiente" con repetición espaciada que sí tiene vocabulario.
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import AbecedarioLesson from '../components/gramatica/abecedario/AbecedarioLesson.vue';
 import NumbersLesson from '../components/gramatica/numeros/NumbersLesson.vue';
 import DateLesson from '../components/gramatica/fecha/DateLesson.vue';
@@ -392,6 +392,12 @@ const OPCIONES_CONFIANZA = [
 const ETIQUETAS_TIPO = { cloze: 'Completar', transformacion: 'Transformar', conector: 'Conector' };
 
 const itemActual = computed(() => ejercicios.value[indice.value] || null);
+const avanceEjercicios = computed(() => ejercicios.value.length ? Math.round(((indice.value + 1) / ejercicios.value.length) * 100) : 0);
+
+watch(pantallaActual, async () => {
+  await nextTick();
+  window.scrollTo({ top: 0, behavior: 'auto' });
+});
 
 const contextoPartes = computed(() => {
   const item = itemActual.value;
@@ -1055,12 +1061,17 @@ cargarCruces();
       </div>
     </div>
 
-    <div v-else-if="pantallaActual === 'ejercicios'">
-      <h1 class="gramatica-view__titulo">✏️ {{ subtemaActual?.nombre }}</h1>
-      <p class="gramatica-view__progreso-examen">Ejercicio {{ indice + 1 }} de {{ ejercicios.length }}</p>
+    <section v-else-if="pantallaActual === 'ejercicios'" class="gramatica-view__workbook">
+      <button v-if="!modoCruce && !modoGusanito" class="gramatica-view__link-volver gramatica-view__workbook-volver" @click="pantallaActual = 'estudio'">← Volver al Studentbook</button>
+      <header class="gramatica-view__workbook-hero">
+        <span class="gramatica-view__workbook-icono">✏️</span>
+        <div><small>WORKBOOK · PRÁCTICA GUIADA</small><h1>{{ subtemaActual?.nombre }}</h1><p>Elegí tu respuesta y marcá qué tan seguro estás antes de comprobar.</p></div>
+        <strong>{{ indice + 1 }}<i>/{{ ejercicios.length }}</i></strong>
+      </header>
+      <div class="gramatica-view__barra-examen"><i :style="{ width: `${avanceEjercicios}%` }"></i><span>{{ avanceEjercicios }}% del cuestionario</span></div>
 
       <div v-if="itemActual" class="gramatica-view__tarjeta">
-        <span class="gramatica-view__tarjeta-tipo">{{ itemActual.formato === 'detectar_error' ? 'Detectá el error' : (ETIQUETAS_TIPO[itemActual.tipo] || itemActual.tipo) }}</span>
+        <div class="gramatica-view__pregunta-cabecera"><span class="gramatica-view__tarjeta-tipo">{{ itemActual.formato === 'detectar_error' ? 'Detectá el error' : (ETIQUETAS_TIPO[itemActual.tipo] || itemActual.tipo) }}</span><small>PREGUNTA {{ String(indice + 1).padStart(2, '0') }}</small></div>
         <p class="gramatica-view__tarjeta-consigna">{{ itemActual.consigna_es }}</p>
 
         <p v-if="itemActual.formato === 'texto'" class="gramatica-view__tarjeta-contexto">{{ contextoPartes.antes }}<span v-if="contextoPartes.hueco" class="gramatica-view__hueco">&nbsp;</span>{{ contextoPartes.despues }}</p>
@@ -1129,7 +1140,7 @@ cargarCruces();
             :class="claseOpcion(opcion)"
             :disabled="respondido"
             @click="elegirOpcion(opcion)"
-          >{{ opcion }}</button>
+          ><span class="gramatica-view__opcion-letra">{{ String.fromCharCode(65 + idx) }}</span><span>{{ opcion }}</span><span class="gramatica-view__opcion-marca">{{ respuestaSeleccionada === opcion ? '●' : '○' }}</span></button>
         </div>
 
         <div v-if="!respondido && respuestaSeleccionada" class="gramatica-view__confianza">
@@ -1149,19 +1160,24 @@ cargarCruces();
         </template>
         <div v-else-if="marcarIncorrecta" class="gramatica-view__feedback gramatica-view__feedback--incorrecto">✗ No es correcta, probá de nuevo.</div>
 
-        <button
-          v-if="!respondido"
-          class="gramatica-view__btn-comprobar"
-          :disabled="!respuestaSeleccionada || !confianzaSeleccionada || comprobando"
-          @click="comprobarRespuesta"
-        >Comprobar</button>
-        <button v-else class="gramatica-view__btn-comprobar" @click="siguienteEjercicio">
-          {{ indice + 1 < ejercicios.length ? 'Siguiente →' : 'Terminar' }}
-        </button>
+        <div class="gramatica-view__acciones-workbook">
+          <span v-if="!respuestaSeleccionada">Elegí una opción para continuar</span>
+          <span v-else-if="!confianzaSeleccionada && !respondido">Ahora indicá tu confianza</span>
+          <span v-else>{{ respondido ? 'Respuesta registrada' : 'Todo listo para comprobar' }}</span>
+          <button
+            v-if="!respondido"
+            class="gramatica-view__btn-comprobar"
+            :disabled="!respuestaSeleccionada || !confianzaSeleccionada || comprobando"
+            @click="comprobarRespuesta"
+          >{{ comprobando ? 'Comprobando...' : 'Comprobar respuesta →' }}</button>
+          <button v-else class="gramatica-view__btn-comprobar" @click="siguienteEjercicio">
+            {{ indice + 1 < ejercicios.length ? 'Siguiente ejercicio →' : 'Terminar práctica ✓' }}
+          </button>
+        </div>
       </div>
 
       <div class="gramatica-view__estado-examen">{{ estadoExamen }}</div>
-    </div>
+    </section>
 
     <div v-else-if="pantallaActual === 'fin'" class="gramatica-view__fin">
       <h1 class="gramatica-view__titulo">{{ modoGusanito ? '🐛 ¡Ronda jugada!' : (modoCruce ? '✓ ¡Cruce practicado!' : '✓ ¡Subtema completado!') }}</h1>
@@ -2307,7 +2323,51 @@ cargarCruces();
   margin: 1rem auto;
 }
 
+/* Workbook: una superficie propia, coherente con el mapa y el Studentbook. */
+.gramatica-view__workbook { max-width: 780px; margin: 0 auto; padding: .25rem 1rem 2rem; }
+.gramatica-view__workbook-volver { display: inline-flex; margin-bottom: .8rem; }
+.gramatica-view__workbook-hero { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; padding: 1rem 1.15rem; border: 1px solid var(--color-borde); border-radius: 22px; background: linear-gradient(135deg,#e8f4fa,#f2edfb 55%,#fff3e4); }
+.gramatica-view__workbook-icono { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 18px; background: rgba(255,255,255,.78); box-shadow: 0 7px 20px rgba(49,68,85,.1); font-size: 1.75rem; transform: rotate(-3deg); }
+.gramatica-view__workbook-hero small { color: #356f92; font-size: .62rem; font-weight: 900; letter-spacing: .1em; }
+.gramatica-view__workbook-hero h1 { margin: .12rem 0; font-size: 1.25rem; }
+.gramatica-view__workbook-hero p { margin: 0; color: var(--color-texto-secundario); font-size: .76rem; }
+.gramatica-view__workbook-hero > strong { display: flex; align-items: baseline; justify-content: center; width: 60px; height: 60px; border: 2px solid rgba(53,111,146,.25); border-radius: 50%; background: rgba(255,255,255,.72); color: #356f92; font-size: 1.3rem; line-height: 60px; }
+.gramatica-view__workbook-hero > strong i { font-size: .68rem; font-style: normal; }
+.gramatica-view__barra-examen { position: relative; overflow: hidden; height: 9px; margin: .7rem .5rem 1rem; border-radius: 10px; background: rgba(53,111,146,.12); }
+.gramatica-view__barra-examen i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#356f92,#735b9b); transition: width .35s ease; }
+.gramatica-view__barra-examen span { position: absolute; overflow: hidden; width: 1px; height: 1px; clip: rect(0 0 0 0); }
+.gramatica-view__workbook .gramatica-view__tarjeta { max-width: 680px; margin: 0 auto; padding: clamp(1rem,3vw,1.8rem); border-radius: 22px; background: var(--color-superficie); box-shadow: 0 14px 38px rgba(49,68,85,.09); }
+.gramatica-view__pregunta-cabecera { display: flex; align-items: center; justify-content: space-between; gap: .7rem; margin-bottom: .85rem; }
+.gramatica-view__pregunta-cabecera .gramatica-view__tarjeta-tipo { margin-bottom: 0; }
+.gramatica-view__pregunta-cabecera > small { color: var(--color-texto-tenue); font-size: .6rem; font-weight: 900; letter-spacing: .09em; }
+.gramatica-view__workbook .gramatica-view__tarjeta-consigna { max-width: 560px; margin: 0 0 1rem; color: var(--color-texto-secundario); font-size: .92rem; font-weight: 650; }
+.gramatica-view__workbook .gramatica-view__tarjeta-contexto { padding: .85rem; border-radius: 14px; background: linear-gradient(135deg,#f6f9fb,#fff); font-size: 1.2rem; text-align: center; }
+.gramatica-view__workbook .gramatica-view__opciones { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .65rem; margin: .4rem 0 1rem; }
+.gramatica-view__workbook .gramatica-view__btn-opcion { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .7rem; min-height: 58px; padding: .65rem .75rem; border: 1px solid var(--color-borde); border-radius: 14px; background: var(--color-superficie); transition: transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
+.gramatica-view__workbook .gramatica-view__btn-opcion:hover:not(:disabled) { border-color: #90b8cd; box-shadow: 0 7px 17px rgba(49,68,85,.08); transform: translateY(-2px); }
+.gramatica-view__opcion-letra { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: #eef2f7; color: var(--color-azul); font-size: .72rem; font-weight: 900; }
+.gramatica-view__opcion-marca { color: #aab7be; font-size: .9rem; }
+.gramatica-view__workbook .gramatica-view__btn-opcion.seleccionada { background: #f0f7fb; box-shadow: 0 0 0 2px rgba(53,111,146,.1); }
+.gramatica-view__btn-opcion.seleccionada .gramatica-view__opcion-letra { background: var(--color-azul); color: white; }
+.gramatica-view__btn-opcion.seleccionada .gramatica-view__opcion-marca { color: var(--color-azul); }
+.gramatica-view__btn-opcion.correcta .gramatica-view__opcion-letra { background: var(--color-verde); color: white; }
+.gramatica-view__btn-opcion.incorrecta .gramatica-view__opcion-letra { background: var(--color-rojo-fuerte); color: white; }
+.gramatica-view__workbook .gramatica-view__confianza { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; padding: .75rem; border: 1px solid var(--color-borde); border-radius: 14px; background: #f7f9fa; }
+.gramatica-view__workbook .gramatica-view__confianza-etiqueta { grid-column: 1/-1; font-size: .72rem; font-weight: 800; }
+.gramatica-view__workbook .gramatica-view__btn-confianza { min-height: 42px; border: 1px solid transparent; border-radius: 11px; }
+.gramatica-view__workbook .gramatica-view__btn-confianza--activo { border-color: var(--color-azul); background: var(--color-superficie); box-shadow: 0 5px 14px rgba(49,68,85,.08); }
+.gramatica-view__acciones-workbook { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .8rem; margin-top: .8rem; padding-top: .9rem; border-top: 1px solid var(--color-borde); }
+.gramatica-view__acciones-workbook > span { color: var(--color-texto-tenue); font-size: .7rem; }
+.gramatica-view__acciones-workbook .gramatica-view__btn-comprobar { width: auto; min-width: 220px; padding: .78rem 1rem; border-radius: 12px; font-weight: 800; }
+.gramatica-view__acciones-workbook .gramatica-view__btn-comprobar:not(:disabled) { background: linear-gradient(135deg,#356f92,#735b9b); box-shadow: 0 8px 18px rgba(53,111,146,.2); }
+
 @media (max-width: 720px) {
+  .gramatica-view__workbook { padding-inline: .35rem; }
+  .gramatica-view__workbook-hero { grid-template-columns: auto 1fr; padding: .85rem; }
+  .gramatica-view__workbook-hero > strong { grid-column: 1/-1; width: 100%; height: auto; padding: .35rem 0; border-radius: 10px; line-height: 1; }
+  .gramatica-view__workbook .gramatica-view__opciones { grid-template-columns: 1fr; }
+  .gramatica-view__acciones-workbook { grid-template-columns: 1fr; }
+  .gramatica-view__acciones-workbook .gramatica-view__btn-comprobar { width: 100%; min-width: 0; }
   .gramatica-view__mapa-hero { grid-template-columns: 1fr auto; padding: 1rem; }
   .gramatica-view__brujula { width: 82px; height: 82px; }
   .gramatica-view__parada:nth-child(even),
@@ -2323,6 +2383,10 @@ cargarCruces();
 }
 
 @media (max-width: 480px) {
+  .gramatica-view__workbook-hero { grid-template-columns: 1fr; text-align: center; }
+  .gramatica-view__workbook-icono { margin: auto; }
+  .gramatica-view__workbook .gramatica-view__confianza { grid-template-columns: 1fr; }
+  .gramatica-view__workbook .gramatica-view__confianza-etiqueta { grid-column: auto; }
   .gramatica-view__mapa-hero { grid-template-columns: 1fr; text-align: center; }
   .gramatica-view__brujula { margin: auto; }
   .gramatica-view__capitulo > header { align-items: flex-start; }
