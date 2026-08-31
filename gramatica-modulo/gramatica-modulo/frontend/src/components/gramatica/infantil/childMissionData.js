@@ -31,6 +31,38 @@ export const CHILD_MISSIONS = {
       { emoji: '📞', titulo: 'En una llamada', texto: 'Aclarar nombres o datos sin confusiones.' },
     ],
   },
+  'fase-1-numeros': {
+    slug: 'fase-1-numeros', icono: '🔢', zona: 'NÚMEROS EN ACCIÓN', titulo: 'Cuenta, ordena y compara',
+    bajada: 'Usa números cardinales para cantidades y ordinales para posiciones.', color: '#39766a', suave: '#e8f7f2', valor: 'Orden, esfuerzo y juego limpio',
+    historia: [
+      { emoji: '🏃', texto: 'Today our class has a friendly race.' },
+      { emoji: '1️⃣', texto: 'Sofia finishes first.' },
+      { emoji: '2️⃣', texto: 'Mateo finishes second.' },
+      { emoji: '3️⃣', texto: 'Emma finishes third.' },
+      { emoji: '👏', texto: 'There are twelve students, and everyone celebrates the effort.' },
+    ],
+    palabras: [
+      { en: 'one', es: 'uno', emoji: '1️⃣' }, { en: 'twelve', es: 'doce', emoji: '🔢' },
+      { en: 'first', es: 'primero', emoji: '🥇' }, { en: 'second', es: 'segundo', emoji: '🥈' },
+      { en: 'third', es: 'tercero', emoji: '🥉' }, { en: 'how many', es: 'cuántos', emoji: '❓' },
+    ],
+    constructor: {
+      inicios: ['In my class, there are', 'In the library, there are', 'At home, there are', 'In the park, there are'],
+      acciones: ['twelve', 'fifteen', 'eighteen', 'twenty'],
+      finales: ['books.', 'chairs.', 'plants.', 'people.'],
+    },
+    retos: [
+      { frase: 'The number 12 is ___.', correcta: 'twelve', opciones: ['twenty', 'twelve', 'second'], ayuda: 'Twelve es doce; twenty es veinte.' },
+      { frase: 'Position 1 is ___.', correcta: 'first', opciones: ['one', 'first', 'third'], ayuda: 'First indica la primera posición.' },
+      { frase: 'Position 3 is ___.', correcta: 'third', opciones: ['three', 'second', 'third'], ayuda: 'Third indica la tercera posición.' },
+      { frase: 'There are ___ days in a week.', correcta: 'seven', opciones: ['six', 'seven', 'eleven'], ayuda: 'Una semana tiene seven days.' },
+    ],
+    aplicaciones: [
+      { emoji: '📚', titulo: 'En la escuela', texto: 'Contar materiales y señalar posiciones.' },
+      { emoji: '🏪', titulo: 'Al comprar', texto: 'Pedir cantidades y entender precios.' },
+      { emoji: '🏅', titulo: 'En actividades', texto: 'Explicar resultados y turnos con respeto.' },
+    ],
+  },
   'fase-1-familia-coloquial': {
     slug: 'fase-1-familia-coloquial', icono: '🏡', zona: 'FAMILIA Y VIDA COTIDIANA', titulo: 'Mi familia y mi hogar',
     bajada: 'Aprende a presentar a tu familia y contar cómo colaboran en casa.', color: '#3478e5', suave: '#e8f2ff', valor: 'Amor, respeto y colaboración',
