@@ -11,6 +11,7 @@ const fases = [
   { id: 5, nombre: 'Presente perfecto', slug: 'fase-5-presente-perfecto', orden: 5, disponible: true, completado: false },
   { id: 6, nombre: 'Voz pasiva', slug: 'fase-6-voz-pasiva', orden: 6, disponible: true, completado: false },
   { id: 7, nombre: 'Futuro', slug: 'fase-7-futuro', orden: 7, disponible: true, completado: false },
+  { id: 8, nombre: 'Modales e imperativo', slug: 'fase-8-modales-imperativo', orden: 8, disponible: true, completado: false },
 ];
 
 const subtemasPorFase = {
@@ -53,6 +54,13 @@ const subtemasPorFase = {
     { id: 701, nombre: 'going to', slug: 'fase-7-going-to', orden: 1, completado: false },
     { id: 702, nombre: 'will / shall', slug: 'fase-7-will-shall', orden: 2, completado: false },
     { id: 703, nombre: 'Presente continuo con valor de futuro', slug: 'fase-7-continuo-futuro', orden: 3, completado: false },
+  ],
+  'fase-8-modales-imperativo': [
+    { id: 801, nombre: 'can / could', slug: 'fase-8-can-could', orden: 1, completado: false },
+    { id: 802, nombre: 'must / have to', slug: 'fase-8-must-have-to', orden: 2, completado: false },
+    { id: 803, nombre: 'should', slug: 'fase-8-should', orden: 3, completado: false },
+    { id: 804, nombre: 'would like', slug: 'fase-8-would-like', orden: 4, completado: false },
+    { id: 805, nombre: 'Imperativo', slug: 'fase-8-imperativo', orden: 5, completado: false },
   ],
 };
 
