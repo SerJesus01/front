@@ -6,9 +6,9 @@ const emit = defineEmits(['reproducir', 'hablar', 'practicar']);
 
 const leccion = ref(1);
 const sujetoId = ref('i');
-const complemento = ref('a software developer');
+const complemento = ref('ready');
 const usarContraccion = ref(true);
-const estados = ref({ server: true, tests: false, user: true, team: false });
+const estados = ref({ door: true, lights: false, user: true, children: false });
 const preguntaActual = ref(0);
 const respuestaElegida = ref(null);
 const aciertos = ref(new Set());
@@ -18,35 +18,35 @@ const sujetos = [
   { id: 'you', sujeto: 'You', icono: '👉', be: 'are', corto: "You're" },
   { id: 'he', sujeto: 'He', icono: '👨', be: 'is', corto: "He's" },
   { id: 'she', sujeto: 'She', icono: '👩', be: 'is', corto: "She's" },
-  { id: 'it', sujeto: 'It', icono: '💻', be: 'is', corto: "It's" },
+  { id: 'it', sujeto: 'It', icono: '🌤️', be: 'is', corto: "It's" },
   { id: 'we', sujeto: 'We', icono: '👥', be: 'are', corto: "We're" },
   { id: 'they', sujeto: 'They', icono: '👨‍👩‍👧', be: 'are', corto: "They're" },
 ];
 const complementos = [
-  { valor: 'a software developer', icono: '💻', tipo: 'profesión' },
   { valor: 'ready', icono: '✅', tipo: 'estado' },
   { valor: 'from Mexico', icono: '🇲🇽', tipo: 'origen' },
   { valor: 'at home', icono: '🏠', tipo: 'ubicación' },
   { valor: 'tired', icono: '😴', tipo: 'estado' },
+  { valor: 'excited', icono: '🎉', tipo: 'estado' },
 ];
 const sujeto = computed(() => sujetos.find((item) => item.id === sujetoId.value));
 const detalle = computed(() => complementos.find((item) => item.valor === complemento.value));
 const fraseAfirmativa = computed(() => `${usarContraccion.value ? sujeto.value.corto : `${sujeto.value.sujeto} ${sujeto.value.be}`} ${complemento.value}.`);
 
 const tarjetasEstado = [
-  { id: 'server', icono: '🖥️', sujeto: 'The server', be: 'is', positivo: 'online', negativo: "isn't online" },
-  { id: 'tests', icono: '🧪', sujeto: 'The tests', be: 'are', positivo: 'ready', negativo: "aren't ready" },
+  { id: 'door', icono: '🚪', sujeto: 'The door', be: 'is', positivo: 'open', negativo: "isn't open" },
+  { id: 'lights', icono: '💡', sujeto: 'The lights', be: 'are', positivo: 'on', negativo: "aren't on" },
   { id: 'user', icono: '🙋', sujeto: 'I', be: 'am', positivo: 'available', negativo: "am not available" },
-  { id: 'team', icono: '👥', sujeto: 'The team', be: 'is', positivo: 'in the office', negativo: "isn't in the office" },
+  { id: 'children', icono: '👨‍👩‍👧', sujeto: 'The children', be: 'are', positivo: 'at home', negativo: "aren't at home" },
 ];
 function fraseEstado(item) { return `${item.sujeto} ${estados.value[item.id] ? `${item.be} ${item.positivo}` : item.negativo}.`; }
 
 const preguntas = [
   { icono: '🗓️', afirmacion: 'You are free tomorrow.', pregunta: 'Are you free tomorrow?', respuesta: 'Are you free tomorrow?', opciones: ['Are you free tomorrow?', 'You are free tomorrow?', 'Do you are free tomorrow?'], pista: 'Sí/no: to be pasa antes del sujeto.' },
-  { icono: '📍', afirmacion: 'The meeting is in Room 4.', pregunta: 'Where is the meeting?', respuesta: 'Where is the meeting?', opciones: ['Where the meeting is?', 'Where is the meeting?', 'Where does the meeting is?'], pista: 'WH + to be + sujeto.' },
-  { icono: '📊', afirmacion: 'The project is going well.', pregunta: 'How is the project going?', respuesta: 'How is the project going?', opciones: ['How the project is going?', 'How does the project is going?', 'How is the project going?'], pista: 'How va primero; is queda antes del sujeto.' },
-  { icono: '⚠️', afirmacion: 'The server is down.', pregunta: 'Why is the server down?', respuesta: 'Why is the server down?', opciones: ['Why is the server down?', 'Why the server is down?', 'Why does the server down?'], pista: 'Why + is + the server + complemento.' },
-  { icono: '⏰', afirmacion: 'The deploy is at 5 PM.', pregunta: 'When is the deploy?', respuesta: 'When is the deploy?', opciones: ['When the deploy is?', 'When does the deploy is?', 'When is the deploy?'], pista: 'When pregunta por el momento.' },
+  { icono: '📍', afirmacion: "The party is at Laura's house.", pregunta: 'Where is the party?', respuesta: 'Where is the party?', opciones: ['Where the party is?', 'Where is the party?', 'Where does the party is?'], pista: 'WH + to be + sujeto.' },
+  { icono: '🎬', afirmacion: 'The movie is good.', pregunta: 'How is the movie?', respuesta: 'How is the movie?', opciones: ['How the movie is?', 'How does the movie is?', 'How is the movie?'], pista: 'How va primero; is queda antes del sujeto.' },
+  { icono: '🏪', afirmacion: 'The store is closed.', pregunta: 'Why is the store closed?', respuesta: 'Why is the store closed?', opciones: ['Why is the store closed?', 'Why the store is closed?', 'Why does the store closed?'], pista: 'Why + is + the store + complemento.' },
+  { icono: '⏰', afirmacion: 'Dinner is at 8 PM.', pregunta: 'When is dinner?', respuesta: 'When is dinner?', opciones: ['When dinner is?', 'When does dinner is?', 'When is dinner?'], pista: 'When pregunta por el momento.' },
 ];
 const pregunta = computed(() => preguntas[preguntaActual.value]);
 const respuestaCorrecta = computed(() => respuestaElegida.value === pregunta.value.respuesta);

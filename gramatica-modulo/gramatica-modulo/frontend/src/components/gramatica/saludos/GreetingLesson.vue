@@ -24,7 +24,7 @@ const momentos = [
   { id: 'anytime', icono: '👋', nombre: 'Cualquier hora', rango: 'Casual' },
 ];
 const tonos = [
-  { id: 'formal', nombre: 'Formal', icono: '🤝', pista: 'Cliente, entrevista o persona nueva' },
+  { id: 'formal', nombre: 'Formal', icono: '🤝', pista: 'Persona nueva, restaurante o situación formal' },
   { id: 'neutral', nombre: 'Neutral', icono: '🙂', pista: 'Seguro en casi cualquier situación' },
   { id: 'casual', nombre: 'Casual', icono: '😄', pista: 'Amigos y compañeros cercanos' },
 ];

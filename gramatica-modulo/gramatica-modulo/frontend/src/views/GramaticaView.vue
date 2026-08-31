@@ -519,7 +519,7 @@ cargarCruces();
         <p class="gramatica-view__subtitulo">Studentbook -- leé la regla y los ejemplos antes de pasar a los ejercicios.</p>
       </div>
 
-      <div v-for="p in contenidoPredicciones" :key="p.id" class="gramatica-view__contenido-card gramatica-view__contenido-card--prediccion">
+      <div v-for="p in (usaLeccionEspecializada ? [] : contenidoPredicciones)" :key="p.id" class="gramatica-view__contenido-card gramatica-view__contenido-card--prediccion">
         <span class="gramatica-view__contenido-tipo">¿Qué creés?</span>
         <p class="gramatica-view__contenido-texto-en">{{ p.texto_en }}</p>
         <p class="gramatica-view__contenido-texto-es">{{ p.texto_es }}</p>
@@ -849,7 +849,7 @@ cargarCruces();
         @click="empezarEjercicios"
       >{{ subtemaActual?.completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios →' }}</button>
 
-      <div v-if="contenidoEjemplos.length > 0 && !modoPerfecto" class="gramatica-view__lista-contenido">
+      <div v-if="contenidoEjemplos.length > 0 && !usaLeccionEspecializada" class="gramatica-view__lista-contenido">
         <div v-for="c in contenidoEjemplos" :key="c.id" class="gramatica-view__contenido-card gramatica-view__contenido-card--ejemplo">
           <span class="gramatica-view__contenido-tipo">Ejemplo</span>
           <img

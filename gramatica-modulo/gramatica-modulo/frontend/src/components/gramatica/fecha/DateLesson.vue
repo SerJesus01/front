@@ -26,7 +26,7 @@ const reglas = [
 const preguntas = [
   { id: 1, antes: 'The exam is', hueco: 'on', despues: 'August 23rd.' },
   { id: 2, antes: 'Classes start', hueco: 'in', despues: 'September.' },
-  { id: 3, antes: 'The meeting starts', hueco: 'at', despues: '9:00.' },
+  { id: 3, antes: 'The movie starts', hueco: 'at', despues: '9:00.' },
 ];
 
 function sufijo(numero) {
@@ -94,7 +94,7 @@ function responder(id, opcion) {
         <button @click="emit('hablar', `Today is ${fechaAmericana}.`, 1)">👤 Today is {{ fechaAmericana }}. 🔊</button>
       </div>
       <div class="date-pattern"><span>What’s the date <b>today</b>?</span><span>Today is <b>{{ fechaAmericana }}</b>.</span></div>
-      <p class="date-note"><b>Otros ejemplos:</b> What date is the meeting? · When is your birthday?</p>
+      <p class="date-note"><b>Otros ejemplos:</b> What date is the party? · When is your birthday?</p>
     </section>
 
     <section v-else class="date-panel">

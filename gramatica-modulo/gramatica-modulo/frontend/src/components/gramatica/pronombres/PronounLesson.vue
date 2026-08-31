@@ -36,7 +36,7 @@ const frasePosesivaPron = computed(() => dueno.value.possessive ? `The ${objeto.
 
 const retos = [
   { icono: '📨', pista: 'Maya envió el archivo. Maya hace la acción.', frase: '___ sent the file this morning.', respuesta: 'She', opciones: ['She','Her','Hers','Their'], explicacion: 'She es pronombre sujeto: va antes del verbo.' },
-  { icono: '🛠️', pista: 'Alex me ayudó a mí.', frase: 'Alex helped ___ with the bug.', respuesta: 'me', opciones: ['I','my','mine','me'], explicacion: 'Me recibe la acción y va después del verbo.' },
+  { icono: '🛍️', pista: 'Alex me ayudó a mí.', frase: 'Alex helped ___ with the bags.', respuesta: 'me', opciones: ['I','my','mine','me'], explicacion: 'Me recibe la acción y va después del verbo.' },
   { icono: '💻', pista: 'La laptop pertenece a ella y el sustantivo aparece.', frase: 'This is ___ laptop.', respuesta: 'her', opciones: ['she','her','hers','him'], explicacion: 'Her funciona como adjetivo posesivo antes de laptop.' },
   { icono: '🎒', pista: 'La mochila es nuestra; no repetimos “backpack”.', frase: 'That backpack is ___.', respuesta: 'ours', opciones: ['our','us','we','ours'], explicacion: 'Ours reemplaza al sustantivo: no lleva una palabra después.' },
   { icono: '👥', pista: 'Hablamos con ellos.', frase: 'We talked to ___ after class.', respuesta: 'them', opciones: ['they','their','theirs','them'], explicacion: 'Después de to necesitamos el pronombre objeto them.' },

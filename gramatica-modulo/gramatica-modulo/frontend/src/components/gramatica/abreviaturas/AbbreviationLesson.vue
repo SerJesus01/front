@@ -32,14 +32,14 @@ const diccionario = {
   TV: { expansion: 'television', significado: 'televisión', voz: 'T V', tono: 'neutral' },
 };
 const mensajes = [
-  { icono: '💼', contexto: 'Trabajo', texto: ['FYI', ', the meeting moved to 3 PM. Please reply ', 'ASAP', '.'], traduccion: 'Para tu información, la reunión cambió a las 3. Respondé lo antes posible.' },
+  { icono: '🍽️', contexto: 'Plan entre amigos', texto: ['FYI', ', dinner moved to 8 PM. Please reply ', 'ASAP', '.'], traduccion: 'Para tu información, la cena cambió a las 8. Respondé lo antes posible.' },
   { icono: '💬', contexto: 'Chat entre amigos', texto: ['BTW', ', the new ', 'app', ' is great. ', 'IDK', ' if it works on my phone.'], traduccion: 'Por cierto, la nueva aplicación es genial. No sé si funciona en mi teléfono.' },
   { icono: '🏙️', contexto: 'En la ciudad', texto: ['Can you stop by the ', 'ATM', ' before we call a ', 'cab', '?'], traduccion: '¿Podés pasar por el cajero antes de que pidamos un taxi?' },
 ];
 const mensaje = computed(() => mensajes[mensajeActivo.value]);
 
 const retos = [
-  { icono: '⏰', contexto: 'Necesitás el reporte con urgencia.', frase: 'Please send the report ___.', respuesta: 'ASAP', opciones: ['ATM', 'ASAP', 'TV', 'FYI'], explicacion: 'ASAP comunica “as soon as possible”.' },
+  { icono: '⏰', contexto: 'Necesitás una respuesta con urgencia.', frase: 'Please reply ___.', respuesta: 'ASAP', opciones: ['ATM', 'ASAP', 'TV', 'FYI'], explicacion: 'ASAP comunica “as soon as possible”.' },
   { icono: 'ℹ️', contexto: 'Compartís un dato útil, sin pedir acción.', frase: '___, tomorrow is a holiday.', respuesta: 'FYI', opciones: ['FYI', 'IDK', 'cab', 'app'], explicacion: 'FYI introduce información que conviene conocer.' },
   { icono: '💵', contexto: 'Buscás dónde retirar efectivo.', frase: 'Is there an ___ near here?', respuesta: 'ATM', opciones: ['info', 'ATM', 'ASAP', 'photo'], explicacion: 'ATM es la sigla habitual para cajero automático.' },
   { icono: '📸', contexto: 'Pedís una imagen en un chat.', frase: 'Send me the ___, please.', respuesta: 'photo', opciones: ['fridge', 'gym', 'photo', 'FYI'], explicacion: 'Photo es la forma cotidiana abreviada de photograph.' },

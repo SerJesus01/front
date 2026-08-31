@@ -37,7 +37,7 @@ const momentos = [
 const preguntas = [
   { id: 1, texto: 'The class starts ___ 9:00.', respuesta: 'at', opciones: ['at','on','in'] },
   { id: 2, texto: 'I study ___ the morning.', respuesta: 'in', opciones: ['at','on','in'] },
-  { id: 3, texto: 'The office is open ___ 8:00 ___ 4:00.', respuesta: 'from / to', opciones: ['at / at','from / to','in / on'] },
+  { id: 3, texto: 'The store is open ___ 8:00 ___ 4:00.', respuesta: 'from / to', opciones: ['at / at','from / to','in / on'] },
 ];
 
 const angulos = computed(() => ({ horas: (hora.value % 12) * 30 + minuto.value * .5, minutos: minuto.value * 6 }));
