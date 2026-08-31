@@ -175,6 +175,59 @@ const usaLeccionEspecializada = computed(() => Boolean(
   || modoUbicacion.value || modoPregunta.value || modoGerundio.value || modoPosesivo.value || slugLeccionAvanzada.value,
 ));
 
+const _CAPITULOS = [
+  { id: 'inicio', nombre: 'Primeros pasos', lema: 'Construí una base sólida', icono: '🌱', desde: 1, hasta: 4 },
+  { id: 'tiempo', nombre: 'Moverse en el tiempo', lema: 'Conectá pasado, presente y futuro', icono: '⏳', desde: 5, hasta: 8 },
+  { id: 'conexion', nombre: 'Ideas que se conectan', lema: 'Preguntá, ubicá y enlazá acciones', icono: '🧭', desde: 9, hasta: 13 },
+  { id: 'fluidez', nombre: 'Expresión con fluidez', lema: 'Dale precisión y naturalidad a tus frases', icono: '✨', desde: 14, hasta: 17 },
+];
+const _ICONOS_FASE = ['🔤', '👋', '☀️', '📖', '🌉', '🔄', '🔮', '💬', '📍', '❓', '🧲', '🏷️', '🧺', '🎯', '🎨', '🔗', '🗺️'];
+const _DESCRIPCIONES_FASE = [
+  'Sonidos, números y palabras para empezar.', 'Personas, identidad y el verbo esencial.', 'Hábitos y acciones que ocurren ahora.',
+  'Historias, recuerdos y acciones anteriores.', 'Experiencias que conectan con el presente.', 'Cambiá el foco de quien hace la acción.',
+  'Planes, decisiones y posibilidades.', 'Habilidad, consejos, deseos y obligaciones.', 'Objetos, lugares y posiciones cotidianas.',
+  'Preguntas naturales para conversar mejor.', 'Acciones como actividades o intenciones.', 'Personas, pertenencias y relaciones.',
+  'Objetos que se cuentan o se miden.', 'Distancia, grupos y cantidades.', 'Descripciones, comparaciones y hábitos.',
+  'Uní ideas y construí mensajes más completos.', 'Tiempo, espacio y movimiento.',
+];
+const _COLORES_FASE = [
+  ['#b15f3b', '#fff0e7'], ['#39766a', '#e8f7f2'], ['#356f92', '#e8f4fa'], ['#735b9b', '#f2edfb'],
+  ['#b06b33', '#fff3e4'], ['#39766a', '#e8f7f2'], ['#356f92', '#e8f4fa'], ['#735b9b', '#f2edfb'],
+  ['#b15f3b', '#fff0e7'], ['#39766a', '#e8f7f2'], ['#356f92', '#e8f4fa'], ['#735b9b', '#f2edfb'],
+  ['#b06b33', '#fff3e4'], ['#39766a', '#e8f7f2'], ['#356f92', '#e8f4fa'], ['#735b9b', '#f2edfb'], ['#b15f3b', '#fff0e7'],
+];
+const capitulosFases = computed(() => _CAPITULOS.map((capitulo) => ({
+  ...capitulo,
+  fases: fases.value.filter((fase) => fase.orden >= capitulo.desde && fase.orden <= capitulo.hasta),
+})).filter((capitulo) => capitulo.fases.length));
+const fasesCompletadas = computed(() => fases.value.filter((fase) => fase.completado).length);
+const avanceFases = computed(() => fases.value.length ? Math.round((fasesCompletadas.value / fases.value.length) * 100) : 0);
+const subtemasCompletados = computed(() => subtemas.value.filter((subtema) => subtema.completado).length);
+const avanceSubtemas = computed(() => subtemas.value.length ? Math.round((subtemasCompletados.value / subtemas.value.length) * 100) : 0);
+
+function metaFase(fase) {
+  const indice = Math.max(0, (fase.orden || 1) - 1);
+  return {
+    icono: _ICONOS_FASE[indice] || '📘',
+    descripcion: _DESCRIPCIONES_FASE[indice] || 'Una nueva parada en tu recorrido.',
+    color: _COLORES_FASE[indice]?.[0] || '#356f92',
+    suave: _COLORES_FASE[indice]?.[1] || '#e8f4fa',
+  };
+}
+
+function iconoLeccion(slug = '') {
+  const pistas = [
+    [/abecedario|abreviaturas/, '🔤'], [/numeros|much-many|little-few|contables/, '🔢'], [/fecha|tiempo/, '🗓️'],
+    [/hora/, '🕐'], [/saludos/, '👋'], [/familia|pronombres|reflexivos/, '👥'], [/frutas/, '🍎'], [/to-be|was-were/, '✨'],
+    [/presente/, '☀️'], [/pasado/, '📖'], [/perfecto/, '🌉'], [/pasiva/, '🔄'], [/futuro|going-to|will-shall/, '🔮'],
+    [/can-could|must|should|would|imperativo/, '💬'], [/ubicacion|there-is/, '📍'], [/preguntas|question|wh-questions/, '❓'],
+    [/gerundio|verbo-ing/, '🧲'], [/verbo-to/, '🧭'], [/whose|posesivo/, '🏷️'], [/a-an-the/, '🎟️'], [/some-any/, '🫙'],
+    [/this-that/, '📌'], [/every-all/, '🎯'], [/both-either/, '⚖️'], [/adjetivos|comparativos|superlativos/, '🎨'],
+    [/adverbios/, '🎬'], [/conectores/, '🔗'], [/condicionales/, '🔀'], [/clausulas/, '🧷'], [/preposiciones/, '🗺️'],
+  ];
+  return pistas.find(([patron]) => patron.test(slug))?.[1] || '📘';
+}
+
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
 // overflow posible) -- se usa solo cuando NO hay variante 'ordinal' NI
 // ninguna de las variantes con módulo propio en juego. Números, Fecha y
@@ -516,9 +569,9 @@ cargarCruces();
 <template>
   <div class="gramatica-view">
     <div v-if="pantallaActual === 'fases'">
-      <div class="gramatica-view__cabecera">
-        <h1 class="gramatica-view__titulo">📖 Gramática</h1>
-        <p class="gramatica-view__subtitulo">Aprendé cómo se compone el inglés, fase por fase -- reglas, ejemplos y ejercicios de práctica.</p>
+      <div class="gramatica-view__mapa-hero">
+        <div><span class="gramatica-view__sobre">TU AVENTURA EN INGLÉS</span><h1>El mapa de la gramática</h1><p>Avanzá a tu ritmo. Cada parada abre una forma nueva de expresarte.</p></div>
+        <div class="gramatica-view__brujula"><span>🧭</span><b>{{ avanceFases }}%</b><small>del viaje</small></div>
       </div>
       <div v-if="totalVencidosRepaso > 0" class="gramatica-view__card-repaso">
         🔁 Repaso de hoy: {{ totalVencidosRepaso }}
@@ -526,31 +579,50 @@ cargarCruces();
       <button class="gramatica-view__link-cruces" @click="abrirCentroJuegos">🐛 Alimentar y jugar con el Gusanito →</button>
       <button v-if="cruces.length > 0" class="gramatica-view__link-cruces" @click="pantallaActual = 'cruces'">🔀 Ver cruces entre reglas →</button>
       <p v-if="fases.length === 0" class="gramatica-view__subtitulo">Todavía no hay fases con contenido cargado.</p>
-      <div v-else class="gramatica-view__grid">
-        <button
-          v-for="f in fases"
-          :key="f.slug"
-          class="gramatica-view__btn-item"
-          :class="{ 'gramatica-view__btn-item--completado': f.completado, 'gramatica-view__btn-item--proximamente': !f.disponible }"
-          :disabled="!f.disponible"
-          @click="elegirFase(f)"
-        >{{ f.nombre }}<span v-if="!f.disponible" class="gramatica-view__etiqueta-proximamente">Próximamente</span></button>
+      <div v-else class="gramatica-view__mapa">
+        <section v-for="capitulo in capitulosFases" :key="capitulo.id" class="gramatica-view__capitulo">
+          <header><span>{{ capitulo.icono }}</span><div><small>CAPÍTULO {{ String(_CAPITULOS.findIndex((item) => item.id === capitulo.id) + 1).padStart(2, '0') }}</small><h2>{{ capitulo.nombre }}</h2><p>{{ capitulo.lema }}</p></div></header>
+          <div class="gramatica-view__sendero">
+            <button
+              v-for="f in capitulo.fases"
+              :key="f.slug"
+              class="gramatica-view__parada"
+              :class="{ 'gramatica-view__parada--completada': f.completado, 'gramatica-view__parada--bloqueada': !f.disponible }"
+              :style="{ '--item-accent': metaFase(f).color, '--item-soft': metaFase(f).suave }"
+              :disabled="!f.disponible"
+              :aria-label="`Abrir fase ${f.orden}: ${f.nombre}`"
+              @click="elegirFase(f)"
+            >
+              <span class="gramatica-view__parada-numero">{{ String(f.orden).padStart(2, '0') }}</span>
+              <span class="gramatica-view__parada-icono">{{ f.completado ? '✈️' : metaFase(f).icono }}</span>
+              <span class="gramatica-view__parada-contenido"><small>{{ f.completado ? 'RUTA COMPLETADA' : 'SIGUIENTE PARADA' }}</small><strong>{{ f.nombre }}</strong><em>{{ metaFase(f).descripcion }}</em></span>
+              <span class="gramatica-view__parada-flecha">{{ f.disponible ? '→' : '🔒' }}</span>
+            </button>
+          </div>
+        </section>
       </div>
     </div>
 
     <div v-else-if="pantallaActual === 'subtemas'">
       <button class="gramatica-view__link-volver" @click="pantallaActual = 'fases'">← Fases</button>
-      <div class="gramatica-view__cabecera">
-        <h1 class="gramatica-view__titulo">{{ faseActual?.nombre }}</h1>
+      <div class="gramatica-view__lecciones-hero" :style="{ '--item-accent': metaFase(faseActual || {}).color, '--item-soft': metaFase(faseActual || {}).suave }">
+        <span>{{ metaFase(faseActual || {}).icono }}</span>
+        <div><small>FASE {{ String(faseActual?.orden || 0).padStart(2, '0') }}</small><h1>{{ faseActual?.nombre }}</h1><p>{{ metaFase(faseActual || {}).descripcion }}</p></div>
+        <div class="gramatica-view__mini-progreso"><b>{{ subtemasCompletados }}/{{ subtemas.length }}</b><span><i :style="{ width: `${avanceSubtemas}%` }"></i></span><small>lecciones completas</small></div>
       </div>
-      <div class="gramatica-view__grid">
+      <div class="gramatica-view__ruta-lecciones" :style="{ '--item-accent': metaFase(faseActual || {}).color, '--item-soft': metaFase(faseActual || {}).suave }">
         <button
-          v-for="s in subtemas"
+          v-for="(s, index) in subtemas"
           :key="s.slug"
-          class="gramatica-view__btn-item"
-          :class="{ 'gramatica-view__btn-item--completado': s.completado }"
+          class="gramatica-view__leccion-parada"
+          :class="{ 'gramatica-view__leccion-parada--completada': s.completado }"
+          :aria-label="`Abrir lección ${index + 1}: ${s.nombre}`"
           @click="elegirSubtema(s)"
-        >{{ s.nombre }}</button>
+        >
+          <span class="gramatica-view__leccion-nodo">{{ s.completado ? '✈️' : iconoLeccion(s.slug) }}</span>
+          <span class="gramatica-view__leccion-card"><small>LECCIÓN {{ String(index + 1).padStart(2, '0') }}</small><strong>{{ s.nombre }}</strong><em>{{ s.completado ? 'Lista para repasar' : 'Explorá, construí y practicá' }}</em></span>
+          <span class="gramatica-view__leccion-accion">{{ s.completado ? 'Repasar' : 'Comenzar' }} →</span>
+        </button>
       </div>
     </div>
 
@@ -1228,6 +1300,217 @@ cargarCruces();
   border: none;
   padding: 0;
 }
+
+.gramatica-view__mapa-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  overflow: hidden;
+  padding: 1.25rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,.9) 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,.8) 0 3px, transparent 4px),
+    linear-gradient(135deg, #e8f4fa, #f2edfb 52%, #fff3e4);
+}
+
+.gramatica-view__sobre,
+.gramatica-view__mapa-hero small {
+  color: #356f92;
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.gramatica-view__mapa-hero h1 {
+  margin: .15rem 0;
+  font-size: clamp(1.45rem, 4vw, 2.2rem);
+}
+
+.gramatica-view__mapa-hero p {
+  max-width: 560px;
+  margin: .2rem 0;
+  color: var(--color-texto-secundario);
+}
+
+.gramatica-view__brujula {
+  display: grid;
+  place-items: center;
+  width: 104px;
+  height: 104px;
+  border: 2px solid rgba(53,111,146,.25);
+  border-radius: 50%;
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 12px 30px rgba(53,111,146,.12);
+}
+
+.gramatica-view__brujula span { font-size: 1.7rem; line-height: 1; }
+.gramatica-view__brujula b { color: #356f92; font-size: 1.2rem; line-height: 1; }
+.gramatica-view__brujula small { font-size: .58rem; letter-spacing: .04em; }
+
+.gramatica-view__mapa {
+  display: grid;
+  gap: 1.2rem;
+  margin-top: 1.1rem;
+}
+
+.gramatica-view__capitulo {
+  overflow: hidden;
+  border: 1px solid var(--color-borde);
+  border-radius: 22px;
+  background: var(--color-superficie);
+  box-shadow: 0 10px 30px rgba(49,68,85,.06);
+}
+
+.gramatica-view__capitulo > header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--color-borde);
+  background: linear-gradient(90deg, rgba(53,111,146,.08), transparent);
+}
+
+.gramatica-view__capitulo > header > span { font-size: 2rem; }
+.gramatica-view__capitulo header small { color: #356f92; font-size: .6rem; font-weight: 900; letter-spacing: .1em; }
+.gramatica-view__capitulo h2 { margin: .08rem 0; font-size: 1rem; }
+.gramatica-view__capitulo header p { margin: 0; color: var(--color-texto-secundario); font-size: .75rem; }
+
+.gramatica-view__sendero {
+  position: relative;
+  display: grid;
+  gap: .75rem;
+  padding: 1rem;
+}
+
+.gramatica-view__sendero::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  left: 51px;
+  width: 3px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(to bottom, #b7cbd6 0 8px, transparent 8px 14px);
+}
+
+.gramatica-view__parada {
+  --item-accent: #356f92;
+  --item-soft: #e8f4fa;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 32px 58px 1fr auto;
+  align-items: center;
+  gap: .7rem;
+  width: 100%;
+  padding: .72rem .85rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 17px;
+  background: linear-gradient(105deg, var(--item-soft), var(--color-superficie) 58%);
+  box-shadow: 0 6px 18px rgba(49,68,85,.06);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.gramatica-view__parada:nth-child(even) { transform: translateX(16px); width: calc(100% - 16px); }
+.gramatica-view__parada:hover { transform: translateY(-3px); border-color: var(--item-accent); box-shadow: 0 12px 24px rgba(49,68,85,.12); }
+.gramatica-view__parada:nth-child(even):hover { transform: translate(16px,-3px); }
+.gramatica-view__parada-numero { color: var(--item-accent); font-size: .72rem; font-weight: 900; }
+.gramatica-view__parada-icono { display: grid; place-items: center; width: 52px; height: 52px; border: 3px solid var(--color-superficie); border-radius: 50%; background: var(--item-accent); box-shadow: 0 0 0 2px var(--item-accent); font-size: 1.45rem; }
+.gramatica-view__parada-contenido { display: flex; min-width: 0; flex-direction: column; }
+.gramatica-view__parada-contenido small { color: var(--item-accent); font-size: .57rem; font-weight: 900; letter-spacing: .08em; }
+.gramatica-view__parada-contenido strong { margin: .1rem 0; font-size: .9rem; }
+.gramatica-view__parada-contenido em { overflow: hidden; color: var(--color-texto-secundario); font-size: .7rem; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
+.gramatica-view__parada-flecha { color: var(--item-accent); font-size: 1.1rem; font-weight: 900; }
+.gramatica-view__parada--completada { border-color: var(--color-verde); background: linear-gradient(105deg, var(--color-verde-suave), var(--color-superficie)); }
+.gramatica-view__parada--completada .gramatica-view__parada-icono { background: var(--color-verde); box-shadow: 0 0 0 2px var(--color-verde); animation: avion-aterriza .45s ease-out; }
+.gramatica-view__parada--bloqueada { opacity: .55; cursor: default; }
+
+@keyframes avion-aterriza {
+  from { opacity: 0; transform: translate(18px,-12px) rotate(-12deg); }
+  to { opacity: 1; transform: translate(0) rotate(0); }
+}
+
+.gramatica-view__lecciones-hero {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  margin-top: .8rem;
+  padding: 1rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--item-soft), var(--color-superficie));
+}
+
+.gramatica-view__lecciones-hero > span { font-size: 2.8rem; }
+.gramatica-view__lecciones-hero small { color: var(--item-accent); font-size: .62rem; font-weight: 900; letter-spacing: .1em; }
+.gramatica-view__lecciones-hero h1 { margin: .1rem 0; font-size: 1.25rem; }
+.gramatica-view__lecciones-hero p { margin: 0; color: var(--color-texto-secundario); font-size: .78rem; }
+.gramatica-view__mini-progreso { display: grid; min-width: 130px; gap: .25rem; text-align: right; }
+.gramatica-view__mini-progreso b { color: var(--item-accent); font-size: 1.1rem; }
+.gramatica-view__mini-progreso > span { overflow: hidden; width: 130px; height: 7px; border-radius: 8px; background: rgba(49,68,85,.12); }
+.gramatica-view__mini-progreso i { display: block; height: 100%; border-radius: inherit; background: var(--item-accent); transition: width .35s ease; }
+.gramatica-view__mini-progreso small { letter-spacing: 0; }
+
+.gramatica-view__ruta-lecciones {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+  margin: 1.2rem auto;
+  padding: .25rem 0;
+}
+
+.gramatica-view__ruta-lecciones::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(to bottom, var(--item-accent, #8eb5c9) 0 10px, transparent 10px 17px);
+  opacity: .35;
+  transform: translateX(-50%);
+}
+
+.gramatica-view__leccion-parada {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: .7rem;
+  width: calc(50% - 30px);
+  padding: .7rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 17px;
+  background: var(--color-superficie);
+  box-shadow: 0 8px 20px rgba(49,68,85,.08);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.gramatica-view__leccion-parada:nth-child(even) { align-self: flex-end; }
+.gramatica-view__leccion-parada::after { content: ''; position: absolute; top: 50%; right: -34px; width: 34px; height: 2px; background: var(--color-borde); }
+.gramatica-view__leccion-parada:nth-child(even)::after { right: auto; left: -34px; }
+.gramatica-view__leccion-parada:hover { border-color: var(--item-accent); box-shadow: 0 12px 25px rgba(49,68,85,.13); transform: translateY(-3px); }
+.gramatica-view__leccion-nodo { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: var(--item-soft); font-size: 1.4rem; transform: rotate(-3deg); }
+.gramatica-view__leccion-card { display: flex; min-width: 0; flex-direction: column; }
+.gramatica-view__leccion-card small { color: var(--item-accent); font-size: .56rem; font-weight: 900; letter-spacing: .08em; }
+.gramatica-view__leccion-card strong { margin: .12rem 0; font-size: .82rem; }
+.gramatica-view__leccion-card em { color: var(--color-texto-secundario); font-size: .65rem; font-style: normal; }
+.gramatica-view__leccion-accion { grid-column: 1/-1; color: var(--item-accent); font-size: .66rem; font-weight: 900; text-align: right; }
+.gramatica-view__leccion-parada--completada { border-color: var(--color-verde); background: linear-gradient(135deg, var(--color-verde-suave), var(--color-superficie)); }
+.gramatica-view__leccion-parada--completada .gramatica-view__leccion-nodo { background: var(--color-verde-suave); animation: avion-aterriza .45s ease-out; }
 
 .gramatica-view__grid {
   display: grid;
@@ -2022,5 +2305,36 @@ cargarCruces();
   text-align: left;
   max-width: 480px;
   margin: 1rem auto;
+}
+
+@media (max-width: 720px) {
+  .gramatica-view__mapa-hero { grid-template-columns: 1fr auto; padding: 1rem; }
+  .gramatica-view__brujula { width: 82px; height: 82px; }
+  .gramatica-view__parada:nth-child(even),
+  .gramatica-view__parada:nth-child(even):hover { width: 100%; transform: translateY(-3px); }
+  .gramatica-view__lecciones-hero { grid-template-columns: auto 1fr; }
+  .gramatica-view__mini-progreso { grid-column: 1/-1; width: 100%; text-align: left; }
+  .gramatica-view__mini-progreso > span { width: 100%; }
+  .gramatica-view__ruta-lecciones::before { left: 26px; transform: none; }
+  .gramatica-view__leccion-parada,
+  .gramatica-view__leccion-parada:nth-child(even) { align-self: flex-end; width: calc(100% - 60px); }
+  .gramatica-view__leccion-parada::after,
+  .gramatica-view__leccion-parada:nth-child(even)::after { right: auto; left: -34px; }
+}
+
+@media (max-width: 480px) {
+  .gramatica-view__mapa-hero { grid-template-columns: 1fr; text-align: center; }
+  .gramatica-view__brujula { margin: auto; }
+  .gramatica-view__capitulo > header { align-items: flex-start; }
+  .gramatica-view__sendero { padding: .75rem; }
+  .gramatica-view__sendero::before { left: 40px; }
+  .gramatica-view__parada { grid-template-columns: 24px 46px 1fr; gap: .55rem; padding: .62rem; }
+  .gramatica-view__parada-icono { width: 40px; height: 40px; font-size: 1.15rem; }
+  .gramatica-view__parada-flecha { display: none; }
+  .gramatica-view__parada-contenido em { white-space: normal; }
+  .gramatica-view__lecciones-hero > span { font-size: 2.2rem; }
+  .gramatica-view__leccion-parada,
+  .gramatica-view__leccion-parada:nth-child(even) { width: calc(100% - 48px); }
+  .gramatica-view__leccion-card em { display: none; }
 }
 </style>
