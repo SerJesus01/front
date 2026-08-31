@@ -849,7 +849,7 @@ cargarCruces();
         @click="empezarEjercicios"
       >{{ subtemaActual?.completado ? '✓ Ejercicios ya acreditados' : 'Practicar ejercicios →' }}</button>
 
-      <div v-if="contenidoEjemplos.length > 0" class="gramatica-view__lista-contenido">
+      <div v-if="contenidoEjemplos.length > 0 && !modoPerfecto" class="gramatica-view__lista-contenido">
         <div v-for="c in contenidoEjemplos" :key="c.id" class="gramatica-view__contenido-card gramatica-view__contenido-card--ejemplo">
           <span class="gramatica-view__contenido-tipo">Ejemplo</span>
           <img

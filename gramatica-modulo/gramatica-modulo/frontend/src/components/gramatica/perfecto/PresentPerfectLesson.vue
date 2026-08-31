@@ -6,7 +6,7 @@ const emit = defineEmits(['hablar', 'practicar']);
 
 const paso = ref(1);
 const sujetoId = ref('i');
-const accionId = ref('finish');
+const accionId = ref('clean');
 const marcadorId = ref('already');
 const duracionId = ref('two-years');
 const retoIdx = ref(0);
@@ -22,12 +22,12 @@ const sujetos = [
   { id: 'they', texto: 'They', auxiliar: 'have', icono: '🧑‍🤝‍🧑' },
 ];
 const acciones = [
-  { id: 'finish', base: 'finish', participio: 'finished', objeto: 'the report', icono: '✅' },
-  { id: 'eat', base: 'eat', participio: 'eaten', objeto: 'the apple', icono: '🍎' },
-  { id: 'write', base: 'write', participio: 'written', objeto: 'the email', icono: '✉️' },
+  { id: 'clean', base: 'clean', participio: 'cleaned', objeto: 'the kitchen', icono: '🧹' },
+  { id: 'eat', base: 'eat', participio: 'eaten', objeto: 'breakfast', icono: '🍳' },
+  { id: 'write', base: 'write', participio: 'written', objeto: 'a message', icono: '💬' },
   { id: 'see', base: 'see', participio: 'seen', objeto: 'that movie', icono: '🎬' },
-  { id: 'go', base: 'go', participio: 'gone', objeto: 'home', icono: '🏠' },
-  { id: 'deploy', base: 'deploy', participio: 'deployed', objeto: 'the app', icono: '🚀' },
+  { id: 'go', base: 'go', participio: 'gone', objeto: 'to the store', icono: '🏪' },
+  { id: 'buy', base: 'buy', participio: 'bought', objeto: 'the groceries', icono: '🛍️' },
 ];
 const marcadores = [
   { id: 'just', texto: 'just', pista: 'hace un instante', posicion: 'medio', icono: '⚡' },
@@ -59,8 +59,8 @@ const meta = computed(() => ({
 
 const retos = computed(() => ({
   intro: [
-    { frase: 'She ___ finished the report.', respuesta: 'has', opciones: ['have', 'has', 'did', 'is'], ayuda: 'She usa has.' },
-    { frase: 'We have ___ the email.', respuesta: 'written', opciones: ['wrote', 'write', 'written', 'writing'], ayuda: 'Después de have usamos el participio.' },
+    { frase: 'She ___ cleaned the kitchen.', respuesta: 'has', opciones: ['have', 'has', 'did', 'is'], ayuda: 'She usa has.' },
+    { frase: 'We have ___ a message.', respuesta: 'written', opciones: ['wrote', 'write', 'written', 'writing'], ayuda: 'Después de have usamos el participio.' },
     { frase: 'I ___ seen that movie.', respuesta: 'have', opciones: ['am', 'did', 'has', 'have'], ayuda: 'I usa have.' },
   ],
   markers: [
@@ -71,7 +71,7 @@ const retos = computed(() => ({
   experience: [
     { frase: 'Have you ___ visited London?', respuesta: 'ever', opciones: ['ever', 'for', 'ago', 'yet'], ayuda: 'Ever pregunta por una experiencia.' },
     { frase: '___ have you known her?', respuesta: 'How long', opciones: ['How many', 'When', 'How long', 'How often'], ayuda: 'How long pregunta duración.' },
-    { frase: 'How long ___ he worked here?', respuesta: 'has', opciones: ['did', 'has', 'is', 'have'], ayuda: 'He usa has.' },
+    { frase: 'How long ___ he lived here?', respuesta: 'has', opciones: ['did', 'has', 'is', 'have'], ayuda: 'He usa has.' },
   ],
   duration: [
     { frase: "I've studied English ___ two years.", respuesta: 'for', opciones: ['since', 'ago', 'for', 'yet'], ayuda: 'For + cantidad de tiempo.' },
@@ -79,9 +79,9 @@ const retos = computed(() => ({
     { frase: 'We met three years ___.', respuesta: 'ago', opciones: ['for', 'since', 'ago', 'already'], ayuda: 'Ago acompaña al pasado simple.' },
   ],
   contrast: [
-    { frase: 'I ___ the report yesterday.', respuesta: 'finished', opciones: ['have finished', 'finished', 'has finished', 'finish'], ayuda: 'Yesterday cierra el momento: pasado simple.' },
-    { frase: "I've ___ the report, so we can send it now.", respuesta: 'finished', opciones: ['finish', 'finishing', 'finished', 'wrote'], ayuda: 'El resultado importa ahora: have + participio.' },
-    { frase: 'She ___ the team in 2020.', respuesta: 'joined', opciones: ['has joined', 'joined', 'joins', 'have joined'], ayuda: 'In 2020 es un momento cerrado.' },
+    { frase: 'I ___ the kitchen yesterday.', respuesta: 'cleaned', opciones: ['have cleaned', 'cleaned', 'has cleaned', 'clean'], ayuda: 'Yesterday cierra el momento: pasado simple.' },
+    { frase: "I've ___ the kitchen, so we can cook now.", respuesta: 'cleaned', opciones: ['clean', 'cleaning', 'cleaned', 'wrote'], ayuda: 'El resultado importa ahora: have + participio.' },
+    { frase: 'She ___ to this city in 2020.', respuesta: 'moved', opciones: ['has moved', 'moved', 'moves', 'have moved'], ayuda: 'In 2020 es un momento cerrado.' },
   ],
 }[props.mode]));
 const reto = computed(() => retos.value[retoIdx.value]);
@@ -98,14 +98,14 @@ watch(() => props.mode, () => { paso.value = 1; retoIdx.value = 0; elegida.value
 
 <template>
   <section class="perfect">
-    <aside class="hero"><span>{{ meta.icono }}</span><div><small>{{ meta.sobre }}</small><h2>{{ meta.titulo }}</h2><p>{{ meta.bajada }}</p></div><div class="bridge"><b>PAST</b><i>━━━</i><span>NOW</span></div></aside>
+    <aside class="hero"><span>{{ meta.icono }}</span><div><small>ADULTO ESTÁNDAR · {{ meta.sobre }}</small><h2>{{ meta.titulo }}</h2><p>{{ meta.bajada }}</p></div><div class="bridge"><b>PAST</b><i>━━━</i><span>NOW</span></div></aside>
     <nav><button v-for="(tab, i) in meta.tabs" :key="tab" :class="{ active: paso === i + 1 }" @click="paso = i + 1"><b>0{{ i + 1 }}</b><span>{{ tab }}</span></button></nav>
 
     <main v-if="paso === 1 && mode === 'intro'"><header><small>PUENTE 1</small><h3>Constructor de resultados</h3><p>Combiná persona y acción. El participio cruza del pasado hasta ahora.</p></header><div class="picker"><section><button v-for="x in sujetos" :key="x.id" :class="{ active: sujetoId === x.id }" @click="sujetoId = x.id">{{ x.icono }} <b>{{ x.texto }}</b></button></section><section><button v-for="x in acciones" :key="x.id" :class="{ active: accionId === x.id }" @click="accionId = x.id">{{ x.icono }} <b>{{ x.participio }}</b></button></section></div><article class="result"><span>{{ sujeto.icono }} ━━ {{ accion.icono }} ━━ ✨</span><small>RESULTADO VIGENTE</small><strong>{{ fraseBase }}</strong><button @click="escuchar(fraseBase)">🔊 Escuchar</button></article></main>
     <main v-else-if="paso === 1 && mode === 'markers'"><header><small>SEÑALES 1</small><h3>Control del tiempo</h3><p>Elegí una señal y mirá cómo encuentra su lugar en la oración.</p></header><div class="marker-grid"><button v-for="x in marcadores" :key="x.id" :class="{ active: marcadorId === x.id }" @click="marcadorId = x.id"><span>{{ x.icono }}</span><b>{{ x.texto }}</b><small>{{ x.pista }}</small></button></div><article class="result"><span>{{ marcador.icono }} {{ accion.icono }}</span><strong>{{ fraseMarcador }}</strong><button @click="escuchar(fraseMarcador)">🔊 Escuchar</button></article></main>
     <main v-else-if="paso === 1 && mode === 'experience'"><header><small>RADAR 1</small><h3>¿Experiencia o duración?</h3><p>Dos preguntas abren puertas diferentes.</p></header><div class="doors"><button @click="escuchar('Have you ever seen that movie?')"><span>🧭</span><small>ALGUNA VEZ</small><b>Have you ever…?</b><em>experiencia de vida</em></button><button @click="escuchar('How long have you studied English?')"><span>⏱️</span><small>DESDE HACE CUÁNTO</small><b>How long have you…?</b><em>continúa hasta ahora</em></button></div><aside class="note"><b>Have/Has</b> + sujeto + participio. Con <b>how long</b>, la respuesta suele usar for o since.</aside></main>
     <main v-else-if="paso === 1 && mode === 'duration'"><header><small>TIEMPO 1</small><h3>Línea de vida</h3><p>Elegí una duración para ver la diferencia entre cuánto y desde cuándo.</p></header><div class="duration-picker"><button v-for="x in duraciones" :key="x.id" :class="{ active: duracionId === x.id }" @click="duracionId = x.id">{{ x.icono }} {{ x.valor }}</button></div><div class="life-line"><span>{{ duracion.inicio }}</span><i>━━━━━━━━━━━━━━▶</i><b>NOW</b></div><div class="twins"><button @click="escuchar(`I have studied English for ${duracion.valor}.`)"><small>DURACIÓN</small><b>I have studied English <mark>for {{ duracion.valor }}</mark>.</b> 🔊</button><button @click="escuchar(`I have studied English since ${duracion.inicio}.`)"><small>INICIO</small><b>I have studied English <mark>since {{ duracion.inicio }}</mark>.</b> 🔊</button></div></main>
-    <main v-else-if="paso === 1 && mode === 'contrast'"><header><small>DETECTOR 1</small><h3>Buscá la pista temporal</h3><p>La pista decide qué camino tomar.</p></header><div class="detector"><article><span>📍</span><small>MOMENTO CERRADO</small><b>yesterday · last week · in 2020</b><strong>PAST SIMPLE</strong></article><i>VS</i><article><span>✨</span><small>RESULTADO AHORA</small><b>already · yet · since · no exact time</b><strong>PRESENT PERFECT</strong></article></div><div class="twins"><button @click="escuchar('I fixed the bug yesterday.')"><b>I fixed the bug <mark>yesterday</mark>.</b> 🔊</button><button @click="escuchar('I have fixed the bug, so it works now.')"><b>I have fixed the bug, <mark>so it works now</mark>.</b> 🔊</button></div></main>
+    <main v-else-if="paso === 1 && mode === 'contrast'"><header><small>DETECTOR 1</small><h3>Buscá la pista temporal</h3><p>La pista decide qué camino tomar.</p></header><div class="detector"><article><span>📍</span><small>MOMENTO CERRADO</small><b>yesterday · last week · in 2020</b><strong>PAST SIMPLE</strong></article><i>VS</i><article><span>✨</span><small>RESULTADO AHORA</small><b>already · yet · since · no exact time</b><strong>PRESENT PERFECT</strong></article></div><div class="twins"><button @click="escuchar('I washed the dishes yesterday.')"><b>I washed the dishes <mark>yesterday</mark>.</b> 🔊</button><button @click="escuchar('I have washed the dishes, so the kitchen is clean now.')"><b>I have washed the dishes, <mark>so the kitchen is clean now</mark>.</b> 🔊</button></div></main>
 
     <main v-else-if="paso === 2"><header><small>{{ meta.sobre }} · MAPA</small><h3>{{ meta.tabs[1] }}</h3><p>Una referencia visual rápida para decidir sin memorizar párrafos.</p></header><div v-if="mode === 'intro'" class="formula"><b>subject</b><i>＋</i><strong>have / has</strong><i>＋</i><b>past participle</b></div><div v-if="mode === 'intro'" class="participle-grid"><span v-for="x in acciones" :key="x.id"><b>{{ x.base }}</b><i>→</i><strong>{{ x.participio }}</strong></span></div><div v-else-if="mode === 'markers'" class="position-map"><span><b>have / has</b></span><mark>just / already</mark><span><b>participle</b></span><i>…</i><mark>yet?</mark></div><div v-else-if="mode === 'experience'" class="formula vertical"><b>Have you <mark>ever</mark> + participle?</b><strong>How long have you + participle?</strong></div><div v-else-if="mode === 'duration'" class="clue-grid"><article><b>FOR</b><span>una cantidad</span><small>for two hours</small></article><article><b>SINCE</b><span>un punto inicial</span><small>since Monday</small></article><article><b>AGO</b><span>pasado cerrado</span><small>two hours ago</small></article></div><div v-else class="detector compact"><article><span>📅</span><b>¿Dice cuándo?</b><strong>Past simple</strong></article><article><span>🌉</span><b>¿Importa el resultado ahora?</b><strong>Present perfect</strong></article></div><aside class="note"><b>Atajo:</b> leé primero la señal temporal; después elegí la estructura.</aside></main>
 
