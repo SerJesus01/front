@@ -16,6 +16,11 @@ const fases = [
   { id: 10, nombre: 'Preguntas y negación', slug: 'fase-10-preguntas-negacion', orden: 10, disponible: true, completado: false },
   { id: 11, nombre: 'Gerundio vs. infinitivo', slug: 'fase-11-gerundio-infinitivo', orden: 11, disponible: true, completado: false },
   { id: 12, nombre: 'Pronombres y posesivos', slug: 'fase-12-pronombres-posesivos', orden: 12, disponible: true, completado: false },
+  { id: 13, nombre: 'Artículos y contables', slug: 'fase-13-articulos-contables', orden: 13, disponible: true, completado: false },
+  { id: 14, nombre: 'Determinantes y cuantificadores', slug: 'fase-14-determinantes', orden: 14, disponible: true, completado: false },
+  { id: 15, nombre: 'Adjetivos y adverbios', slug: 'fase-15-adjetivos-adverbios', orden: 15, disponible: true, completado: false },
+  { id: 16, nombre: 'Conectores y cláusulas', slug: 'fase-16-conectores-clausulas', orden: 16, disponible: true, completado: false },
+  { id: 17, nombre: 'Preposiciones', slug: 'fase-17-preposiciones', orden: 17, disponible: true, completado: false },
 ];
 
 const subtemasPorFase = {
@@ -83,6 +88,38 @@ const subtemasPorFase = {
     { id: 1201, nombre: 'Pronombres reflexivos', slug: 'fase-12-reflexivos', orden: 1, completado: false },
     { id: 1202, nombre: 'whose / mine / yours', slug: 'fase-12-whose-mine-yours', orden: 2, completado: false },
     { id: 1203, nombre: "Posesivo 's", slug: 'fase-12-posesivo-s', orden: 3, completado: false },
+  ],
+  'fase-13-articulos-contables': [
+    { id: 1301, nombre: 'a / an / the', slug: 'fase-13-a-an-the', orden: 1, completado: false },
+    { id: 1302, nombre: 'Contables e incontables', slug: 'fase-13-contables-incontables', orden: 2, completado: false },
+    { id: 1303, nombre: 'some / any', slug: 'fase-13-some-any', orden: 3, completado: false },
+  ],
+  'fase-14-determinantes': [
+    { id: 1401, nombre: 'this / that / these / those', slug: 'fase-14-this-that', orden: 1, completado: false },
+    { id: 1402, nombre: 'every / all', slug: 'fase-14-every-all', orden: 2, completado: false },
+    { id: 1403, nombre: 'both / either / neither', slug: 'fase-14-both-either-neither', orden: 3, completado: false },
+    { id: 1404, nombre: 'much / many', slug: 'fase-14-much-many', orden: 4, completado: false },
+    { id: 1405, nombre: 'a little / a few', slug: 'fase-14-little-few', orden: 5, completado: false },
+  ],
+  'fase-15-adjetivos-adverbios': [
+    { id: 1501, nombre: 'Orden de adjetivos', slug: 'fase-15-orden-adjetivos', orden: 1, completado: false },
+    { id: 1502, nombre: 'Comparativos', slug: 'fase-15-comparativos', orden: 2, completado: false },
+    { id: 1503, nombre: 'Superlativos', slug: 'fase-15-superlativos', orden: 3, completado: false },
+    { id: 1504, nombre: 'Adverbios de modo', slug: 'fase-15-adverbios-modo', orden: 4, completado: false },
+    { id: 1505, nombre: 'Adverbios de frecuencia', slug: 'fase-15-adverbios-frecuencia', orden: 5, completado: false },
+  ],
+  'fase-16-conectores-clausulas': [
+    { id: 1601, nombre: 'Conectores de adición', slug: 'fase-16-conectores-adicion', orden: 1, completado: false },
+    { id: 1602, nombre: 'Conectores causales', slug: 'fase-16-conectores-causales', orden: 2, completado: false },
+    { id: 1603, nombre: 'Conectores de contraste', slug: 'fase-16-conectores-contraste', orden: 3, completado: false },
+    { id: 1604, nombre: 'Conectores secuenciales', slug: 'fase-16-conectores-secuenciales', orden: 4, completado: false },
+    { id: 1605, nombre: 'Condicionales con if', slug: 'fase-16-condicionales-if', orden: 5, completado: false },
+    { id: 1606, nombre: 'Cláusulas relativas', slug: 'fase-16-clausulas-relativas', orden: 6, completado: false },
+  ],
+  'fase-17-preposiciones': [
+    { id: 1701, nombre: 'Preposiciones de tiempo', slug: 'fase-17-preposiciones-tiempo', orden: 1, completado: false },
+    { id: 1702, nombre: 'Preposiciones de lugar', slug: 'fase-17-preposiciones-lugar', orden: 2, completado: false },
+    { id: 1703, nombre: 'Preposiciones de dirección', slug: 'fase-17-preposiciones-direccion', orden: 3, completado: false },
   ],
 };
 

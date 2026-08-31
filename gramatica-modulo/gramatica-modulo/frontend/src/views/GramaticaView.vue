@@ -32,6 +32,7 @@ import LocationLesson from '../components/gramatica/ubicacion/LocationLesson.vue
 import QuestionLesson from '../components/gramatica/preguntas/QuestionLesson.vue';
 import GerundInfinitiveLesson from '../components/gramatica/gerundio/GerundInfinitiveLesson.vue';
 import PossessiveLesson from '../components/gramatica/posesivos/PossessiveLesson.vue';
+import AdvancedLesson from '../components/gramatica/avanzado/AdvancedLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
@@ -164,13 +165,14 @@ const modoPosesivo = computed(() => ({
   'fase-12-whose-mine-yours': 'pronouns',
   'fase-12-posesivo-s': 'apostrophe',
 })[subtemaActual.value?.slug] || null);
+const slugLeccionAvanzada = computed(() => /^fase-(1[3-7])-/.test(subtemaActual.value?.slug || '') ? subtemaActual.value.slug : null);
 const usaLeccionEspecializada = computed(() => Boolean(
   esAbecedario.value || esNumeros.value || esFecha.value || esHora.value
   || esSaludos.value || esFamilia.value || esAbreviaturas.value || esFrutas.value
   || esToBe.value || esPronombres.value || esPresenteSimple.value
   || esPresenteContinuo.value || esContrastePresente.value || modoPasado.value
   || modoPerfecto.value || modoPasiva.value || modoFuturo.value || modoModal.value
-  || modoUbicacion.value || modoPregunta.value || modoGerundio.value || modoPosesivo.value,
+  || modoUbicacion.value || modoPregunta.value || modoGerundio.value || modoPosesivo.value || slugLeccionAvanzada.value,
 ));
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
@@ -583,7 +585,7 @@ cargarCruces();
         </p>
       </div>
 
-      <div v-if="contenidoReglas.length > 0 && !esSaludos && !esFamilia && !esAbreviaturas && !esFrutas && !esToBe && !esPronombres && !esPresenteSimple && !esPresenteContinuo && !esContrastePresente && !modoPasado && !modoPerfecto && !modoPasiva && !modoFuturo && !modoModal && !modoUbicacion && !modoPregunta && !modoGerundio && !modoPosesivo" class="gramatica-view__lista-contenido">
+      <div v-if="contenidoReglas.length > 0 && !esSaludos && !esFamilia && !esAbreviaturas && !esFrutas && !esToBe && !esPronombres && !esPresenteSimple && !esPresenteContinuo && !esContrastePresente && !modoPasado && !modoPerfecto && !modoPasiva && !modoFuturo && !modoModal && !modoUbicacion && !modoPregunta && !modoGerundio && !modoPosesivo && !slugLeccionAvanzada" class="gramatica-view__lista-contenido">
         <div v-for="c in contenidoReglas" :key="c.id" class="gramatica-view__contenido-card gramatica-view__contenido-card--regla">
           <span class="gramatica-view__contenido-tipo">Regla</span>
           <p class="gramatica-view__contenido-texto-es">{{ c.texto_es }}</p>
@@ -753,6 +755,14 @@ cargarCruces();
       <PossessiveLesson
         v-else-if="modoPosesivo"
         :mode="modoPosesivo"
+        :completado="Boolean(subtemaActual?.completado)"
+        @hablar="reproducirTexto"
+        @practicar="empezarEjercicios"
+      />
+
+      <AdvancedLesson
+        v-else-if="slugLeccionAvanzada"
+        :slug="slugLeccionAvanzada"
         :completado="Boolean(subtemaActual?.completado)"
         @hablar="reproducirTexto"
         @practicar="empezarEjercicios"
