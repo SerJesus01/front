@@ -15,6 +15,7 @@ const fases = [
   { id: 9, nombre: 'There is / there are y ubicación', slug: 'fase-9-there-is-are', orden: 9, disponible: true, completado: false },
   { id: 10, nombre: 'Preguntas y negación', slug: 'fase-10-preguntas-negacion', orden: 10, disponible: true, completado: false },
   { id: 11, nombre: 'Gerundio vs. infinitivo', slug: 'fase-11-gerundio-infinitivo', orden: 11, disponible: true, completado: false },
+  { id: 12, nombre: 'Pronombres y posesivos', slug: 'fase-12-pronombres-posesivos', orden: 12, disponible: true, completado: false },
 ];
 
 const subtemasPorFase = {
@@ -77,6 +78,11 @@ const subtemasPorFase = {
   'fase-11-gerundio-infinitivo': [
     { id: 1101, nombre: 'Verbo + -ing', slug: 'fase-11-verbo-ing', orden: 1, completado: false },
     { id: 1102, nombre: 'Verbo + to', slug: 'fase-11-verbo-to', orden: 2, completado: false },
+  ],
+  'fase-12-pronombres-posesivos': [
+    { id: 1201, nombre: 'Pronombres reflexivos', slug: 'fase-12-reflexivos', orden: 1, completado: false },
+    { id: 1202, nombre: 'whose / mine / yours', slug: 'fase-12-whose-mine-yours', orden: 2, completado: false },
+    { id: 1203, nombre: "Posesivo 's", slug: 'fase-12-posesivo-s', orden: 3, completado: false },
   ],
 };
 
