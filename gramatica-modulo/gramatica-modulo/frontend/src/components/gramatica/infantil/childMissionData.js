@@ -25,6 +25,11 @@ export const CHILD_MISSIONS = {
       { frase: 'My brother and I ___ our room.', correcta: 'clean', opciones: ['cleans', 'clean', 'cleaning'], ayuda: 'Con “My brother and I” usamos clean.' },
       { frase: 'We help ___ other at home.', correcta: 'each', opciones: ['each', 'every', 'one'], ayuda: 'Each other significa mutuamente.' },
     ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Presentar a tu familia en clase.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Contar cómo colaboran y se respetan.' },
+      { emoji: '💬', titulo: 'En conversación', texto: 'Hablar de padres, hermanos y abuelos.' },
+    ],
   },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
@@ -52,6 +57,11 @@ export const CHILD_MISSIONS = {
       { frase: 'We ___ visit our grandparents on Sunday.', correcta: 'will', opciones: ['are', 'will', 'were'], ayuda: 'Will presenta el plan futuro.' },
       { frase: 'I will keep my ___.', correcta: 'promise', opciones: ['promise', 'promised', 'promising'], ayuda: 'Keep my promise significa cumplir mi promesa.' },
     ],
+    aplicaciones: [
+      { emoji: '📚', titulo: 'Tareas', texto: 'Explicar qué harás después de clases.' },
+      { emoji: '📅', titulo: 'Planes', texto: 'Organizar actividades para mañana.' },
+      { emoji: '🤝', titulo: 'Compromisos', texto: 'Expresar una promesa y cumplirla.' },
+    ],
   },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
@@ -78,6 +88,11 @@ export const CHILD_MISSIONS = {
       { frase: 'If you turn off the tap, you ___ water.', correcta: 'save', opciones: ['drop', 'save', 'lose'], ayuda: 'Save water significa ahorrar agua.' },
       { frase: 'If we ___ litter, the park stays clean.', correcta: 'pick up', opciones: ['leave', 'drop', 'pick up'], ayuda: 'Pick up litter significa recoger basura.' },
       { frase: 'If we care for nature, we ___ our home.', correcta: 'protect', opciones: ['protect', 'forget', 'waste'], ayuda: 'El planeta es nuestro hogar compartido.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Proponer acciones para un salón limpio.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Explicar cómo ahorrar agua y reutilizar.' },
+      { emoji: '🌳', titulo: 'En comunidad', texto: 'Invitar a otros a cuidar parques y árboles.' },
     ],
   },
 };
