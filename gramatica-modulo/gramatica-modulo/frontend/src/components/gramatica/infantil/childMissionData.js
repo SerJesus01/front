@@ -159,6 +159,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🤝', titulo: 'Al conocer a alguien', texto: 'Dar una primera impresión cordial.' },
     ],
   },
+  'fase-1-abreviaturas': {
+    slug: 'fase-1-abreviaturas', icono: '💬', zona: 'PALABRAS COTIDIANAS', titulo: 'Mensajes cortos y claros',
+    bajada: 'Reconoce abreviaturas comunes sin perder claridad ni respeto al escribir.', color: '#39766a', suave: '#e8f7f2', valor: 'Claridad y uso responsable de mensajes',
+    historia: [
+      { emoji: '🔬', texto: 'Our science group needs information for a project.' },
+      { emoji: '📱', texto: 'Sara writes: “FYI, the project is due on Friday.”' },
+      { emoji: '📷', texto: 'Leo adds a photo from the science book.' },
+      { emoji: 'ℹ️', texto: 'The school app has more info.' },
+      { emoji: '✅', texto: 'Everyone understands the short and clear message.' },
+    ],
+    palabras: [
+      { en: 'info', es: 'información', emoji: 'ℹ️' }, { en: 'app', es: 'aplicación', emoji: '📱' },
+      { en: 'photo', es: 'fotografía', emoji: '📷' }, { en: 'TV', es: 'televisión', emoji: '📺' },
+      { en: 'FYI', es: 'para tu información', emoji: '💡' }, { en: 'ASAP', es: 'lo antes posible', emoji: '⏱️' },
+    ],
+    constructor: {
+      inicios: ['Please send', 'Please share', 'Please check', 'Please review'],
+      acciones: ['the info', 'the photo', 'the app', 'the message'],
+      finales: ['for our project.', 'with the group.', 'before class.', 'when you have time.'],
+    },
+    retos: [
+      { frase: 'The short form of information is ___.', correcta: 'info', opciones: ['info', 'photo', 'TV'], ayuda: 'Info es una forma cotidiana de information.' },
+      { frase: 'The short form of application is ___.', correcta: 'app', opciones: ['ASAP', 'app', 'FYI'], ayuda: 'App es la forma corta de application.' },
+      { frase: '___ means “para tu información”.', correcta: 'FYI', opciones: ['TV', 'ASAP', 'FYI'], ayuda: 'FYI significa for your information.' },
+      { frase: 'A picture taken with a camera is a ___.', correcta: 'photo', opciones: ['photo', 'fridge', 'app'], ayuda: 'Photo es la forma cotidiana de photograph.' },
+    ],
+    aplicaciones: [
+      { emoji: '📚', titulo: 'En proyectos', texto: 'Compartir información de forma breve y clara.' },
+      { emoji: '📱', titulo: 'En aplicaciones', texto: 'Comprender botones y mensajes frecuentes.' },
+      { emoji: '💬', titulo: 'En mensajes', texto: 'Usar formas cortas sin escribir con descuido.' },
+    ],
+  },
   'fase-1-familia-coloquial': {
     slug: 'fase-1-familia-coloquial', icono: '🏡', zona: 'FAMILIA Y VIDA COTIDIANA', titulo: 'Mi familia y mi hogar',
     bajada: 'Aprende a presentar a tu familia y contar cómo colaboran en casa.', color: '#3478e5', suave: '#e8f2ff', valor: 'Amor, respeto y colaboración',
