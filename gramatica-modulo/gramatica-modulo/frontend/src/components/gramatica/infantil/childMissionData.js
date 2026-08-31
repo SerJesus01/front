@@ -383,6 +383,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🖼️', titulo: 'Al describir', texto: 'Narrar las acciones visibles en una imagen.' },
     ],
   },
+  'fase-3-simple-vs-continuo': {
+    slug: 'fase-3-simple-vs-continuo', icono: '🔎', zona: 'RUTINA O MOMENTO', titulo: 'Cada día o justo ahora',
+    bajada: 'Compara hábitos frecuentes con acciones que están ocurriendo en este momento.', color: '#735b9b', suave: '#f2edfb', valor: 'Observación y pensamiento claro',
+    historia: [
+      { emoji: '📚', texto: 'I usually study in the library after school.' },
+      { emoji: '🏠', texto: 'Today I am studying at home.' },
+      { emoji: '⚽', texto: 'My brother plays soccer every Saturday.' },
+      { emoji: '🌧️', texto: 'It is raining now, so he is reading a book.' },
+      { emoji: '🧠', texto: 'Time words help us choose the correct present tense.' },
+    ],
+    palabras: [
+      { en: 'usually', es: 'normalmente', emoji: '🔁' }, { en: 'every day', es: 'cada día', emoji: '📅' },
+      { en: 'right now', es: 'ahora mismo', emoji: '⏱️' }, { en: 'today', es: 'hoy', emoji: '☀️' },
+      { en: 'routine', es: 'rutina', emoji: '🔄' }, { en: 'in progress', es: 'en progreso', emoji: '🎬' },
+    ],
+    constructor: {
+      inicios: ['I compare', 'I read', 'I check', 'I explain'],
+      acciones: ['the time marker in', 'the verb form in', 'the meaning of', 'the situation in'],
+      finales: ['“I study every day.”', '“I am studying now.”', '“She plays on Mondays.”', '“She is playing today.”'],
+    },
+    retos: [
+      { frase: 'I ___ English every day.', correcta: 'study', opciones: ['study', 'am studying', 'studies'], ayuda: 'Every day indica una rutina: presente simple.' },
+      { frase: 'I ___ English right now.', correcta: 'am studying', opciones: ['study', 'am studying', 'studies'], ayuda: 'Right now indica una acción en progreso.' },
+      { frase: 'She usually ___ to school.', correcta: 'walks', opciones: ['walks', 'is walking', 'walk'], ayuda: 'Usually señala un hábito y she requiere walks.' },
+      { frase: 'Look! They ___ soccer.', correcta: 'are playing', opciones: ['play', 'plays', 'are playing'], ayuda: 'Look! señala algo que ocurre en este momento.' },
+    ],
+    aplicaciones: [
+      { emoji: '🗓️', titulo: 'Al hablar de rutinas', texto: 'Explicar lo que haces habitualmente.' },
+      { emoji: '📸', titulo: 'Al describir el momento', texto: 'Contar qué está ocurriendo ahora.' },
+      { emoji: '📝', titulo: 'Al escribir historias', texto: 'Diferenciar contexto habitual y escena actual.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
