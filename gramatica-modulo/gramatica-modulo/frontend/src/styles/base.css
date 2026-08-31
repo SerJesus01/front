@@ -1,11 +1,13 @@
 @import './tokens.css';
+@import './themes.css';
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: system-ui, sans-serif;
+  font-family: var(--fuente-cuerpo);
+  font-size: var(--tamano-texto-base);
   margin: 0;
   padding: 0;
   background: var(--color-fondo);
@@ -13,7 +15,7 @@ body {
 }
 
 .card {
-  background: white;
+  background: var(--color-superficie);
   border-radius: var(--radio-card);
   padding: 1rem 1.25rem;
   box-shadow: var(--sombra-card);
@@ -25,6 +27,7 @@ body {
   border-radius: var(--radio-boton);
   padding: 0.6rem 1rem;
   font-size: 0.95rem;
+  min-height: var(--alto-control);
 }
 
 .btn-primario {
@@ -38,7 +41,7 @@ body {
 }
 
 .btn-secundario {
-  background: #e0e0e0;
+  background: var(--color-fondo-suave);
   color: var(--color-texto);
 }
 
@@ -52,7 +55,7 @@ select {
   box-sizing: border-box;
   font-size: 1rem;
   padding: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-borde);
   border-radius: var(--radio-boton);
 }
 

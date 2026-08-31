@@ -10,8 +10,8 @@ import GramaticaView from './views/GramaticaView.vue';
 
 <style scoped>
 .wrap {
-  max-width: 640px;
+  max-width: var(--ancho-contenido);
   margin: 0 auto;
-  padding: 1.5rem 1rem 5rem;
+  padding: var(--espacio-pagina) 1rem 5rem;
 }
 </style>

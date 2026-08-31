@@ -1,4 +1,6 @@
 :root {
+  /* Tokens heredados: apuntan a la capa semántica definida por cada
+     Studentbook en themes.css. Así los módulos actuales siguen funcionando. */
   --color-azul: #1565c0;
   --color-azul-oscuro: #0d47a1;
   --color-verde: #1e7e34;
