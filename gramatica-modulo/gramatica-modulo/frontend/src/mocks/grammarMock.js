@@ -10,6 +10,7 @@ const fases = [
   { id: 4, nombre: 'Pasado', slug: 'fase-4-pasado', orden: 4, disponible: true, completado: false },
   { id: 5, nombre: 'Presente perfecto', slug: 'fase-5-presente-perfecto', orden: 5, disponible: true, completado: false },
   { id: 6, nombre: 'Voz pasiva', slug: 'fase-6-voz-pasiva', orden: 6, disponible: true, completado: false },
+  { id: 7, nombre: 'Futuro', slug: 'fase-7-futuro', orden: 7, disponible: true, completado: false },
 ];
 
 const subtemasPorFase = {
@@ -47,6 +48,11 @@ const subtemasPorFase = {
   'fase-6-voz-pasiva': [
     { id: 601, nombre: 'Voz pasiva (presente)', slug: 'fase-6-pasiva-presente', orden: 1, completado: false },
     { id: 602, nombre: 'Voz pasiva (pasado)', slug: 'fase-6-pasiva-pasado', orden: 2, completado: false },
+  ],
+  'fase-7-futuro': [
+    { id: 701, nombre: 'going to', slug: 'fase-7-going-to', orden: 1, completado: false },
+    { id: 702, nombre: 'will / shall', slug: 'fase-7-will-shall', orden: 2, completado: false },
+    { id: 703, nombre: 'Presente continuo con valor de futuro', slug: 'fase-7-continuo-futuro', orden: 3, completado: false },
   ],
 };
 
