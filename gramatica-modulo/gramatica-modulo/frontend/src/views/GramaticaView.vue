@@ -28,6 +28,7 @@ import PresentPerfectLesson from '../components/gramatica/perfecto/PresentPerfec
 import PassiveVoiceLesson from '../components/gramatica/pasiva/PassiveVoiceLesson.vue';
 import FutureLesson from '../components/gramatica/futuro/FutureLesson.vue';
 import ModalLesson from '../components/gramatica/modales/ModalLesson.vue';
+import LocationLesson from '../components/gramatica/ubicacion/LocationLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
@@ -142,12 +143,17 @@ const modoModal = computed(() => ({
   'fase-8-would-like': 'would',
   'fase-8-imperativo': 'imperative',
 })[subtemaActual.value?.slug] || null);
+const modoUbicacion = computed(() => ({
+  'fase-9-there-is-there-are': 'existence',
+  'fase-9-ubicacion-basica': 'location',
+})[subtemaActual.value?.slug] || null);
 const usaLeccionEspecializada = computed(() => Boolean(
   esAbecedario.value || esNumeros.value || esFecha.value || esHora.value
   || esSaludos.value || esFamilia.value || esAbreviaturas.value || esFrutas.value
   || esToBe.value || esPronombres.value || esPresenteSimple.value
   || esPresenteContinuo.value || esContrastePresente.value || modoPasado.value
-  || modoPerfecto.value || modoPasiva.value || modoFuturo.value || modoModal.value,
+  || modoPerfecto.value || modoPasiva.value || modoFuturo.value || modoModal.value
+  || modoUbicacion.value,
 ));
 
 // Grilla de fichas cuadradas (abecedario: una letra por ficha, sin
@@ -560,7 +566,7 @@ cargarCruces();
         </p>
       </div>
 
-      <div v-if="contenidoReglas.length > 0 && !esSaludos && !esFamilia && !esAbreviaturas && !esFrutas && !esToBe && !esPronombres && !esPresenteSimple && !esPresenteContinuo && !esContrastePresente && !modoPasado && !modoPerfecto && !modoPasiva && !modoFuturo && !modoModal" class="gramatica-view__lista-contenido">
+      <div v-if="contenidoReglas.length > 0 && !esSaludos && !esFamilia && !esAbreviaturas && !esFrutas && !esToBe && !esPronombres && !esPresenteSimple && !esPresenteContinuo && !esContrastePresente && !modoPasado && !modoPerfecto && !modoPasiva && !modoFuturo && !modoModal && !modoUbicacion" class="gramatica-view__lista-contenido">
         <div v-for="c in contenidoReglas" :key="c.id" class="gramatica-view__contenido-card gramatica-view__contenido-card--regla">
           <span class="gramatica-view__contenido-tipo">Regla</span>
           <p class="gramatica-view__contenido-texto-es">{{ c.texto_es }}</p>
@@ -698,6 +704,14 @@ cargarCruces();
       <ModalLesson
         v-else-if="modoModal"
         :mode="modoModal"
+        :completado="Boolean(subtemaActual?.completado)"
+        @hablar="reproducirTexto"
+        @practicar="empezarEjercicios"
+      />
+
+      <LocationLesson
+        v-else-if="modoUbicacion"
+        :mode="modoUbicacion"
         :completado="Boolean(subtemaActual?.completado)"
         @hablar="reproducirTexto"
         @practicar="empezarEjercicios"

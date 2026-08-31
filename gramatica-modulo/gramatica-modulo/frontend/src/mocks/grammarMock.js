@@ -12,6 +12,7 @@ const fases = [
   { id: 6, nombre: 'Voz pasiva', slug: 'fase-6-voz-pasiva', orden: 6, disponible: true, completado: false },
   { id: 7, nombre: 'Futuro', slug: 'fase-7-futuro', orden: 7, disponible: true, completado: false },
   { id: 8, nombre: 'Modales e imperativo', slug: 'fase-8-modales-imperativo', orden: 8, disponible: true, completado: false },
+  { id: 9, nombre: 'There is / there are y ubicación', slug: 'fase-9-there-is-are', orden: 9, disponible: true, completado: false },
 ];
 
 const subtemasPorFase = {
@@ -61,6 +62,10 @@ const subtemasPorFase = {
     { id: 803, nombre: 'should', slug: 'fase-8-should', orden: 3, completado: false },
     { id: 804, nombre: 'would like', slug: 'fase-8-would-like', orden: 4, completado: false },
     { id: 805, nombre: 'Imperativo', slug: 'fase-8-imperativo', orden: 5, completado: false },
+  ],
+  'fase-9-there-is-are': [
+    { id: 901, nombre: 'there is / there are', slug: 'fase-9-there-is-there-are', orden: 1, completado: false },
+    { id: 902, nombre: 'Preposiciones de ubicación básicas', slug: 'fase-9-ubicacion-basica', orden: 2, completado: false },
   ],
 };
 
