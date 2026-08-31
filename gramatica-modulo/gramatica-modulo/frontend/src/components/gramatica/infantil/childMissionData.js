@@ -287,6 +287,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏠', titulo: 'En casa', texto: 'Contar dónde están tus familiares.' },
     ],
   },
+  'fase-2-pronombres-sujeto-objeto': {
+    slug: 'fase-2-pronombres-sujeto-objeto', icono: '👥', zona: 'PERSONAS EN LA ORACIÓN', titulo: 'Quién actúa y quién recibe',
+    bajada: 'Distingue pronombres de sujeto y objeto para evitar repeticiones.', color: '#735b9b', suave: '#f2edfb', valor: 'Escucha, cooperación y respeto',
+    historia: [
+      { emoji: '👩‍🏫', texto: 'Ms. Green gives us a class project.' },
+      { emoji: '👧', texto: 'Sofia has a good idea. She shares it with us.' },
+      { emoji: '👦', texto: 'Daniel draws the poster. We help him.' },
+      { emoji: '👥', texto: 'Our classmates listen to us.' },
+      { emoji: '✅', texto: 'We finish the project, and our teacher congratulates us.' },
+    ],
+    palabras: [
+      { en: 'I / me', es: 'yo / me', emoji: '🙋' }, { en: 'you / you', es: 'tú / te', emoji: '👉' },
+      { en: 'he / him', es: 'él / lo-le', emoji: '👦' }, { en: 'she / her', es: 'ella / la-le', emoji: '👧' },
+      { en: 'we / us', es: 'nosotros / nos', emoji: '👥' }, { en: 'they / them', es: 'ellos / los-les', emoji: '🧑‍🤝‍🧑' },
+    ],
+    constructor: {
+      inicios: ['Our teacher', 'My mom', 'My friend', 'My brother'],
+      acciones: ['helps', 'encourages', 'invites', 'listens to'],
+      finales: ['me.', 'him.', 'her.', 'us.'],
+    },
+    retos: [
+      { frase: 'Sofia is my friend. ___ is kind.', correcta: 'She', opciones: ['Her', 'She', 'Him'], ayuda: 'She realiza la acción y funciona como sujeto.' },
+      { frase: 'Daniel needs help. We help ___.', correcta: 'him', opciones: ['he', 'him', 'they'], ayuda: 'Him recibe la acción.' },
+      { frase: 'My friends call ___.', correcta: 'me', opciones: ['I', 'me', 'we'], ayuda: 'Después del verbo usamos el pronombre objeto me.' },
+      { frase: 'Emma and I study together. ___ are classmates.', correcta: 'We', opciones: ['Us', 'They', 'We'], ayuda: 'Emma and I se reemplaza por We.' },
+    ],
+    aplicaciones: [
+      { emoji: '📝', titulo: 'Al escribir', texto: 'Evitar repetir nombres en cada oración.' },
+      { emoji: '💬', titulo: 'Al conversar', texto: 'Explicar claramente quién hace algo.' },
+      { emoji: '🤝', titulo: 'En equipo', texto: 'Contar quién ayuda o escucha a otra persona.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
