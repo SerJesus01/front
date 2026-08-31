@@ -63,6 +63,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏅', titulo: 'En actividades', texto: 'Explicar resultados y turnos con respeto.' },
     ],
   },
+  'fase-1-fecha': {
+    slug: 'fase-1-fecha', icono: '📅', zona: 'ORGANIZA TU SEMANA', titulo: 'Fechas que importan',
+    bajada: 'Expresa días, meses y fechas para organizar actividades importantes.', color: '#356f92', suave: '#e8f4fa', valor: 'Organización y responsabilidad',
+    historia: [
+      { emoji: '📋', texto: 'Our class is planning a science fair.' },
+      { emoji: '📅', texto: 'The fair is on Friday, May tenth.' },
+      { emoji: '🧪', texto: 'We prepare our project in April.' },
+      { emoji: '⏰', texto: 'The final practice is at three o’clock.' },
+      { emoji: '✅', texto: 'We write every date on the class calendar.' },
+    ],
+    palabras: [
+      { en: 'today', es: 'hoy', emoji: '☀️' }, { en: 'tomorrow', es: 'mañana', emoji: '➡️' },
+      { en: 'Monday', es: 'lunes', emoji: '📘' }, { en: 'Friday', es: 'viernes', emoji: '🎒' },
+      { en: 'month', es: 'mes', emoji: '🗓️' }, { en: 'date', es: 'fecha', emoji: '📌' },
+    ],
+    constructor: {
+      inicios: ['The activity is', 'The exam is', 'The game is', 'My birthday is'],
+      acciones: ['on Monday,', 'on Friday,', 'on May tenth,', 'on June third,'],
+      finales: ['this week.', 'next week.', 'this year.', 'as planned.'],
+    },
+    retos: [
+      { frase: 'The class is ___ Monday.', correcta: 'on', opciones: ['at', 'on', 'in'], ayuda: 'Usamos on antes de un día específico.' },
+      { frase: 'My birthday is ___ July.', correcta: 'in', opciones: ['on', 'at', 'in'], ayuda: 'Usamos in con meses.' },
+      { frase: 'The day after Monday is ___.', correcta: 'Tuesday', opciones: ['Sunday', 'Tuesday', 'Friday'], ayuda: 'Tuesday es martes.' },
+      { frase: 'December is a ___.', correcta: 'month', opciones: ['day', 'month', 'hour'], ayuda: 'December es un mes.' },
+    ],
+    aplicaciones: [
+      { emoji: '📝', titulo: 'En la escuela', texto: 'Anotar exámenes, entregas y eventos.' },
+      { emoji: '🎂', titulo: 'En familia', texto: 'Recordar cumpleaños y celebraciones.' },
+      { emoji: '📅', titulo: 'Al organizarte', texto: 'Confirmar el día de una actividad.' },
+    ],
+  },
   'fase-1-familia-coloquial': {
     slug: 'fase-1-familia-coloquial', icono: '🏡', zona: 'FAMILIA Y VIDA COTIDIANA', titulo: 'Mi familia y mi hogar',
     bajada: 'Aprende a presentar a tu familia y contar cómo colaboran en casa.', color: '#3478e5', suave: '#e8f2ff', valor: 'Amor, respeto y colaboración',
