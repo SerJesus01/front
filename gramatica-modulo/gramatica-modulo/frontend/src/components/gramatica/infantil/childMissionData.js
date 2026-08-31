@@ -191,6 +191,38 @@ export const CHILD_MISSIONS = {
       { emoji: '💬', titulo: 'En mensajes', texto: 'Usar formas cortas sin escribir con descuido.' },
     ],
   },
+  'fase-1-frutas': {
+    slug: 'fase-1-frutas', icono: '🍎', zona: 'ELECCIONES SALUDABLES', titulo: 'Frutas para compartir',
+    bajada: 'Nombra frutas, expresa preferencias y pide alimentos con amabilidad.', color: '#b15f3b', suave: '#fff0e7', valor: 'Gratitud, salud y convivencia',
+    historia: [
+      { emoji: '🧺', texto: 'Our class prepares a fruit picnic.' },
+      { emoji: '🍎', texto: 'Mia brings apples and bananas.' },
+      { emoji: '🍊', texto: 'Daniel brings oranges and grapes.' },
+      { emoji: '🍉', texto: 'My favorite fruit is watermelon.' },
+      { emoji: '🤝', texto: 'We wash the fruit and share it with everyone.' },
+    ],
+    palabras: [
+      { en: 'apple', es: 'manzana', emoji: '🍎' }, { en: 'banana', es: 'plátano', emoji: '🍌' },
+      { en: 'orange', es: 'naranja', emoji: '🍊' }, { en: 'grapes', es: 'uvas', emoji: '🍇' },
+      { en: 'watermelon', es: 'sandía', emoji: '🍉' }, { en: 'strawberry', es: 'fresa', emoji: '🍓' },
+    ],
+    constructor: {
+      inicios: ['For lunch, I', 'At home, we', 'At the picnic, I', 'Today, I'],
+      acciones: ['would like', 'will share', 'will choose', 'want'],
+      finales: ['an apple.', 'a banana.', 'some grapes.', 'a strawberry.'],
+    },
+    retos: [
+      { frase: '🍎 is an ___.', correcta: 'apple', opciones: ['orange', 'apple', 'grape'], ayuda: 'Apple significa manzana.' },
+      { frase: '🍉 is a ___.', correcta: 'watermelon', opciones: ['strawberry', 'banana', 'watermelon'], ayuda: 'Watermelon significa sandía.' },
+      { frase: 'I would like ___ orange.', correcta: 'an', opciones: ['a', 'an', 'some'], ayuda: 'Usamos an antes del sonido vocal de orange.' },
+      { frase: 'We wash fruit before we ___ it.', correcta: 'eat', opciones: ['eat', 'draw', 'spell'], ayuda: 'Lavar la fruta antes de comerla es un hábito saludable.' },
+    ],
+    aplicaciones: [
+      { emoji: '🥪', titulo: 'En el almuerzo', texto: 'Nombrar lo que llevas y expresar preferencias.' },
+      { emoji: '🛒', titulo: 'Al comprar', texto: 'Pedir fruta y comprender cantidades sencillas.' },
+      { emoji: '🏠', titulo: 'En familia', texto: 'Elegir, lavar y compartir alimentos saludables.' },
+    ],
+  },
   'fase-1-familia-coloquial': {
     slug: 'fase-1-familia-coloquial', icono: '🏡', zona: 'FAMILIA Y VIDA COTIDIANA', titulo: 'Mi familia y mi hogar',
     bajada: 'Aprende a presentar a tu familia y contar cómo colaboran en casa.', color: '#3478e5', suave: '#e8f2ff', valor: 'Amor, respeto y colaboración',
