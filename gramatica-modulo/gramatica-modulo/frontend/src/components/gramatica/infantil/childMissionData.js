@@ -479,6 +479,38 @@ export const CHILD_MISSIONS = {
       { emoji: '👨‍👩‍👧‍👦', titulo: 'En familia', texto: 'Compartir experiencias y buenos recuerdos.' },
     ],
   },
+  'fase-4-pasado-continuo': {
+    slug: 'fase-4-pasado-continuo', icono: '🎞️', zona: 'UNA ESCENA DEL PASADO', titulo: 'Lo que estaba ocurriendo',
+    bajada: 'Usa was o were más -ing para describir una acción que estaba en progreso.', color: '#735b9b', suave: '#f2edfb', valor: 'Atención y comprensión de los hechos',
+    historia: [
+      { emoji: '🌧️', texto: 'It was raining yesterday afternoon.' },
+      { emoji: '📖', texto: 'I was reading in the living room.' },
+      { emoji: '🍲', texto: 'My mom was preparing dinner.' },
+      { emoji: '🧩', texto: 'My dad and my brother were completing a puzzle.' },
+      { emoji: '💡', texto: 'We were spending time together when the lights went out.' },
+    ],
+    palabras: [
+      { en: 'was reading', es: 'estaba leyendo', emoji: '📖' }, { en: 'were playing', es: 'estaban jugando', emoji: '🧩' },
+      { en: 'was raining', es: 'estaba lloviendo', emoji: '🌧️' }, { en: 'when', es: 'cuando', emoji: '⚡' },
+      { en: 'while', es: 'mientras', emoji: '↔️' }, { en: 'at that moment', es: 'en ese momento', emoji: '🕰️' },
+    ],
+    constructor: {
+      inicios: ['I was', 'We were', 'She was', 'They were'],
+      acciones: ['reading quietly', 'working together', 'preparing dinner', 'doing homework'],
+      finales: ['when it started to rain.', 'when the phone rang.', 'at that moment.', 'while music was playing.'],
+    },
+    retos: [
+      { frase: 'I ___ reading when you called.', correcta: 'was', opciones: ['am', 'was', 'were'], ayuda: 'Con I en pasado continuo usamos was.' },
+      { frase: 'They were ___ a puzzle.', correcta: 'completing', opciones: ['complete', 'completed', 'completing'], ayuda: 'Después de were usamos el verbo con -ing.' },
+      { frase: 'She ___ preparing dinner.', correcta: 'was', opciones: ['were', 'was', 'is'], ayuda: 'Con she usamos was.' },
+      { frase: 'We were studying ___ the lights went out.', correcta: 'when', opciones: ['every day', 'when', 'tomorrow'], ayuda: 'When introduce el hecho que interrumpe la escena.' },
+    ],
+    aplicaciones: [
+      { emoji: '📚', titulo: 'Al contar historias', texto: 'Describir el fondo de una escena pasada.' },
+      { emoji: '💬', titulo: 'En conversación', texto: 'Explicar qué hacías cuando ocurrió algo.' },
+      { emoji: '🖼️', titulo: 'Al observar imágenes', texto: 'Imaginar acciones que estaban en progreso.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
