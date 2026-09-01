@@ -1119,6 +1119,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🤝', titulo: 'En equipo', texto: 'Confirmar responsabilidades antes de comenzar.' },
     ],
   },
+  'fase-10-preguntas-indirectas': {
+    slug: 'fase-10-preguntas-indirectas', icono: '🗣️', zona: 'PREGUNTAR CON CORTESÍA', titulo: '¿Podrías decirme...?',
+    bajada: 'Usa preguntas indirectas para solicitar información de una manera amable y respetuosa.', color: '#39766a', suave: '#e8f7f2', valor: 'Respeto y buenos modales',
+    historia: [
+      { emoji: '🏛️', texto: 'Mia visits a museum with her family.' },
+      { emoji: '🗣️', texto: 'She asks, “Could you tell me where the science room is?”' },
+      { emoji: '⏰', texto: 'Her dad asks, “Do you know when the next tour begins?”' },
+      { emoji: '🎫', texto: 'They also ask how they can get their tickets.' },
+      { emoji: '😊', texto: 'Polite questions help us communicate respectfully.' },
+    ],
+    palabras: [
+      { en: 'Could you tell me...?', es: '¿podrías decirme...?', emoji: '🗣️' }, { en: 'Do you know...?', es: '¿sabes...?', emoji: '🤔' },
+      { en: 'where it is', es: 'dónde está', emoji: '📍' }, { en: 'when it begins', es: 'cuándo comienza', emoji: '⏰' },
+      { en: 'how I can', es: 'cómo puedo', emoji: '🧭' }, { en: 'information', es: 'información', emoji: 'ℹ️' },
+    ],
+    constructor: {
+      inicios: ['Could you tell me', 'Do you know', 'Can you explain', 'I would like to know'],
+      acciones: ['where the room is', 'when the event begins', 'how this works', 'who can help us'],
+      finales: [', please?', '?', 'step by step?', 'with the activity.'],
+    },
+    retos: [
+      { frase: 'Could you tell me where the library ___?', correcta: 'is', opciones: ['is', 'does', 'is it'], ayuda: 'En la parte indirecta usamos orden afirmativo: where the library is.' },
+      { frase: 'Do you know ___ the class begins?', correcta: 'when', opciones: ['what', 'when', 'who'], ayuda: 'When pregunta por el momento de inicio.' },
+      { frase: 'Can you explain how this ___?', correcta: 'works', opciones: ['does work', 'works', 'work does'], ayuda: 'La pregunta indirecta conserva el orden de una afirmación.' },
+      { frase: 'I would like to know who ___ help me.', correcta: 'can', opciones: ['can', 'does', 'is'], ayuda: 'Who can help me mantiene sujeto + auxiliar + verbo.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏛️', titulo: 'En un lugar nuevo', texto: 'Solicitar horarios o ubicaciones con cortesía.' },
+      { emoji: '🏫', titulo: 'Al pedir una explicación', texto: 'Pedir ayuda sin interrumpir de forma brusca.' },
+      { emoji: '🧭', titulo: 'Al orientarte', texto: 'Preguntar cómo llegar o realizar un proceso.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
