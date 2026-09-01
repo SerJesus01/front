@@ -639,6 +639,38 @@ export const CHILD_MISSIONS = {
       { emoji: '📖', titulo: 'Al contar hechos', texto: 'Ubicar un evento terminado en el pasado.' },
     ],
   },
+  'fase-5-perfecto-vs-pasado': {
+    slug: 'fase-5-perfecto-vs-pasado', icono: '⚖️', zona: 'EXPERIENCIA O FECHA', titulo: 'He vivido o viví',
+    bajada: 'Elige entre presente perfecto y pasado simple según la información de tiempo.', color: '#39766a', suave: '#e8f7f2', valor: 'Pensamiento claro y comunicación precisa',
+    historia: [
+      { emoji: '🏕️', texto: 'I have visited a national park.' },
+      { emoji: '📅', texto: 'I visited it last summer with my family.' },
+      { emoji: '🌳', texto: 'We have learned many ways to protect nature.' },
+      { emoji: '🗑️', texto: 'Last Saturday, we cleaned a trail near our town.' },
+      { emoji: '🔎', texto: 'A specific finished time changes the tense we choose.' },
+    ],
+    palabras: [
+      { en: 'I have visited', es: 'he visitado', emoji: '🧭' }, { en: 'I visited', es: 'visité', emoji: '📅' },
+      { en: 'ever', es: 'alguna vez', emoji: '❓' }, { en: 'last year', es: 'el año pasado', emoji: '⬅️' },
+      { en: 'experience', es: 'experiencia', emoji: '⭐' }, { en: 'specific time', es: 'tiempo específico', emoji: '📌' },
+    ],
+    constructor: {
+      inicios: ['I compare', 'I identify', 'I explain', 'I check'],
+      acciones: ['the experience in', 'the finished time in', 'the verb form in', 'the time marker in'],
+      finales: ['“I have visited a park.”', '“I visited it last year.”', '“She has finished.”', '“She finished yesterday.”'],
+    },
+    retos: [
+      { frase: 'I ___ that museum last year.', correcta: 'visited', opciones: ['have visited', 'visited', 'visit'], ayuda: 'Last year es un tiempo pasado terminado.' },
+      { frase: 'I have ___ a science fair.', correcta: 'attended', opciones: ['attend', 'attended', 'attending'], ayuda: 'Sin fecha específica, expresamos la experiencia.' },
+      { frase: 'She ___ her homework yesterday.', correcta: 'finished', opciones: ['has finished', 'finished', 'finishes'], ayuda: 'Yesterday requiere pasado simple.' },
+      { frase: 'We have ___ many useful skills.', correcta: 'learned', opciones: ['learn', 'learned', 'learning'], ayuda: 'Have + learned conecta el aprendizaje con hoy.' },
+    ],
+    aplicaciones: [
+      { emoji: '💬', titulo: 'En conversación', texto: 'Compartir una experiencia y después precisar cuándo.' },
+      { emoji: '📝', titulo: 'Al escribir', texto: 'Mantener clara la línea de tiempo de una historia.' },
+      { emoji: '🏫', titulo: 'En proyectos', texto: 'Diferenciar logros actuales y acciones fechadas.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
