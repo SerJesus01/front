@@ -1663,6 +1663,38 @@ export const CHILD_MISSIONS = {
       { emoji: '⭐', titulo: 'Al reconocer logros', texto: 'Celebrar cualidades sin convertir todo en una competencia.' },
     ],
   },
+  'fase-15-adverbios-modo': {
+    slug: 'fase-15-adverbios-modo', icono: '🎯', zona: 'CÓMO HACEMOS LAS COSAS', titulo: 'Hazlo con cuidado',
+    bajada: 'Usa adverbios de modo para explicar cómo se realiza una acción.', color: '#31865b', suave: '#e5f8ed', valor: 'Cuidado, paciencia y calidad',
+    historia: [
+      { emoji: '🧪', texto: 'Our team performs a simple science experiment.' },
+      { emoji: '📖', texto: 'Mia reads the instructions carefully.' },
+      { emoji: '🧴', texto: 'Leo pours the water slowly and measures it accurately.' },
+      { emoji: '🗣️', texto: 'We speak quietly while another team explains its results.' },
+      { emoji: '✅', texto: 'Working carefully keeps us safe and improves the result.' },
+    ],
+    palabras: [
+      { en: 'carefully', es: 'cuidadosamente', emoji: '🤲' }, { en: 'slowly', es: 'lentamente', emoji: '🐢' },
+      { en: 'quickly', es: 'rápidamente', emoji: '⚡' }, { en: 'quietly', es: 'silenciosamente', emoji: '🤫' },
+      { en: 'clearly', es: 'claramente', emoji: '🗣️' }, { en: 'well', es: 'bien', emoji: '⭐' },
+    ],
+    constructor: {
+      inicios: ['Please read', 'Our team works', 'She explains', 'He carries the box'],
+      acciones: ['carefully', 'quietly', 'clearly', 'slowly'],
+      finales: ['before starting.', 'in the library.', 'to the class.', 'to the table.'],
+    },
+    retos: [
+      { frase: 'Read the instructions ___.', correcta: 'carefully', opciones: ['careful', 'carefully', 'care'], ayuda: 'Carefully explica cómo lees.' },
+      { frase: 'She speaks ___ during the presentation.', correcta: 'clearly', opciones: ['clear', 'clearly', 'clearness'], ayuda: 'Clearly modifica al verbo speaks.' },
+      { frase: 'Carry the glass ___.', correcta: 'slowly', opciones: ['slow', 'slowly', 'slowness'], ayuda: 'Slowly indica cómo realizar la acción.' },
+      { frase: 'He plays the guitar ___.', correcta: 'well', opciones: ['good', 'well', 'goodly'], ayuda: 'El adverbio irregular de good es well.' },
+    ],
+    aplicaciones: [
+      { emoji: '🧪', titulo: 'Al explicar un proceso', texto: 'Indicar cómo ejecutar cada paso.' },
+      { emoji: '🏫', titulo: 'En una presentación', texto: 'Describir cómo alguien habla o trabaja.' },
+      { emoji: '🛡️', titulo: 'Para actuar con seguridad', texto: 'Recordar que algunas tareas deben hacerse lentamente y con cuidado.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
