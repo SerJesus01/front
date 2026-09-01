@@ -895,6 +895,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🛡️', titulo: 'Para cuidarnos', texto: 'Comunicar una indicación importante de seguridad.' },
     ],
   },
+  'fase-8-should': {
+    slug: 'fase-8-should', icono: '💡', zona: 'CONSEJOS QUE AYUDAN', titulo: 'Una buena recomendación',
+    bajada: 'Usa should y should not para dar consejos respetuosos y proponer buenas decisiones.', color: '#31865b', suave: '#e5f8ed', valor: 'Empatía y bienestar',
+    historia: [
+      { emoji: '📚', texto: 'Mia feels nervous about her English presentation.' },
+      { emoji: '🗣️', texto: 'Her friend says, “You should practice one part at a time.”' },
+      { emoji: '🌙', texto: '“You should also sleep well tonight.”' },
+      { emoji: '🚫', texto: '“You should not compare your progress with others.”' },
+      { emoji: '⭐', texto: 'A kind and useful suggestion can build confidence.' },
+    ],
+    palabras: [
+      { en: 'should', es: 'deberías', emoji: '💡' }, { en: 'should not', es: 'no deberías', emoji: '🚫' },
+      { en: 'advice', es: 'consejo', emoji: '💬' }, { en: 'practice', es: 'practicar', emoji: '🎯' },
+      { en: 'rest', es: 'descansar', emoji: '🌙' }, { en: 'confidence', es: 'confianza', emoji: '⭐' },
+    ],
+    constructor: {
+      inicios: ['You should', 'We should', 'A good friend should', 'You should not'],
+      acciones: ['practice', 'listen to', 'encourage', 'ignore'],
+      finales: ['a little every day.', 'helpful advice.', 'the whole team.', 'your need to rest.'],
+    },
+    retos: [
+      { frase: 'You ___ practice before the presentation.', correcta: 'should', opciones: ['should', 'should to', 'are'], ayuda: 'Should presenta una recomendación.' },
+      { frase: 'We should ___ carefully.', correcta: 'listen', opciones: ['listens', 'to listen', 'listen'], ayuda: 'Después de should usamos el verbo base.' },
+      { frase: 'You ___ not stay up too late.', correcta: 'should', opciones: ['do', 'should', 'have'], ayuda: 'Should not expresa un consejo negativo.' },
+      { frase: 'She should ___ for help.', correcta: 'ask', opciones: ['asks', 'ask', 'asked'], ayuda: 'Should + ask, sin cambiar el verbo.' },
+    ],
+    aplicaciones: [
+      { emoji: '🤝', titulo: 'Con tus amistades', texto: 'Dar apoyo sin ordenar ni juzgar.' },
+      { emoji: '📚', titulo: 'Al estudiar', texto: 'Recomendar un hábito que facilite aprender.' },
+      { emoji: '🌱', titulo: 'Para el bienestar', texto: 'Proponer decisiones saludables y responsables.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
