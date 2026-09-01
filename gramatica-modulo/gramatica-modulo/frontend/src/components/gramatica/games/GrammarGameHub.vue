@@ -117,7 +117,7 @@ onMounted(() => reiniciarAudio());
         </button>
         <button class="pet-games__game-card pet-games__game-card--active" @click="abrirGrammarSort">
           <span class="pet-games__game-icon">1→4</span>
-          <span><strong>Grammar Sort</strong><small>Mandá cada frase al portal correcto con teclas, toque o arrastre.</small></span>
+          <span><strong>Clasificador rápido</strong><small>Envía cada frase al portal correcto con teclas, toque o arrastre.</small></span>
           <b>Jugar →</b>
         </button>
         <button class="pet-games__game-card" @click="emit('abrir-caminos')">
