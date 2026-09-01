@@ -1375,6 +1375,38 @@ export const CHILD_MISSIONS = {
       { emoji: '♻️', titulo: 'Al evitar desperdicios', texto: 'Planear cantidades adecuadas para compartir.' },
     ],
   },
+  'fase-13-some-any': {
+    slug: 'fase-13-some-any', icono: '🥛', zona: 'REVISAR LO QUE TENEMOS', titulo: '¿Hay algo para compartir?',
+    bajada: 'Usa some en afirmaciones y ofrecimientos, y any en la mayoría de preguntas y negaciones.', color: '#b06b33', suave: '#fff3e4', valor: 'Generosidad y uso responsable',
+    historia: [
+      { emoji: '🥛', texto: 'We have some fruit and some water for the family picnic.' },
+      { emoji: '❓', texto: 'Do we have any sandwiches? No, we do not have any yet.' },
+      { emoji: '🥪', texto: 'My dad prepares some sandwiches while we pack the bags.' },
+      { emoji: '🍎', texto: '“Would you like some apple slices?” my mom asks.' },
+      { emoji: '🤝', texto: 'We check what we have, take only what we need and share.' },
+    ],
+    palabras: [
+      { en: 'some fruit', es: 'algo de fruta', emoji: '🍎' }, { en: 'some bottles', es: 'algunas botellas', emoji: '🧴' },
+      { en: 'any water?', es: '¿algo de agua?', emoji: '💧' }, { en: 'not any', es: 'nada de/ningún', emoji: '🚫' },
+      { en: 'Would you like some...?', es: '¿te gustaría algo de...?', emoji: '🎁' }, { en: 'share', es: 'compartir', emoji: '🤝' },
+    ],
+    constructor: {
+      inicios: ['We have', 'Do we have', 'We do not have', 'Would you like'],
+      acciones: ['some fruit', 'any water', 'any cups', 'some bread'],
+      finales: ['for everyone.', '?', 'yet.', '?'],
+    },
+    retos: [
+      { frase: 'There are ___ apples on the table.', correcta: 'some', opciones: ['some', 'any', 'a'], ayuda: 'En una afirmación usamos normalmente some.' },
+      { frase: 'Do we have ___ water?', correcta: 'any', opciones: ['some', 'any', 'an'], ayuda: 'En una pregunta general usamos normalmente any.' },
+      { frase: 'We do not have ___ cups.', correcta: 'any', opciones: ['some', 'any', 'a'], ayuda: 'En una negación usamos any.' },
+      { frase: 'Would you like ___ juice?', correcta: 'some', opciones: ['some', 'any', 'many'], ayuda: 'En un ofrecimiento amable usamos some.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏠', titulo: 'Al revisar provisiones', texto: 'Preguntar qué hay y decir qué falta.' },
+      { emoji: '🎁', titulo: 'Al ofrecer', texto: 'Compartir comida, bebida o materiales con amabilidad.' },
+      { emoji: '📋', titulo: 'Al planear', texto: 'Preparar una lista sin comprar de más.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
