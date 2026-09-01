@@ -1823,6 +1823,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🤝', titulo: 'Al resolver diferencias', texto: 'Mostrar que dos preferencias pueden ser válidas.' },
     ],
   },
+  'fase-16-conectores-secuenciales': {
+    slug: 'fase-16-conectores-secuenciales', icono: '🧩', zona: 'PASO A PASO', titulo: 'Pon la historia en orden',
+    bajada: 'Usa first, next, then, after that y finally para ordenar acciones o acontecimientos.', color: '#39766a', suave: '#e8f7f2', valor: 'Organización y paciencia',
+    historia: [
+      { emoji: '1️⃣', texto: 'First, our family chooses vegetables for a simple soup.' },
+      { emoji: '2️⃣', texto: 'Next, we wash everything carefully.' },
+      { emoji: '3️⃣', texto: 'Then, my dad cuts the vegetables while I prepare the table.' },
+      { emoji: '4️⃣', texto: 'After that, my mom cooks the soup. Finally, we eat together.' },
+      { emoji: '👪', texto: 'Following the sequence helps everyone participate safely.' },
+    ],
+    palabras: [
+      { en: 'first', es: 'primero', emoji: '1️⃣' }, { en: 'next', es: 'a continuación', emoji: '2️⃣' },
+      { en: 'then', es: 'después', emoji: '3️⃣' }, { en: 'after that', es: 'después de eso', emoji: '4️⃣' },
+      { en: 'finally', es: 'finalmente', emoji: '🏁' }, { en: 'sequence', es: 'secuencia', emoji: '🧩' },
+    ],
+    constructor: {
+      inicios: ['First,', 'Next,', 'Then,', 'Finally,'],
+      acciones: ['choose the materials', 'follow the instructions', 'check the result', 'clean the space'],
+      finales: ['.', '.', '.', '.'],
+    },
+    retos: [
+      { frase: '___, read all the instructions.', correcta: 'First', opciones: ['Finally', 'First', 'After that'], ayuda: 'First presenta el paso inicial.' },
+      { frase: 'Next, ___ the materials.', correcta: 'prepare', opciones: ['prepared', 'prepare', 'preparing'], ayuda: 'Después del conector usamos la instrucción en verbo base.' },
+      { frase: 'We mixed the colors. ___, we painted the sign.', correcta: 'After that', opciones: ['First', 'After that', 'Because'], ayuda: 'After that continúa con una acción posterior.' },
+      { frase: '___, present your result to the class.', correcta: 'Finally', opciones: ['Finally', 'First', 'Although'], ayuda: 'Finally introduce el último paso.' },
+    ],
+    aplicaciones: [
+      { emoji: '🧪', titulo: 'Al explicar un experimento', texto: 'Presentar sus pasos en el orden correcto.' },
+      { emoji: '📖', titulo: 'Al contar una historia', texto: 'Organizar los hechos para que sean fáciles de seguir.' },
+      { emoji: '🏠', titulo: 'En una tarea de casa', texto: 'Coordinar un proceso familiar paso a paso.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
