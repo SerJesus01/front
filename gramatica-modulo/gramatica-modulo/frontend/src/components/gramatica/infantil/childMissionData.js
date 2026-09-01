@@ -415,6 +415,38 @@ export const CHILD_MISSIONS = {
       { emoji: '📝', titulo: 'Al escribir historias', texto: 'Diferenciar contexto habitual y escena actual.' },
     ],
   },
+  'fase-4-was-were': {
+    slug: 'fase-4-was-were', icono: '🕰️', zona: 'RECUERDOS Y EXPERIENCIAS', titulo: 'Así era y así estaba',
+    bajada: 'Usa was y were para describir personas, lugares y situaciones del pasado.', color: '#356f92', suave: '#e8f4fa', valor: 'Gratitud por lo aprendido',
+    historia: [
+      { emoji: '🚌', texto: 'Yesterday our class was on a school trip.' },
+      { emoji: '🌳', texto: 'The park was clean and beautiful.' },
+      { emoji: '👥', texto: 'We were excited about the activities.' },
+      { emoji: '🧑‍🏫', texto: 'Our teachers were patient and helpful.' },
+      { emoji: '😊', texto: 'I was tired at the end, but I was happy.' },
+    ],
+    palabras: [
+      { en: 'yesterday', es: 'ayer', emoji: '⬅️' }, { en: 'was', es: 'era/estaba', emoji: '1️⃣' },
+      { en: 'were', es: 'eran/estaban', emoji: '👥' }, { en: 'excited', es: 'emocionado', emoji: '⭐' },
+      { en: 'tired', es: 'cansado', emoji: '😴' }, { en: 'helpful', es: 'servicial', emoji: '🤝' },
+    ],
+    constructor: {
+      inicios: ['Yesterday, I was', 'Last Saturday, we were', 'After class, she was', 'In the morning, they were'],
+      acciones: ['ready for', 'happy about', 'excited about', 'responsible for'],
+      finales: ['the activity.', 'the project.', 'the family visit.', 'the clean-up.'],
+    },
+    retos: [
+      { frase: 'I ___ at school yesterday.', correcta: 'was', opciones: ['am', 'was', 'were'], ayuda: 'Con I en pasado usamos was.' },
+      { frase: 'We ___ ready for the trip.', correcta: 'were', opciones: ['was', 'are', 'were'], ayuda: 'Con we en pasado usamos were.' },
+      { frase: 'The park ___ beautiful.', correcta: 'was', opciones: ['were', 'was', 'is'], ayuda: 'Park es singular, por eso usamos was.' },
+      { frase: 'My parents ___ at home.', correcta: 'were', opciones: ['was', 'were', 'are'], ayuda: 'Parents es plural, por eso usamos were.' },
+    ],
+    aplicaciones: [
+      { emoji: '📸', titulo: 'Al recordar', texto: 'Describir cómo era un lugar o momento.' },
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Contar dónde estaban personas u objetos.' },
+      { emoji: '🏠', titulo: 'En familia', texto: 'Compartir recuerdos y experiencias pasadas.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
