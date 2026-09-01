@@ -1215,6 +1215,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏫', titulo: 'En un proyecto', texto: 'Comunicar lo que tu equipo necesita completar.' },
     ],
   },
+  'fase-12-reflexivos': {
+    slug: 'fase-12-reflexivos', icono: '🪞', zona: 'APRENDER A SER AUTÓNOMOS', titulo: 'Lo hice por mí mismo',
+    bajada: 'Usa pronombres reflexivos cuando una persona realiza y recibe la misma acción.', color: '#735b9b', suave: '#f2edfb', valor: 'Autonomía y confianza responsable',
+    historia: [
+      { emoji: '🧰', texto: 'I built the model by myself, following every safety rule.' },
+      { emoji: '🎨', texto: 'My sister painted the signs herself.' },
+      { emoji: '🥪', texto: 'My brother prepared a simple snack himself.' },
+      { emoji: '👥', texto: 'We organized the table ourselves and then helped one another.' },
+      { emoji: '⭐', texto: 'Being independent also means knowing when to ask for help.' },
+    ],
+    palabras: [
+      { en: 'myself', es: 'yo mismo/a', emoji: '👤' }, { en: 'yourself', es: 'tú mismo/a', emoji: '👉' },
+      { en: 'himself', es: 'él mismo', emoji: '👦' }, { en: 'herself', es: 'ella misma', emoji: '👧' },
+      { en: 'ourselves', es: 'nosotros mismos', emoji: '👥' }, { en: 'themselves', es: 'ellos mismos', emoji: '🤝' },
+    ],
+    constructor: {
+      inicios: ['I prepared it', 'She made it', 'We organized it', 'They completed it'],
+      acciones: ['by myself', 'herself', 'ourselves', 'themselves'],
+      finales: ['with care.', 'after class.', 'as a team.', 'without wasting materials.'],
+    },
+    retos: [
+      { frase: 'I made this card by ___.', correcta: 'myself', opciones: ['myself', 'herself', 'ourselves'], ayuda: 'Con I usamos myself.' },
+      { frase: 'She completed the drawing ___.', correcta: 'herself', opciones: ['himself', 'herself', 'themselves'], ayuda: 'Con she usamos herself.' },
+      { frase: 'We cleaned the room ___.', correcta: 'ourselves', opciones: ['yourself', 'ourselves', 'itself'], ayuda: 'Con we usamos ourselves.' },
+      { frase: 'The cat cleaned ___.', correcta: 'itself', opciones: ['itself', 'himself', 'myself'], ayuda: 'Para un animal u objeto singular usamos itself.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏆', titulo: 'Al contar un logro', texto: 'Explicar qué hiciste de manera autónoma.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Hablar de responsabilidades realizadas sin ayuda.' },
+      { emoji: '🏫', titulo: 'En proyectos', texto: 'Reconocer el trabajo individual y del equipo.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
