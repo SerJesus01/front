@@ -1087,6 +1087,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🤝', titulo: 'En equipo', texto: 'Aclarar quién hará cada tarea y cómo.' },
     ],
   },
+  'fase-10-question-tags': {
+    slug: 'fase-10-question-tags', icono: '✅', zona: 'CONFIRMA LO QUE ENTENDISTE', titulo: '¿Verdad que sí?',
+    bajada: 'Usa una pregunta corta al final para confirmar información de forma natural.', color: '#735b9b', suave: '#f2edfb', valor: 'Atención y comunicación clara',
+    historia: [
+      { emoji: '📅', texto: 'The school activity is on Saturday, isn’t it?' },
+      { emoji: '✅', texto: 'Yes, it is. We meet at nine, don’t we?' },
+      { emoji: '🧴', texto: 'We can bring reusable bottles, can’t we?' },
+      { emoji: '🌱', texto: 'Leo is bringing the seeds, isn’t he?' },
+      { emoji: '🤝', texto: 'We confirm each detail so everyone is prepared.' },
+    ],
+    palabras: [
+      { en: 'isn’t it?', es: '¿verdad que sí?', emoji: '✅' }, { en: 'aren’t they?', es: '¿verdad que sí?', emoji: '👥' },
+      { en: 'don’t we?', es: '¿no es así?', emoji: '🤝' }, { en: 'doesn’t she?', es: '¿verdad que ella sí?', emoji: '👤' },
+      { en: 'can’t you?', es: '¿verdad que puedes?', emoji: '💪' }, { en: 'confirmation', es: 'confirmación', emoji: '📌' },
+    ],
+    constructor: {
+      inicios: ['The class is today,', 'We meet at nine,', 'She helps the team,', 'You can join us,'],
+      acciones: ['isn’t', 'don’t', 'doesn’t', 'can’t'],
+      finales: ['it?', 'we?', 'she?', 'you?'],
+    },
+    retos: [
+      { frase: 'The library is open, ___ it?', correcta: 'isn’t', opciones: ['is', 'isn’t', 'doesn’t'], ayuda: 'Una frase afirmativa con is termina con isn’t.' },
+      { frase: 'We study together, ___ we?', correcta: 'don’t', opciones: ['aren’t', 'don’t', 'can’t'], ayuda: 'Study está en presente simple con we: usamos don’t we?' },
+      { frase: 'She brings the poster, ___ she?', correcta: 'doesn’t', opciones: ['isn’t', 'doesn’t', 'don’t'], ayuda: 'Con she y presente simple usamos doesn’t.' },
+      { frase: 'You can help us, ___ you?', correcta: 'can’t', opciones: ['can’t', 'don’t', 'aren’t'], ayuda: 'La frase usa can; la confirmación usa can’t.' },
+    ],
+    aplicaciones: [
+      { emoji: '📅', titulo: 'Al confirmar un plan', texto: 'Comprobar fecha, hora o lugar.' },
+      { emoji: '💬', titulo: 'En conversación', texto: 'Verificar que entendiste correctamente.' },
+      { emoji: '🤝', titulo: 'En equipo', texto: 'Confirmar responsabilidades antes de comenzar.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
