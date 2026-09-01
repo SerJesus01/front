@@ -1503,6 +1503,38 @@ export const CHILD_MISSIONS = {
       { emoji: '📝', titulo: 'Al responder', texto: 'Dar una respuesta precisa cuando solo hay dos posibilidades.' },
     ],
   },
+  'fase-14-much-many': {
+    slug: 'fase-14-much-many', icono: '📊', zona: 'PREGUNTAR POR CANTIDADES', titulo: '¿Cuánto necesitamos?',
+    bajada: 'Usa many con elementos contables y much con sustancias o ideas incontables.', color: '#356f92', suave: '#e8f4fa', valor: 'Planificación y consumo consciente',
+    historia: [
+      { emoji: '💧', texto: 'Our eco team checks how much water the garden needs.' },
+      { emoji: '🪴', texto: 'We count how many pots are dry.' },
+      { emoji: '⏱️', texto: 'We do not have much time before class begins.' },
+      { emoji: '👥', texto: 'Many students help, so the work moves quickly.' },
+      { emoji: '♻️', texto: 'Measuring carefully helps us avoid wasting water.' },
+    ],
+    palabras: [
+      { en: 'how many', es: 'cuántos', emoji: '🔢' }, { en: 'how much', es: 'cuánto', emoji: '⚖️' },
+      { en: 'many students', es: 'muchos estudiantes', emoji: '👥' }, { en: 'much water', es: 'mucha agua', emoji: '💧' },
+      { en: 'many times', es: 'muchas veces', emoji: '🔁' }, { en: 'much time', es: 'mucho tiempo', emoji: '⏱️' },
+    ],
+    constructor: {
+      inicios: ['How many', 'How much', 'We have many', 'We do not have much'],
+      acciones: ['pots are', 'water is', 'helpers for', 'time for'],
+      finales: ['dry?', 'needed?', 'the activity.', 'the task.'],
+    },
+    retos: [
+      { frase: 'How ___ books are there?', correcta: 'many', opciones: ['much', 'many', 'little'], ayuda: 'Books es contable y plural: how many.' },
+      { frase: 'How ___ time do we have?', correcta: 'much', opciones: ['many', 'much', 'few'], ayuda: 'Time es incontable: how much.' },
+      { frase: 'There are ___ students in the library.', correcta: 'many', opciones: ['much', 'many', 'a little'], ayuda: 'Students se puede contar.' },
+      { frase: 'We do not use ___ plastic.', correcta: 'much', opciones: ['many', 'much', 'a few'], ayuda: 'Plastic se trata como incontable.' },
+    ],
+    aplicaciones: [
+      { emoji: '📋', titulo: 'Al planear recursos', texto: 'Preguntar cuántos objetos o cuánta cantidad hace falta.' },
+      { emoji: '🏫', titulo: 'En una actividad', texto: 'Calcular tiempo, materiales y participantes.' },
+      { emoji: '🌍', titulo: 'Al cuidar el ambiente', texto: 'Hablar del uso de agua, energía o plástico.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
