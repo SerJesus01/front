@@ -1695,6 +1695,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🛡️', titulo: 'Para actuar con seguridad', texto: 'Recordar que algunas tareas deben hacerse lentamente y con cuidado.' },
     ],
   },
+  'fase-15-adverbios-frecuencia': {
+    slug: 'fase-15-adverbios-frecuencia', icono: '🔁', zona: 'HÁBITOS QUE CONSTRUYEN', titulo: '¿Con qué frecuencia?',
+    bajada: 'Usa always, usually, often, sometimes y never para expresar la frecuencia de un hábito.', color: '#39766a', suave: '#e8f7f2', valor: 'Constancia y equilibrio',
+    historia: [
+      { emoji: '🌅', texto: 'I always prepare my backpack the night before school.' },
+      { emoji: '📖', texto: 'I usually read for a few minutes after homework.' },
+      { emoji: '⚽', texto: 'I often play outside with my friends.' },
+      { emoji: '🎨', texto: 'I sometimes draw with my sister, and I never waste paper on purpose.' },
+      { emoji: '⚖️', texto: 'Balanced habits give us time to learn, rest and help at home.' },
+    ],
+    palabras: [
+      { en: 'always', es: 'siempre', emoji: '🟢' }, { en: 'usually', es: 'normalmente', emoji: '🔵' },
+      { en: 'often', es: 'a menudo', emoji: '🔁' }, { en: 'sometimes', es: 'a veces', emoji: '🟡' },
+      { en: 'rarely', es: 'rara vez', emoji: '🟠' }, { en: 'never', es: 'nunca', emoji: '🔴' },
+    ],
+    constructor: {
+      inicios: ['I always', 'We usually', 'My family often', 'I never'],
+      acciones: ['prepare', 'read', 'helps with', 'waste'],
+      finales: ['my materials.', 'after homework.', 'the garden.', 'clean water.'],
+    },
+    retos: [
+      { frase: 'I ___ prepare my backpack before school.', correcta: 'always', opciones: ['always', 'yesterday', 'now'], ayuda: 'Always expresa que ocurre siempre.' },
+      { frase: 'She ___ reads after dinner.', correcta: 'often', opciones: ['often', 'last', 'at'], ayuda: 'El adverbio suele ir antes del verbo principal.' },
+      { frase: 'We are ___ ready on time.', correcta: 'usually', opciones: ['usually', 'usual', 'use'], ayuda: 'Con el verbo be, el adverbio aparece después: are usually.' },
+      { frase: 'I ___ throw litter on the ground.', correcta: 'never', opciones: ['always', 'never', 'often'], ayuda: 'Never comunica que la acción no ocurre.' },
+    ],
+    aplicaciones: [
+      { emoji: '📅', titulo: 'Al hablar de tu rutina', texto: 'Explicar con qué frecuencia estudias, descansas o ayudas.' },
+      { emoji: '🎯', titulo: 'Al revisar un hábito', texto: 'Reconocer qué haces siempre y qué puedes mejorar.' },
+      { emoji: '🌍', titulo: 'Al cuidar el entorno', texto: 'Describir acciones responsables que practicas con frecuencia.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
