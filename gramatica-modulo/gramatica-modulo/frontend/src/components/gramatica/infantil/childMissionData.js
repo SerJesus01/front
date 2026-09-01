@@ -863,6 +863,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏠', titulo: 'En casa', texto: 'Ofrecer una habilidad para colaborar.' },
     ],
   },
+  'fase-8-must-have-to': {
+    slug: 'fase-8-must-have-to', icono: '🛡️', zona: 'ACUERDOS Y RESPONSABILIDADES', titulo: 'Lo que debemos hacer',
+    bajada: 'Usa must para una regla importante y have to para una obligación o responsabilidad.', color: '#b06b33', suave: '#fff3e4', valor: 'Responsabilidad y cuidado de los demás',
+    historia: [
+      { emoji: '🧪', texto: 'Today our class is working in the science room.' },
+      { emoji: '🥽', texto: 'We must wear safety glasses during the experiment.' },
+      { emoji: '📖', texto: 'We have to read the instructions before we begin.' },
+      { emoji: '🧹', texto: 'Afterward, each team has to clean its table.' },
+      { emoji: '🤝', texto: 'Following the rules keeps everyone safe.' },
+    ],
+    palabras: [
+      { en: 'must', es: 'deber', emoji: '❗' }, { en: 'have to', es: 'tener que', emoji: '📌' },
+      { en: 'rule', es: 'regla', emoji: '📜' }, { en: 'responsibility', es: 'responsabilidad', emoji: '🤝' },
+      { en: 'safety', es: 'seguridad', emoji: '🛡️' }, { en: 'instructions', es: 'instrucciones', emoji: '📖' },
+    ],
+    constructor: {
+      inicios: ['We must', 'Students must', 'I have to', 'My team has to'],
+      acciones: ['follow', 'respect', 'prepare', 'clean'],
+      finales: ['the safety rules.', 'the shared space.', 'the materials.', 'our work area.'],
+    },
+    retos: [
+      { frase: 'We ___ respect the safety rules.', correcta: 'must', opciones: ['must', 'must to', 'are'], ayuda: 'Must va directamente antes del verbo base.' },
+      { frase: 'I have to ___ my materials.', correcta: 'prepare', opciones: ['prepared', 'preparing', 'prepare'], ayuda: 'Después de have to usamos el verbo base.' },
+      { frase: 'She ___ to return the library book.', correcta: 'has', opciones: ['have', 'has', 'musts'], ayuda: 'Con she usamos has to.' },
+      { frase: 'You must ___ carefully.', correcta: 'listen', opciones: ['listen', 'listens', 'to listen'], ayuda: 'Must + verbo base: must listen.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Comprender reglas y responsabilidades.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Explicar una tarea que te corresponde.' },
+      { emoji: '🛡️', titulo: 'Para cuidarnos', texto: 'Comunicar una indicación importante de seguridad.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
