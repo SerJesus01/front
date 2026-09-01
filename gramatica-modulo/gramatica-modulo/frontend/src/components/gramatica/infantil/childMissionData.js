@@ -1599,6 +1599,38 @@ export const CHILD_MISSIONS = {
       { emoji: '♻️', titulo: 'Al reutilizar', texto: 'Describir materiales y objetos que pueden tener una nueva vida.' },
     ],
   },
+  'fase-15-comparativos': {
+    slug: 'fase-15-comparativos', icono: '⚖️', zona: 'COMPARA PARA DECIDIR', titulo: '¿Cuál funciona mejor?',
+    bajada: 'Usa adjetivos comparativos y than para contrastar dos personas, objetos o ideas.', color: '#356f92', suave: '#e8f4fa', valor: 'Decisiones razonadas y respeto',
+    historia: [
+      { emoji: '🚲', texto: 'Our class compares two ways to travel to a nearby park.' },
+      { emoji: '🌱', texto: 'Cycling is cleaner than traveling by car.' },
+      { emoji: '⏱️', texto: 'The bus is faster than walking for a long distance.' },
+      { emoji: '💰', texto: 'Walking is less expensive than taking the bus.' },
+      { emoji: '🧠', texto: 'A fair comparison helps us choose what fits the situation.' },
+    ],
+    palabras: [
+      { en: 'cleaner than', es: 'más limpio que', emoji: '🌱' }, { en: 'faster than', es: 'más rápido que', emoji: '⚡' },
+      { en: 'safer than', es: 'más seguro que', emoji: '🛡️' }, { en: 'more comfortable', es: 'más cómodo', emoji: '😌' },
+      { en: 'less expensive', es: 'menos costoso', emoji: '💰' }, { en: 'than', es: 'que al comparar', emoji: '⚖️' },
+    ],
+    constructor: {
+      inicios: ['Walking is', 'This route is', 'The bus is', 'A bicycle is'],
+      acciones: ['healthier than', 'shorter than', 'more comfortable than', 'less noisy than'],
+      finales: ['driving.', 'the other route.', 'walking far.', 'a car.'],
+    },
+    retos: [
+      { frase: 'A bicycle is ___ than a car.', correcta: 'cleaner', opciones: ['clean', 'cleaner', 'cleanest'], ayuda: 'Comparamos dos opciones: cleaner than.' },
+      { frase: 'This path is ___ than that one.', correcta: 'shorter', opciones: ['short', 'shorter', 'more short'], ayuda: 'A un adjetivo corto normalmente agregamos -er.' },
+      { frase: 'The bus is more comfortable ___ the bicycle.', correcta: 'than', opciones: ['that', 'than', 'then'], ayuda: 'Than conecta los dos elementos comparados.' },
+      { frase: 'This plan is ___ than the first one.', correcta: 'more practical', opciones: ['practicaler', 'more practical', 'most practical'], ayuda: 'Con un adjetivo largo usamos more.' },
+    ],
+    aplicaciones: [
+      { emoji: '🧠', titulo: 'Al tomar una decisión', texto: 'Comparar dos opciones con razones claras.' },
+      { emoji: '🌍', titulo: 'Al cuidar el ambiente', texto: 'Contrastar medios de transporte o materiales.' },
+      { emoji: '💬', titulo: 'Al dar una opinión', texto: 'Explicar una preferencia sin menospreciar a otros.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
