@@ -1439,6 +1439,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🌱', titulo: 'En actividades', texto: 'Distribuir materiales o tareas sin confusiones.' },
     ],
   },
+  'fase-14-every-all': {
+    slug: 'fase-14-every-all', icono: '🌍', zona: 'CADA UNO Y TODO EL GRUPO', titulo: 'Todos contamos',
+    bajada: 'Usa every con cada miembro en singular y all para hablar del grupo completo.', color: '#31865b', suave: '#e5f8ed', valor: 'Participación y responsabilidad compartida',
+    historia: [
+      { emoji: '🏫', texto: 'Every student has a role in our classroom project.' },
+      { emoji: '📋', texto: 'Every team checks its materials before starting.' },
+      { emoji: '👥', texto: 'All the students share ideas and listen respectfully.' },
+      { emoji: '✅', texto: 'All our work is ready before the presentation.' },
+      { emoji: '⭐', texto: 'Each contribution helps the whole group succeed.' },
+    ],
+    palabras: [
+      { en: 'every student', es: 'cada estudiante', emoji: '👤' }, { en: 'every day', es: 'cada día', emoji: '📅' },
+      { en: 'all students', es: 'todos los estudiantes', emoji: '👥' }, { en: 'all the work', es: 'todo el trabajo', emoji: '✅' },
+      { en: 'each member', es: 'cada integrante', emoji: '1️⃣' }, { en: 'whole group', es: 'grupo completo', emoji: '🤝' },
+    ],
+    constructor: {
+      inicios: ['Every student', 'Every team', 'All students', 'All the work'],
+      acciones: ['has', 'checks', 'share', 'is'],
+      finales: ['a responsibility.', 'the plan.', 'their ideas.', 'ready.'],
+    },
+    retos: [
+      { frase: '___ student has a notebook.', correcta: 'Every', opciones: ['Every', 'All', 'Many of'], ayuda: 'Every acompaña a un sustantivo singular.' },
+      { frase: '___ the students are ready.', correcta: 'All', opciones: ['Every', 'All', 'Each'], ayuda: 'All the students habla del grupo completo.' },
+      { frase: 'Every team ___ a leader.', correcta: 'has', opciones: ['have', 'has', 'having'], ayuda: 'Every team se considera singular.' },
+      { frase: '___ our materials are reusable.', correcta: 'All', opciones: ['All', 'Every', 'Each a'], ayuda: 'All acompaña al conjunto plural.' },
+    ],
+    aplicaciones: [
+      { emoji: '📋', titulo: 'Al repartir tareas', texto: 'Explicar la responsabilidad de cada persona.' },
+      { emoji: '👥', titulo: 'Al hablar del grupo', texto: 'Describir una acción que realizan todos.' },
+      { emoji: '🌱', titulo: 'En una campaña', texto: 'Invitar a toda la comunidad a participar.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
