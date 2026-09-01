@@ -4,6 +4,7 @@ import { useGrammarAudio } from '../../../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../../../services/gramaticaApi.js';
 import BuildingSentencesGame from './BuildingSentencesGame.vue';
 import GrammarSortGame from './GrammarSortGame.vue';
+import SentenceRepairGame from './SentenceRepairGame.vue';
 
 const props = defineProps({
   evolucion: {
@@ -79,6 +80,12 @@ function abrirGrammarSort() {
   reiniciarAudio();
 }
 
+function abrirReparaFrase() {
+  pantalla.value = 'reparar';
+  estado.value = '';
+  reiniciarAudio();
+}
+
 onMounted(() => reiniciarAudio());
 </script>
 
@@ -120,6 +127,11 @@ onMounted(() => reiniciarAudio());
           <span><strong>Clasificador rápido</strong><small>Envía cada frase al portal correcto con teclas, toque o arrastre.</small></span>
           <b>Jugar →</b>
         </button>
+        <button class="pet-games__game-card pet-games__game-card--active" @click="abrirReparaFrase">
+          <span class="pet-games__game-icon">🔧</span>
+          <span><strong>Repara la frase</strong><small>Encuentra la pieza incorrecta y reemplázala usando la regla adecuada.</small></span>
+          <b>Jugar →</b>
+        </button>
         <button class="pet-games__game-card" @click="emit('abrir-caminos')">
           <span class="pet-games__game-icon">🐾</span>
           <span><strong>Caminos de gramática</strong><small>Practicá por fases y alcanzá la meta.</small></span>
@@ -137,6 +149,12 @@ onMounted(() => reiniciarAudio());
 
     <GrammarSortGame
       v-else-if="pantalla === 'portales'"
+      @salir="pantalla = 'hub'"
+      @alimento="alimentoGanado += $event"
+    />
+
+    <SentenceRepairGame
+      v-else-if="pantalla === 'reparar'"
       @salir="pantalla = 'hub'"
       @alimento="alimentoGanado += $event"
     />
