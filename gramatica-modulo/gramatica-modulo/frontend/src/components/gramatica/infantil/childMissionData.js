@@ -831,6 +831,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏠', titulo: 'En familia', texto: 'Comunicar visitas y actividades acordadas.' },
     ],
   },
+  'fase-8-can-could': {
+    slug: 'fase-8-can-could', icono: '🎯', zona: 'HABILIDADES Y PETICIONES', titulo: 'Lo que puedo hacer',
+    bajada: 'Usa can para hablar de habilidades y can o could para pedir algo con amabilidad.', color: '#356f92', suave: '#e8f4fa', valor: 'Confianza y trato amable',
+    historia: [
+      { emoji: '🏫', texto: 'Our class is preparing a school activity.' },
+      { emoji: '🎨', texto: 'I can design the poster, and Leo can draw the pictures.' },
+      { emoji: '💬', texto: '“Could you help us choose the colors, please?” I ask.' },
+      { emoji: '🤝', texto: 'Our teacher says, “Yes, I can help you.”' },
+      { emoji: '⭐', texto: 'We recognize our abilities and ask for help politely.' },
+    ],
+    palabras: [
+      { en: 'can', es: 'puedo/puede', emoji: '💪' }, { en: 'could', es: 'podría', emoji: '💬' },
+      { en: 'ability', es: 'habilidad', emoji: '⭐' }, { en: 'help', es: 'ayudar', emoji: '🤝' },
+      { en: 'please', es: 'por favor', emoji: '😊' }, { en: 'draw', es: 'dibujar', emoji: '🎨' },
+    ],
+    constructor: {
+      inicios: ['I can', 'My friend can', 'Can you', 'Could you'],
+      acciones: ['draw', 'explain', 'help with', 'organize'],
+      finales: ['the poster.', 'this idea?', 'our materials?', 'the activity, please?'],
+    },
+    retos: [
+      { frase: 'I ___ speak English in class.', correcta: 'can', opciones: ['can', 'cans', 'am'], ayuda: 'Can expresa una habilidad y no cambia con I.' },
+      { frase: 'She can ___ very well.', correcta: 'draw', opciones: ['draws', 'drawing', 'draw'], ayuda: 'Después de can usamos el verbo base.' },
+      { frase: '___ you help me, please?', correcta: 'Could', opciones: ['Could', 'Are', 'Did'], ayuda: 'Could hace que la petición suene más amable.' },
+      { frase: 'Yes, we ___ work together.', correcta: 'can', opciones: ['could to', 'can', 'are'], ayuda: 'Can + verbo base expresa que es posible hacerlo.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'En clase', texto: 'Decir qué sabes hacer en un proyecto.' },
+      { emoji: '🤝', titulo: 'Al pedir ayuda', texto: 'Hacer una petición clara y amable.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Ofrecer una habilidad para colaborar.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
