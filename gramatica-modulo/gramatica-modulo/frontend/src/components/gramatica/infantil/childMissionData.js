@@ -1183,6 +1183,38 @@ export const CHILD_MISSIONS = {
       { emoji: '♻️', titulo: 'Al cuidar recursos', texto: 'Hablar de evitar desperdiciar agua o materiales.' },
     ],
   },
+  'fase-11-verbo-to': {
+    slug: 'fase-11-verbo-to', icono: '🎯', zona: 'METAS Y DECISIONES', titulo: 'Lo que quiero lograr',
+    bajada: 'Usa verbo + to para expresar deseos, planes, necesidades y decisiones.', color: '#356f92', suave: '#e8f4fa', valor: 'Propósito y esfuerzo',
+    historia: [
+      { emoji: '🎯', texto: 'This month, I want to improve my English.' },
+      { emoji: '📅', texto: 'I plan to practice for fifteen minutes each day.' },
+      { emoji: '🗣️', texto: 'I need to ask questions when I do not understand.' },
+      { emoji: '🌟', texto: 'I hope to tell a short story at the end of the month.' },
+      { emoji: '💪', texto: 'A clear goal turns small efforts into progress.' },
+    ],
+    palabras: [
+      { en: 'want to', es: 'querer', emoji: '🎯' }, { en: 'plan to', es: 'planear', emoji: '📅' },
+      { en: 'need to', es: 'necesitar', emoji: '📌' }, { en: 'hope to', es: 'esperar lograr', emoji: '🌟' },
+      { en: 'decide to', es: 'decidir', emoji: '☝️' }, { en: 'learn to', es: 'aprender a', emoji: '💡' },
+    ],
+    constructor: {
+      inicios: ['I want to', 'We plan to', 'She needs to', 'My friend hopes to'],
+      acciones: ['practice', 'complete', 'ask about', 'learn'],
+      finales: ['every day.', 'the project.', 'the instructions.', 'a new skill.'],
+    },
+    retos: [
+      { frase: 'I want ___ improve my pronunciation.', correcta: 'to', opciones: ['to', 'for', 'at'], ayuda: 'La estructura es want to + verbo base.' },
+      { frase: 'We plan to ___ tomorrow.', correcta: 'practice', opciones: ['practicing', 'practiced', 'practice'], ayuda: 'Después de to usamos el verbo base.' },
+      { frase: 'She needs ___ finish her homework.', correcta: 'to', opciones: ['to', 'do', 'for'], ayuda: 'Need to expresa una necesidad.' },
+      { frase: 'They hope to ___ the team.', correcta: 'join', opciones: ['joining', 'join', 'joined'], ayuda: 'Hope to va seguido del verbo base.' },
+    ],
+    aplicaciones: [
+      { emoji: '🎯', titulo: 'Al fijar una meta', texto: 'Explicar qué deseas aprender o mejorar.' },
+      { emoji: '📅', titulo: 'Al organizar un plan', texto: 'Decir qué piensas hacer para avanzar.' },
+      { emoji: '🏫', titulo: 'En un proyecto', texto: 'Comunicar lo que tu equipo necesita completar.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
