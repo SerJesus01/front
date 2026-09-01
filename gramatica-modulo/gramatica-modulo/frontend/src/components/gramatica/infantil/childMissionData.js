@@ -1407,6 +1407,38 @@ export const CHILD_MISSIONS = {
       { emoji: '📋', titulo: 'Al planear', texto: 'Preparar una lista sin comprar de más.' },
     ],
   },
+  'fase-14-this-that': {
+    slug: 'fase-14-this-that', icono: '👉', zona: 'CERCA O LEJOS', titulo: 'Señala con claridad',
+    bajada: 'Usa this, that, these y those según la distancia y la cantidad.', color: '#356f92', suave: '#e8f4fa', valor: 'Observación y claridad',
+    historia: [
+      { emoji: '🌱', texto: 'Our group is organizing plants for the school garden.' },
+      { emoji: '🪴', texto: 'This plant beside me needs a larger pot.' },
+      { emoji: '🌳', texto: 'That tree across the yard gives us shade.' },
+      { emoji: '🌿', texto: 'These herbs here smell fresh, and those flowers near the gate need water.' },
+      { emoji: '💧', texto: 'We point clearly so each team knows what to care for.' },
+    ],
+    palabras: [
+      { en: 'this', es: 'este/esta cerca', emoji: '1️⃣' }, { en: 'that', es: 'ese/esa lejos', emoji: '👉' },
+      { en: 'these', es: 'estos/estas cerca', emoji: '👥' }, { en: 'those', es: 'esos/esas lejos', emoji: '👀' },
+      { en: 'near', es: 'cerca', emoji: '📍' }, { en: 'far', es: 'lejos', emoji: '🔭' },
+    ],
+    constructor: {
+      inicios: ['This', 'That', 'These', 'Those'],
+      acciones: ['plant is', 'tree is', 'books are', 'bottles are'],
+      finales: ['beside me.', 'across the yard.', 'on this desk.', 'near the door.'],
+    },
+    retos: [
+      { frase: '___ pencil here is mine.', correcta: 'This', opciones: ['This', 'Those', 'These'], ayuda: 'Uno y cerca: this.' },
+      { frase: '___ building over there is our library.', correcta: 'That', opciones: ['These', 'That', 'This'], ayuda: 'Uno y lejos: that.' },
+      { frase: '___ books here are new.', correcta: 'These', opciones: ['This', 'These', 'That'], ayuda: 'Varios y cerca: these.' },
+      { frase: '___ trees across the field are tall.', correcta: 'Those', opciones: ['Those', 'This', 'These'], ayuda: 'Varios y lejos: those.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'Al identificar objetos', texto: 'Señalar exactamente de cuáles hablas.' },
+      { emoji: '🧭', titulo: 'Al dar indicaciones', texto: 'Distinguir elementos cercanos y lejanos.' },
+      { emoji: '🌱', titulo: 'En actividades', texto: 'Distribuir materiales o tareas sin confusiones.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
