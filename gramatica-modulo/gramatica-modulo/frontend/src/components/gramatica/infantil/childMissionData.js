@@ -1343,6 +1343,38 @@ export const CHILD_MISSIONS = {
       { emoji: '📝', titulo: 'Al escribir', texto: 'Hacer que una descripción sea clara y natural.' },
     ],
   },
+  'fase-13-contables-incontables': {
+    slug: 'fase-13-contables-incontables', icono: '🧺', zona: 'CONTAR O MEDIR', titulo: '¿Lo cuento o lo mido?',
+    bajada: 'Distingue sustantivos contables e incontables para hablar correctamente de cantidades.', color: '#31865b', suave: '#e5f8ed', valor: 'Consumo responsable y organización',
+    historia: [
+      { emoji: '🥪', texto: 'Our class is preparing a healthy snack after the sports activity.' },
+      { emoji: '🍎', texto: 'We count six apples and four sandwiches.' },
+      { emoji: '💧', texto: 'We also need water, bread and a little cheese.' },
+      { emoji: '🧃', texto: 'We use bottles and cups to measure the drinks.' },
+      { emoji: '♻️', texto: 'Planning the amounts helps us share and avoid waste.' },
+    ],
+    palabras: [
+      { en: 'an apple / apples', es: 'una manzana/manzanas', emoji: '🍎' }, { en: 'a bottle / bottles', es: 'una botella/botellas', emoji: '🧴' },
+      { en: 'water', es: 'agua', emoji: '💧' }, { en: 'bread', es: 'pan', emoji: '🍞' },
+      { en: 'how many', es: 'cuántos', emoji: '🔢' }, { en: 'how much', es: 'cuánto', emoji: '⚖️' },
+    ],
+    constructor: {
+      inicios: ['We have', 'We need', 'How many', 'How much'],
+      acciones: ['three apples', 'some water', 'bottles are', 'bread is'],
+      finales: ['for the snack.', 'in the container.', 'on the table?', 'left?'],
+    },
+    retos: [
+      { frase: 'How ___ apples do we need?', correcta: 'many', opciones: ['much', 'many', 'any'], ayuda: 'Apples se puede contar: usamos how many.' },
+      { frase: 'How ___ water is there?', correcta: 'much', opciones: ['many', 'much', 'a'], ayuda: 'Water es incontable: usamos how much.' },
+      { frase: 'We have three ___.', correcta: 'bottles', opciones: ['water', 'bottles', 'bread'], ayuda: 'Bottle es contable y puede ir en plural.' },
+      { frase: 'We need a little ___.', correcta: 'cheese', opciones: ['apples', 'cups', 'cheese'], ayuda: 'Cheese normalmente se trata como incontable.' },
+    ],
+    aplicaciones: [
+      { emoji: '🫕', titulo: 'Al preparar alimentos', texto: 'Distinguir piezas contables de ingredientes medibles.' },
+      { emoji: '🛒', titulo: 'Al hacer una lista', texto: 'Calcular correctamente lo que hace falta.' },
+      { emoji: '♻️', titulo: 'Al evitar desperdicios', texto: 'Planear cantidades adecuadas para compartir.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
