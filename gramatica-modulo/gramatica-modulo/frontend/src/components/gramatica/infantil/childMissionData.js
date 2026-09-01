@@ -1471,6 +1471,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🌱', titulo: 'En una campaña', texto: 'Invitar a toda la comunidad a participar.' },
     ],
   },
+  'fase-14-both-either-neither': {
+    slug: 'fase-14-both-either-neither', icono: '⚖️', zona: 'ELEGIR ENTRE DOS', titulo: 'Los dos, cualquiera o ninguno',
+    bajada: 'Usa both, either y neither para comparar exactamente dos opciones.', color: '#735b9b', suave: '#f2edfb', valor: 'Decisiones justas y pensamiento claro',
+    historia: [
+      { emoji: '🌳', texto: 'Our class can plant a tree or create a small flower garden.' },
+      { emoji: '❤️', texto: 'Both ideas can improve the school yard.' },
+      { emoji: '☝️', texto: 'Either project can begin this month.' },
+      { emoji: '🚫', texto: 'Neither option should use harmful chemicals.' },
+      { emoji: '🤝', texto: 'We compare the two plans and choose responsibly.' },
+    ],
+    palabras: [
+      { en: 'both', es: 'los dos/ambos', emoji: '2️⃣' }, { en: 'either', es: 'cualquiera de los dos', emoji: '⚖️' },
+      { en: 'neither', es: 'ninguno de los dos', emoji: '🚫' }, { en: 'both ideas', es: 'ambas ideas', emoji: '💡' },
+      { en: 'either option', es: 'cualquiera de las opciones', emoji: '☝️' }, { en: 'neither plan', es: 'ningún plan', emoji: '📋' },
+    ],
+    constructor: {
+      inicios: ['Both ideas', 'Either option', 'Neither plan', 'Both teams'],
+      acciones: ['are', 'can be', 'uses', 'have'],
+      finales: ['helpful.', 'successful.', 'extra plastic.', 'good suggestions.'],
+    },
+    retos: [
+      { frase: '___ books are useful.', correcta: 'Both', opciones: ['Both', 'Either', 'Neither of'], ayuda: 'Both incluye los dos libros.' },
+      { frase: 'You can choose ___ activity.', correcta: 'either', opciones: ['both of', 'either', 'neither of'], ayuda: 'Either significa cualquiera de las dos.' },
+      { frase: '___ answer is correct.', correcta: 'Neither', opciones: ['Both', 'Either', 'Neither'], ayuda: 'Neither indica que ninguna de las dos es correcta.' },
+      { frase: 'Both teams ___ ready.', correcta: 'are', opciones: ['is', 'are', 'has'], ayuda: 'Both teams es plural.' },
+    ],
+    aplicaciones: [
+      { emoji: '⚖️', titulo: 'Al comparar dos opciones', texto: 'Decir si sirven las dos, cualquiera o ninguna.' },
+      { emoji: '🤝', titulo: 'Al decidir en equipo', texto: 'Expresar alternativas de forma imparcial.' },
+      { emoji: '📝', titulo: 'Al responder', texto: 'Dar una respuesta precisa cuando solo hay dos posibilidades.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
