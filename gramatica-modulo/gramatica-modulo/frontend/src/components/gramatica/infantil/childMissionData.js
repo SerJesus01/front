@@ -703,6 +703,38 @@ export const CHILD_MISSIONS = {
       { emoji: '♻️', titulo: 'Al cuidar el ambiente', texto: 'Explicar cómo se separan y reutilizan materiales.' },
     ],
   },
+  'fase-6-pasiva-pasado': {
+    slug: 'fase-6-pasiva-pasado', icono: '🏗️', zona: 'RESULTADOS DEL PASADO', titulo: 'Así fue creado',
+    bajada: 'Usa was o were más participio para explicar cómo se obtuvo un resultado pasado.', color: '#356f92', suave: '#e8f4fa', valor: 'Reconocer el trabajo de los demás',
+    historia: [
+      { emoji: '🌳', texto: 'A new reading corner was created at our school.' },
+      { emoji: '📚', texto: 'The books were donated by local families.' },
+      { emoji: '🎨', texto: 'The signs were painted by the art class.' },
+      { emoji: '🪑', texto: 'The old chairs were repaired and reused.' },
+      { emoji: '🤝', texto: 'The space was opened last Friday for everyone.' },
+    ],
+    palabras: [
+      { en: 'was created', es: 'fue creado', emoji: '🏗️' }, { en: 'were donated', es: 'fueron donados', emoji: '🎁' },
+      { en: 'were painted', es: 'fueron pintados', emoji: '🎨' }, { en: 'were repaired', es: 'fueron reparados', emoji: '🛠️' },
+      { en: 'was opened', es: 'fue inaugurado', emoji: '🚪' }, { en: 'by', es: 'por', emoji: '👥' },
+    ],
+    constructor: {
+      inicios: ['The poster was', 'The garden was', 'The boxes were', 'The materials were'],
+      acciones: ['created', 'prepared', 'painted', 'organized'],
+      finales: ['by our class.', 'last week.', 'for the event.', 'with care.'],
+    },
+    retos: [
+      { frase: 'The corner ___ created last month.', correcta: 'was', opciones: ['is', 'were', 'was'], ayuda: 'Corner es singular y la acción ocurrió en el pasado.' },
+      { frase: 'The books ___ donated by families.', correcta: 'were', opciones: ['was', 'were', 'are'], ayuda: 'Books es plural: usamos were.' },
+      { frase: 'The chairs were ___.', correcta: 'repaired', opciones: ['repair', 'repaired', 'repairing'], ayuda: 'La pasiva requiere el participio repaired.' },
+      { frase: 'The signs were painted ___ the students.', correcta: 'by', opciones: ['by', 'on', 'at'], ayuda: 'By presenta a quienes realizaron la acción.' },
+    ],
+    aplicaciones: [
+      { emoji: '📖', titulo: 'Al contar una historia', texto: 'Explicar cómo se creó algo en el pasado.' },
+      { emoji: '🏫', titulo: 'En proyectos', texto: 'Reconocer quién realizó cada contribución.' },
+      { emoji: '🛠️', titulo: 'Al describir resultados', texto: 'Centrarte en lo construido, reparado o preparado.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
