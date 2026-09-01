@@ -1919,6 +1919,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🌳', titulo: 'En comunidad', texto: 'Invitar a otros a cuidar parques y árboles.' },
     ],
   },
+  'fase-17-preposiciones-tiempo': {
+    slug: 'fase-17-preposiciones-tiempo', icono: '📅', zona: 'UBICA CADA MOMENTO', titulo: '¿Cuándo sucede?',
+    bajada: 'Usa at para horas, on para días y fechas, e in para meses, años y periodos amplios.', color: '#356f92', suave: '#e8f4fa', valor: 'Puntualidad y organización',
+    historia: [
+      { emoji: '📅', texto: 'Our school reading week begins in October.' },
+      { emoji: '📖', texto: 'The opening activity is on Monday.' },
+      { emoji: '⏰', texto: 'We meet in the library at nine o’clock.' },
+      { emoji: '🌙', texto: 'My family reads together in the evening and visits the fair on Saturday.' },
+      { emoji: '✅', texto: 'Clear time references help everyone arrive prepared.' },
+    ],
+    palabras: [
+      { en: 'at nine', es: 'a las nueve', emoji: '⏰' }, { en: 'on Monday', es: 'el lunes', emoji: '📅' },
+      { en: 'on May 5', es: 'el 5 de mayo', emoji: '🗓️' }, { en: 'in October', es: 'en octubre', emoji: '🍂' },
+      { en: 'in the morning', es: 'por la mañana', emoji: '🌅' }, { en: 'at night', es: 'por la noche', emoji: '🌙' },
+    ],
+    constructor: {
+      inicios: ['The class begins', 'We meet', 'The event is', 'My family travels'],
+      acciones: ['at nine', 'in the morning', 'on Saturday', 'in December'],
+      finales: ['.', '.', '.', '.'],
+    },
+    retos: [
+      { frase: 'The lesson begins ___ eight o’clock.', correcta: 'at', opciones: ['in', 'on', 'at'], ayuda: 'Usamos at con una hora exacta.' },
+      { frase: 'The activity is ___ Friday.', correcta: 'on', opciones: ['at', 'on', 'in'], ayuda: 'Usamos on con días de la semana.' },
+      { frase: 'Our holidays begin ___ July.', correcta: 'in', opciones: ['on', 'at', 'in'], ayuda: 'Usamos in con meses.' },
+      { frase: 'We read together ___ the evening.', correcta: 'in', opciones: ['in', 'on', 'at'], ayuda: 'Decimos in the evening.' },
+    ],
+    aplicaciones: [
+      { emoji: '📅', titulo: 'Al organizar tu agenda', texto: 'Anotar correctamente horas, días y meses.' },
+      { emoji: '💬', titulo: 'Al confirmar un plan', texto: 'Comunicar cuándo comienza una actividad.' },
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Comprender horarios, fechas y calendarios.' },
+    ],
+  },
 };
 
 export const CHILD_MISSION_SLUGS = new Set(Object.keys(CHILD_MISSIONS));
