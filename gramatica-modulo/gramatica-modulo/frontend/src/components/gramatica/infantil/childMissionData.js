@@ -959,6 +959,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏫', titulo: 'En una actividad', texto: 'Decir a qué equipo o tarea te gustaría unirte.' },
     ],
   },
+  'fase-8-imperativo': {
+    slug: 'fase-8-imperativo', icono: '🧭', zona: 'INSTRUCCIONES CLARAS', titulo: 'Sigue la ruta',
+    bajada: 'Usa el imperativo para dar instrucciones breves, explicar pasos y advertir con claridad.', color: '#39766a', suave: '#e8f7f2', valor: 'Claridad y cuidado compartido',
+    historia: [
+      { emoji: '🌱', texto: 'Our group is planting seeds in the school garden.' },
+      { emoji: '🪴', texto: 'First, fill the pot with soil.' },
+      { emoji: '🌻', texto: 'Place two seeds in the center and cover them gently.' },
+      { emoji: '💧', texto: 'Add a little water. Do not flood the pot.' },
+      { emoji: '☀️', texto: 'Finally, put it near the light and care for it every day.' },
+    ],
+    palabras: [
+      { en: 'first', es: 'primero', emoji: '1️⃣' }, { en: 'then', es: 'después', emoji: '2️⃣' },
+      { en: 'finally', es: 'finalmente', emoji: '🏁' }, { en: 'place', es: 'coloca', emoji: '📍' },
+      { en: 'do not', es: 'no', emoji: '🚫' }, { en: 'gently', es: 'con cuidado', emoji: '🤲' },
+    ],
+    constructor: {
+      inicios: ['First,', 'Then,', 'Next,', 'Finally,'],
+      acciones: ['prepare', 'place', 'check', 'clean'],
+      finales: ['the materials.', 'the seeds carefully.', 'your work.', 'the shared space.'],
+    },
+    retos: [
+      { frase: '___ the instructions before you begin.', correcta: 'Read', opciones: ['Reads', 'To read', 'Read'], ayuda: 'El imperativo afirmativo comienza con el verbo base.' },
+      { frase: '___ not waste water.', correcta: 'Do', opciones: ['Are', 'Do', 'Does'], ayuda: 'La forma negativa es do not + verbo base.' },
+      { frase: 'Please ___ the materials carefully.', correcta: 'carry', opciones: ['carry', 'carries', 'carried'], ayuda: 'Please hace amable la instrucción; el verbo queda en su forma base.' },
+      { frase: 'Finally, ___ your work area.', correcta: 'clean', opciones: ['cleaning', 'clean', 'cleans'], ayuda: 'Clean es el verbo base para esta instrucción.' },
+    ],
+    aplicaciones: [
+      { emoji: '🧪', titulo: 'En un procedimiento', texto: 'Explicar los pasos de un experimento.' },
+      { emoji: '🌱', titulo: 'Al cuidar el ambiente', texto: 'Dar indicaciones para plantar o reciclar.' },
+      { emoji: '🎮', titulo: 'Al explicar un juego', texto: 'Comunicar reglas breves y ordenadas.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
