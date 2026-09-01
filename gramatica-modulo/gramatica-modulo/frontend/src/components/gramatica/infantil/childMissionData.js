@@ -447,6 +447,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏠', titulo: 'En familia', texto: 'Compartir recuerdos y experiencias pasadas.' },
     ],
   },
+  'fase-4-pasado-simple': {
+    slug: 'fase-4-pasado-simple', icono: '📖', zona: 'HISTORIAS QUE YA OCURRIERON', titulo: 'Lo que hice ayer',
+    bajada: 'Usa el pasado simple para contar acciones terminadas y ordenar una experiencia.', color: '#b06b33', suave: '#fff3e4', valor: 'Responsabilidad y reflexión',
+    historia: [
+      { emoji: '🌱', texto: 'Last Saturday, my family worked in our garden.' },
+      { emoji: '🧤', texto: 'My dad prepared the tools.' },
+      { emoji: '💧', texto: 'My mom watered the plants.' },
+      { emoji: '🌼', texto: 'My brother and I planted new flowers.' },
+      { emoji: '♻️', texto: 'We cleaned the area and recycled the empty containers.' },
+    ],
+    palabras: [
+      { en: 'worked', es: 'trabajó/trabajaron', emoji: '🛠️' }, { en: 'prepared', es: 'preparó', emoji: '🧤' },
+      { en: 'watered', es: 'regó', emoji: '💧' }, { en: 'planted', es: 'plantó', emoji: '🌱' },
+      { en: 'cleaned', es: 'limpió', emoji: '🧹' }, { en: 'recycled', es: 'recicló', emoji: '♻️' },
+    ],
+    constructor: {
+      inicios: ['Yesterday, I', 'Last week, we', 'On Saturday, I', 'After class, we'],
+      acciones: ['worked on', 'talked about', 'helped with', 'prepared for'],
+      finales: ['the project.', 'our homework.', 'the garden.', 'a family activity.'],
+    },
+    retos: [
+      { frase: 'Yesterday I ___ my homework.', correcta: 'finished', opciones: ['finish', 'finished', 'finishing'], ayuda: 'Una acción terminada usa el pasado: finished.' },
+      { frase: 'We ___ flowers on Saturday.', correcta: 'planted', opciones: ['plant', 'planted', 'plants'], ayuda: 'Plant es regular: plant + ed.' },
+      { frase: 'She ___ the tools for us.', correcta: 'prepared', opciones: ['prepares', 'prepared', 'prepare'], ayuda: 'Prepared indica una acción terminada.' },
+      { frase: 'They ___ the area after the activity.', correcta: 'cleaned', opciones: ['cleaning', 'clean', 'cleaned'], ayuda: 'Cleaned es el pasado de clean.' },
+    ],
+    aplicaciones: [
+      { emoji: '📔', titulo: 'En un diario', texto: 'Escribir lo que hiciste durante el día.' },
+      { emoji: '🏫', titulo: 'En clase', texto: 'Relatar una actividad o proyecto terminado.' },
+      { emoji: '👨‍👩‍👧‍👦', titulo: 'En familia', texto: 'Compartir experiencias y buenos recuerdos.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
