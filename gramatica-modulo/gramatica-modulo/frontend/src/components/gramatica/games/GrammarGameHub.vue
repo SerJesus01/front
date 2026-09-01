@@ -5,6 +5,7 @@ import { gramaticaApi } from '../../../services/gramaticaApi.js';
 import BuildingSentencesGame from './BuildingSentencesGame.vue';
 import GrammarSortGame from './GrammarSortGame.vue';
 import SentenceRepairGame from './SentenceRepairGame.vue';
+import TimeVaultGame from './TimeVaultGame.vue';
 
 const props = defineProps({
   evolucion: {
@@ -86,6 +87,12 @@ function abrirReparaFrase() {
   reiniciarAudio();
 }
 
+function abrirBovedaTiempo() {
+  pantalla.value = 'boveda';
+  estado.value = '';
+  reiniciarAudio();
+}
+
 onMounted(() => reiniciarAudio());
 </script>
 
@@ -132,6 +139,11 @@ onMounted(() => reiniciarAudio());
           <span><strong>Repara la frase</strong><small>Encuentra la pieza incorrecta y reemplázala usando la regla adecuada.</small></span>
           <b>Jugar →</b>
         </button>
+        <button class="pet-games__game-card pet-games__game-card--active" @click="abrirBovedaTiempo">
+          <span class="pet-games__game-icon">🔐</span>
+          <span><strong>La Bóveda del Tiempo</strong><small>Conjuga cinco verbos, descubre el código y pronúncialo en inglés.</small></span>
+          <b>Jugar →</b>
+        </button>
         <button class="pet-games__game-card" @click="emit('abrir-caminos')">
           <span class="pet-games__game-icon">🐾</span>
           <span><strong>Caminos de gramática</strong><small>Practicá por fases y alcanzá la meta.</small></span>
@@ -155,6 +167,12 @@ onMounted(() => reiniciarAudio());
 
     <SentenceRepairGame
       v-else-if="pantalla === 'reparar'"
+      @salir="pantalla = 'hub'"
+      @alimento="alimentoGanado += $event"
+    />
+
+    <TimeVaultGame
+      v-else-if="pantalla === 'boveda'"
       @salir="pantalla = 'hub'"
       @alimento="alimentoGanado += $event"
     />
