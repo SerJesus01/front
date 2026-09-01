@@ -34,12 +34,13 @@ import GerundInfinitiveLesson from '../components/gramatica/gerundio/GerundInfin
 import PossessiveLesson from '../components/gramatica/posesivos/PossessiveLesson.vue';
 import AdvancedLesson from '../components/gramatica/avanzado/AdvancedLesson.vue';
 import GrammarGameHub from '../components/gramatica/games/GrammarGameHub.vue';
+import UniversalPuzzleHub from '../components/gramatica/games/UniversalPuzzleHub.vue';
 import ChildMissionLesson from '../components/gramatica/infantil/ChildMissionLesson.vue';
 import { CHILD_MISSIONS, CHILD_MISSION_SLUGS } from '../components/gramatica/infantil/childMissionData.js';
 import { useGrammarAudio } from '../composables/useGrammarAudio.js';
 import { gramaticaApi } from '../services/gramaticaApi.js';
 
-const pantallaActual = ref('perfiles'); // 'perfiles' | 'fases' | 'subtemas' | 'infantil-estudio' | 'infantil-preview' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
+const pantallaActual = ref('perfiles'); // 'perfiles' | 'puzzles-global' | 'fases' | 'subtemas' | 'infantil-estudio' | 'infantil-preview' | 'estudio' | 'ejercicios' | 'fin' | 'cruces'
 const perfilStudentbook = ref(null); // 'adulto' | 'nino'
 
 const fases = ref([]);
@@ -635,8 +636,13 @@ cargarCruces();
           <small>APRENDIZAJE COTIDIANO</small><strong>Adulto estándar</strong><p>Ejemplos naturales, práctica guiada y progreso claro.</p><span class="gramatica-view__perfil-accion">Continuar el recorrido →</span>
         </button>
       </div>
+      <button class="gramatica-view__puzzles-global" @click="pantallaActual = 'puzzles-global'">
+        <span>🧩</span><span><small>ACCESO LIBRE · TODAS LAS EDADES</small><strong>Centro de puzzles</strong><p>Practica reglas combinadas sin elegir primero un Studentbook.</p></span><b>Explorar puzzles →</b>
+      </button>
       <aside>La ruta juvenil se construye como una sola experiencia que aumenta gradualmente su dificultad.</aside>
     </section>
+
+    <UniversalPuzzleHub v-else-if="pantallaActual === 'puzzles-global'" @volver="pantallaActual = 'perfiles'" />
 
     <div v-else-if="pantallaActual === 'fases'" :class="{ 'gramatica-view__modo-infantil': perfilStudentbook === 'nino' }">
       <button class="gramatica-view__cambiar-perfil" @click="cambiarStudentbook">↔ Cambiar Studentbook</button>
@@ -1416,6 +1422,13 @@ cargarCruces();
 .gramatica-view__perfil > p { margin: 0; color: var(--color-texto-secundario); font-size: .78rem; }
 .gramatica-view__perfil-accion { align-self: stretch; margin-top: auto; padding-top: 1rem; color: #356f92; font-size: .76rem; font-weight: 900; text-align: right; }
 .gramatica-view__selector > aside { margin-top: 1rem; padding: .7rem; border-radius: 12px; background: var(--color-fondo-suave); color: var(--color-texto-secundario); font-size: .72rem; text-align: center; }
+.gramatica-view__puzzles-global { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; width: 100%; margin-top: 1rem; padding: 1rem 1.2rem; border: 1px solid #c7b8dc; border-radius: 18px; background: linear-gradient(135deg,#f2edfb,#e8f4fa); color: inherit; cursor: pointer; text-align: left; }
+.gramatica-view__puzzles-global > span:first-child { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 16px; background: #fff; font-size: 2rem; }
+.gramatica-view__puzzles-global > span:nth-child(2) { display: flex; flex-direction: column; }
+.gramatica-view__puzzles-global small { color: #654c83; font-size: .58rem; font-weight: 900; letter-spacing: .08em; }
+.gramatica-view__puzzles-global strong { margin: .1rem 0; }
+.gramatica-view__puzzles-global p { margin: 0; color: var(--color-texto-secundario); font-size: .75rem; }
+.gramatica-view__puzzles-global > b { color: #356f92; font-size: .75rem; }
 .gramatica-view__cambiar-perfil { margin-bottom: .7rem; padding: .42rem .7rem; border: 1px solid var(--color-borde); border-radius: 999px; background: var(--color-superficie); color: var(--color-texto-secundario); cursor: pointer; font-size: .7rem; }
 
 .gramatica-view__modo-infantil .gramatica-view__mapa-hero { position: relative; background: radial-gradient(circle at 18% 25%,rgba(255,255,255,.95) 0 4px,transparent 5px),radial-gradient(circle at 78% 18%,rgba(255,255,255,.9) 0 7px,transparent 8px),linear-gradient(145deg,#dff7ff,#fff1c9 55%,#e5f8ed); }
@@ -2506,6 +2519,8 @@ cargarCruces();
 @media (max-width: 480px) {
   .gramatica-view__selector > header p { font-size: .8rem; }
   .gramatica-view__perfil { padding: .9rem; }
+  .gramatica-view__puzzles-global { grid-template-columns: auto 1fr; padding: .85rem; }
+  .gramatica-view__puzzles-global > b { grid-column: 1/-1; text-align: right; }
   .gramatica-view__mision-preview { padding-inline: .35rem; }
   .gramatica-view__mision-preview article { min-height: 380px; padding: 1rem; }
   .gramatica-view__workbook-hero { grid-template-columns: 1fr; text-align: center; }
