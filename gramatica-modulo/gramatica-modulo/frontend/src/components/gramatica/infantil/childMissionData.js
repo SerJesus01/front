@@ -1567,6 +1567,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🌱', titulo: 'Al cuidar recursos', texto: 'Usar solo la cantidad necesaria de agua o materiales.' },
     ],
   },
+  'fase-15-orden-adjetivos': {
+    slug: 'fase-15-orden-adjetivos', icono: '🎨', zona: 'DESCRIBE CON ORDEN', titulo: 'Detalles en su lugar',
+    bajada: 'Organiza opinión, tamaño, edad, color y material antes del sustantivo.', color: '#735b9b', suave: '#f2edfb', valor: 'Observación y expresión creativa',
+    historia: [
+      { emoji: '🏫', texto: 'Our class is describing useful objects for a reuse exhibition.' },
+      { emoji: '📦', texto: 'Mia presents a beautiful small wooden box.' },
+      { emoji: '🎒', texto: 'Leo shows an amazing old blue backpack.' },
+      { emoji: '🪑', texto: 'Our team repaired two comfortable brown chairs.' },
+      { emoji: '♻️', texto: 'Clear details help others imagine how old objects can be useful again.' },
+    ],
+    palabras: [
+      { en: 'beautiful', es: 'hermoso, opinión', emoji: '✨' }, { en: 'small', es: 'pequeño, tamaño', emoji: '🤏' },
+      { en: 'old', es: 'viejo, edad', emoji: '🕰️' }, { en: 'blue', es: 'azul, color', emoji: '🔵' },
+      { en: 'wooden', es: 'de madera, material', emoji: '🪵' }, { en: 'object', es: 'objeto', emoji: '📦' },
+    ],
+    constructor: {
+      inicios: ['It is a', 'We found a', 'She has an', 'They repaired two'],
+      acciones: ['beautiful small wooden', 'useful old metal', 'amazing large blue', 'comfortable brown'],
+      finales: ['box.', 'lamp.', 'backpack.', 'chairs.'],
+    },
+    retos: [
+      { frase: 'It is a ___ box.', correcta: 'beautiful small wooden', opciones: ['wooden small beautiful', 'beautiful small wooden', 'small wooden beautiful'], ayuda: 'Opinión, tamaño y material van en ese orden.' },
+      { frase: 'She has an ___ backpack.', correcta: 'amazing old blue', opciones: ['blue old amazing', 'amazing old blue', 'old amazing blue'], ayuda: 'Primero opinión, luego edad y color.' },
+      { frase: 'We repaired two ___ chairs.', correcta: 'comfortable brown', opciones: ['brown comfortable', 'comfortable brown', 'chairs brown'], ayuda: 'La opinión aparece antes del color.' },
+      { frase: 'I found a ___ bottle.', correcta: 'small green glass', opciones: ['glass green small', 'small green glass', 'green glass small'], ayuda: 'Tamaño, color y material.' },
+    ],
+    aplicaciones: [
+      { emoji: '📝', titulo: 'Al escribir', texto: 'Crear descripciones claras y fáciles de imaginar.' },
+      { emoji: '🎨', titulo: 'Al presentar un objeto', texto: 'Explicar sus cualidades en un orden natural.' },
+      { emoji: '♻️', titulo: 'Al reutilizar', texto: 'Describir materiales y objetos que pueden tener una nueva vida.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
