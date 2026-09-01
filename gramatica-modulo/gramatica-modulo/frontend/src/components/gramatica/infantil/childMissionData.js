@@ -1279,6 +1279,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏠', titulo: 'En casa', texto: 'Aclarar de quién es cada pertenencia.' },
     ],
   },
+  'fase-12-posesivo-s': {
+    slug: 'fase-12-posesivo-s', icono: '👪', zona: 'PERSONAS Y PERTENENCIAS', titulo: 'La mochila de Ana',
+    bajada: 'Usa apóstrofo + s para indicar que algo pertenece o se relaciona con una persona.', color: '#b06b33', suave: '#fff3e4', valor: 'Familia, cuidado y respeto',
+    historia: [
+      { emoji: '🎒', texto: 'This is Ana’s backpack, and that is her brother’s lunch box.' },
+      { emoji: '📖', texto: 'Their mom’s book is on the table.' },
+      { emoji: '🔑', texto: 'Their dad’s keys are next to the door.' },
+      { emoji: '👪', texto: 'The children’s drawings are on the family wall.' },
+      { emoji: '❤️', texto: 'Everyone takes care of their own things and the shared home.' },
+    ],
+    palabras: [
+      { en: 'Ana’s backpack', es: 'la mochila de Ana', emoji: '🎒' }, { en: 'Mom’s book', es: 'el libro de mamá', emoji: '📖' },
+      { en: 'Dad’s keys', es: 'las llaves de papá', emoji: '🔑' }, { en: 'the teacher’s desk', es: 'el escritorio del docente', emoji: '🏫' },
+      { en: 'the children’s work', es: 'el trabajo de los niños', emoji: '👥' }, { en: 'belonging', es: 'pertenencia', emoji: '🏷️' },
+    ],
+    constructor: {
+      inicios: ['This is', 'That is', 'These are', 'I found'],
+      acciones: ['Mia’s notebook', 'Dad’s hat', 'the students’ posters', 'Leo’s pencil'],
+      finales: ['on the desk.', 'near the door.', 'in the hallway.', 'under the chair.'],
+    },
+    retos: [
+      { frase: 'This is ___ notebook.', correcta: 'Mia’s', opciones: ['Mias', 'Mia’s', 'Mia is'], ayuda: 'Agregamos ’s al nombre de la persona.' },
+      { frase: 'Those are my ___ keys.', correcta: 'dad’s', opciones: ['dads', 'dad’s', 'dads’'], ayuda: 'Una persona: dad’s keys.' },
+      { frase: 'The ___ drawings are colorful.', correcta: 'children’s', opciones: ['childrens', 'children’s', 'childrens’'], ayuda: 'Children es plural irregular y recibe ’s.' },
+      { frase: 'It is the ___ garden.', correcta: 'school’s', opciones: ['schools', 'school’s', 'school is'], ayuda: 'School’s expresa que el jardín pertenece a la escuela.' },
+    ],
+    aplicaciones: [
+      { emoji: '👪', titulo: 'Al hablar de tu familia', texto: 'Relacionar una pertenencia con mamá, papá o hermanos.' },
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Identificar objetos y trabajos de cada persona.' },
+      { emoji: '🔎', titulo: 'Al devolver algo', texto: 'Explicar claramente a quién pertenece.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
