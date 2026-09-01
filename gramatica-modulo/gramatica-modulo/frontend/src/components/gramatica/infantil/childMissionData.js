@@ -1151,6 +1151,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🧭', titulo: 'Al orientarte', texto: 'Preguntar cómo llegar o realizar un proceso.' },
     ],
   },
+  'fase-11-verbo-ing': {
+    slug: 'fase-11-verbo-ing', icono: '🎨', zona: 'ACTIVIDADES QUE DISFRUTAMOS', titulo: 'Aprender haciendo',
+    bajada: 'Usa verbo + -ing después de expresiones como enjoy, like, love y finish.', color: '#b06b33', suave: '#fff3e4', valor: 'Creatividad y constancia',
+    historia: [
+      { emoji: '🎨', texto: 'I enjoy drawing posters for our school projects.' },
+      { emoji: '📚', texto: 'My sister likes reading stories after homework.' },
+      { emoji: '🌱', texto: 'Our family loves growing herbs in small pots.' },
+      { emoji: '✅', texto: 'We finish cleaning our materials before dinner.' },
+      { emoji: '⭐', texto: 'Regular activities help our skills grow.' },
+    ],
+    palabras: [
+      { en: 'enjoy doing', es: 'disfrutar hacer', emoji: '😊' }, { en: 'like reading', es: 'gustar leer', emoji: '📚' },
+      { en: 'love learning', es: 'encantar aprender', emoji: '❤️' }, { en: 'finish cleaning', es: 'terminar de limpiar', emoji: '✅' },
+      { en: 'keep trying', es: 'seguir intentando', emoji: '💪' }, { en: 'avoid wasting', es: 'evitar desperdiciar', emoji: '♻️' },
+    ],
+    constructor: {
+      inicios: ['I enjoy', 'My family likes', 'We love', 'Our team finishes'],
+      acciones: ['reading', 'learning', 'planting', 'organizing'],
+      finales: ['after class.', 'new things.', 'in the garden.', 'the materials.'],
+    },
+    retos: [
+      { frase: 'I enjoy ___ in English.', correcta: 'reading', opciones: ['read', 'reading', 'to reads'], ayuda: 'Después de enjoy usamos verbo con -ing.' },
+      { frase: 'She likes ___ pictures.', correcta: 'drawing', opciones: ['draw', 'drawing', 'draws'], ayuda: 'Like puede ir seguido de una actividad con -ing.' },
+      { frase: 'We finished ___ the classroom.', correcta: 'cleaning', opciones: ['clean', 'cleaning', 'to cleaned'], ayuda: 'Finish va seguido de verbo con -ing.' },
+      { frase: 'Keep ___; you are improving.', correcta: 'trying', opciones: ['try', 'trying', 'to tried'], ayuda: 'Keep + -ing significa continuar haciendo algo.' },
+    ],
+    aplicaciones: [
+      { emoji: '🎨', titulo: 'Al hablar de pasatiempos', texto: 'Explicar qué actividades disfrutas.' },
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Contar qué tareas terminaste o sigues practicando.' },
+      { emoji: '♻️', titulo: 'Al cuidar recursos', texto: 'Hablar de evitar desperdiciar agua o materiales.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
