@@ -511,6 +511,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🖼️', titulo: 'Al observar imágenes', texto: 'Imaginar acciones que estaban en progreso.' },
     ],
   },
+  'fase-5-perfecto-intro': {
+    slug: 'fase-5-perfecto-intro', icono: '🌉', zona: 'EXPERIENCIAS QUE CUENTAN', titulo: 'Lo que hemos logrado',
+    bajada: 'Conecta una experiencia pasada con el presente usando have o has.', color: '#39766a', suave: '#e8f7f2', valor: 'Reconocer el esfuerzo y el aprendizaje',
+    historia: [
+      { emoji: '🌎', texto: 'Our class has completed an environment project.' },
+      { emoji: '♻️', texto: 'We have learned how to reuse paper.' },
+      { emoji: '🌱', texto: 'Sofia has planted a tree at school.' },
+      { emoji: '💧', texto: 'Daniel has created a poster about saving water.' },
+      { emoji: '⭐', texto: 'We have made a positive difference together.' },
+    ],
+    palabras: [
+      { en: 'have learned', es: 'hemos aprendido', emoji: '📚' }, { en: 'has created', es: 'ha creado', emoji: '🎨' },
+      { en: 'have completed', es: 'hemos completado', emoji: '✅' }, { en: 'has planted', es: 'ha plantado', emoji: '🌱' },
+      { en: 'experience', es: 'experiencia', emoji: '🧭' }, { en: 'result', es: 'resultado', emoji: '⭐' },
+    ],
+    constructor: {
+      inicios: ['I have', 'We have', 'She has', 'He has'],
+      acciones: ['worked on', 'learned about', 'participated in', 'contributed to'],
+      finales: ['a school project.', 'our community.', 'the environment.', 'a family activity.'],
+    },
+    retos: [
+      { frase: 'I ___ completed my homework.', correcta: 'have', opciones: ['has', 'have', 'did'], ayuda: 'Con I usamos have.' },
+      { frase: 'She ___ planted a tree.', correcta: 'has', opciones: ['have', 'is', 'has'], ayuda: 'Con she usamos has.' },
+      { frase: 'We have ___ a difference.', correcta: 'made', opciones: ['make', 'made', 'making'], ayuda: 'El participio de make es made.' },
+      { frase: 'He has ___ the project.', correcta: 'finished', opciones: ['finish', 'finished', 'finishing'], ayuda: 'Has + finished forma el presente perfecto.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏆', titulo: 'Al hablar de logros', texto: 'Explicar lo que ya has conseguido.' },
+      { emoji: '📚', titulo: 'En la escuela', texto: 'Presentar avances de un proyecto.' },
+      { emoji: '🌎', titulo: 'En comunidad', texto: 'Contar acciones que siguen teniendo efecto.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
