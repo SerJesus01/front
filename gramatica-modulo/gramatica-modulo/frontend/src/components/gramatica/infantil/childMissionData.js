@@ -1247,6 +1247,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏫', titulo: 'En proyectos', texto: 'Reconocer el trabajo individual y del equipo.' },
     ],
   },
+  'fase-12-whose-mine-yours': {
+    slug: 'fase-12-whose-mine-yours', icono: '🏷️', zona: 'ENCUENTRA A SU DUEÑO', titulo: '¿De quién es?',
+    bajada: 'Pregunta con whose y responde con mine, yours, his, hers, ours o theirs.', color: '#356f92', suave: '#e8f4fa', valor: 'Honestidad y respeto por lo ajeno',
+    historia: [
+      { emoji: '🎒', texto: 'There are several things on the lost-and-found table.' },
+      { emoji: '📘', texto: '“Whose notebook is this?” asks Mia. “It is mine,” says Leo.' },
+      { emoji: '🧥', texto: '“Is this jacket yours?” “No, mine is blue. This one is hers.”' },
+      { emoji: '🎨', texto: 'The art supplies are ours, and the sports bags are theirs.' },
+      { emoji: '🤝', texto: 'We return every object and respect each person’s belongings.' },
+    ],
+    palabras: [
+      { en: 'whose', es: 'de quién', emoji: '❓' }, { en: 'mine', es: 'mío/a', emoji: '👤' },
+      { en: 'yours', es: 'tuyo/a', emoji: '👉' }, { en: 'his/hers', es: 'suyo de él/ella', emoji: '👥' },
+      { en: 'ours', es: 'nuestro/a', emoji: '🤝' }, { en: 'theirs', es: 'suyo de ellos', emoji: '🏷️' },
+    ],
+    constructor: {
+      inicios: ['Whose notebook is', 'Is this pencil', 'The project is', 'These materials are'],
+      acciones: ['this', 'yours', 'ours', 'theirs'],
+      finales: ['?', '?', '.', '.'],
+    },
+    retos: [
+      { frase: '___ backpack is this?', correcta: 'Whose', opciones: ['Who', 'Whose', 'Which is'], ayuda: 'Whose pregunta por pertenencia.' },
+      { frase: 'This notebook belongs to me. It is ___.', correcta: 'mine', opciones: ['my', 'mine', 'me'], ayuda: 'Mine reemplaza al sustantivo: it is mine.' },
+      { frase: 'Does this belong to you? Is it ___?', correcta: 'yours', opciones: ['your', 'you', 'yours'], ayuda: 'Yours puede aparecer solo, sin repetir el objeto.' },
+      { frase: 'Those bags belong to them. They are ___.', correcta: 'theirs', opciones: ['their', 'theirs', 'them'], ayuda: 'Theirs reemplaza a their bags.' },
+    ],
+    aplicaciones: [
+      { emoji: '🎒', titulo: 'En objetos perdidos', texto: 'Preguntar y reconocer a quién pertenece algo.' },
+      { emoji: '🏫', titulo: 'Al compartir materiales', texto: 'Distinguir lo personal de lo que pertenece al equipo.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Aclarar de quién es cada pertenencia.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
