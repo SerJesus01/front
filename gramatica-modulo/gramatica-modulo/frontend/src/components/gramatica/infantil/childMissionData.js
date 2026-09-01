@@ -799,6 +799,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🤝', titulo: 'Compromisos', texto: 'Expresar una promesa y cumplirla.' },
     ],
   },
+  'fase-7-continuo-futuro': {
+    slug: 'fase-7-continuo-futuro', icono: '📆', zona: 'ACUERDOS ORGANIZADOS', titulo: 'Mi agenda ya está lista',
+    bajada: 'Usa el presente continuo para planes futuros que ya tienen un acuerdo.', color: '#39766a', suave: '#e8f7f2', valor: 'Puntualidad y respeto por los acuerdos',
+    historia: [
+      { emoji: '🔬', texto: 'Our science group is meeting tomorrow at four.' },
+      { emoji: '📚', texto: 'We are working in the school library.' },
+      { emoji: '👩‍🏫', texto: 'Our teacher is joining us after class.' },
+      { emoji: '🧪', texto: 'Sofia is bringing the experiment materials.' },
+      { emoji: '📅', texto: 'The time and place are confirmed, so the plan is arranged.' },
+    ],
+    palabras: [
+      { en: 'arrangement', es: 'acuerdo organizado', emoji: '🤝' }, { en: 'meeting', es: 'reuniéndose', emoji: '👥' },
+      { en: 'tomorrow', es: 'mañana', emoji: '➡️' }, { en: 'confirmed', es: 'confirmado', emoji: '✅' },
+      { en: 'time', es: 'hora', emoji: '🕓' }, { en: 'place', es: 'lugar', emoji: '📍' },
+    ],
+    constructor: {
+      inicios: ['Tomorrow, I am', 'On Friday, we are', 'After class, she is', 'This evening, they are'],
+      acciones: ['meeting', 'visiting', 'studying with', 'working with'],
+      finales: ['my classmates.', 'our grandparents.', 'the school group.', 'our teacher.'],
+    },
+    retos: [
+      { frase: 'We are ___ tomorrow at four.', correcta: 'meeting', opciones: ['meet', 'meeting', 'met'], ayuda: 'Are + meeting expresa un acuerdo futuro.' },
+      { frase: 'She ___ visiting Grandma on Sunday.', correcta: 'is', opciones: ['is', 'are', 'was'], ayuda: 'Con she usamos is.' },
+      { frase: 'I am studying ___ Leo tonight.', correcta: 'with', opciones: ['at', 'with', 'on'], ayuda: 'With indica con quién está organizado el plan.' },
+      { frase: 'They are ___ the materials tomorrow.', correcta: 'bringing', opciones: ['bring', 'brought', 'bringing'], ayuda: 'Are + bringing presenta el acuerdo futuro.' },
+    ],
+    aplicaciones: [
+      { emoji: '👥', titulo: 'En trabajos de equipo', texto: 'Confirmar con quién te reunirás.' },
+      { emoji: '📅', titulo: 'En tu agenda', texto: 'Explicar planes con hora o lugar definidos.' },
+      { emoji: '🏠', titulo: 'En familia', texto: 'Comunicar visitas y actividades acordadas.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
