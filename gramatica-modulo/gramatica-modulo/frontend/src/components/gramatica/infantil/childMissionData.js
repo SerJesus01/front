@@ -671,6 +671,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏫', titulo: 'En proyectos', texto: 'Diferenciar logros actuales y acciones fechadas.' },
     ],
   },
+  'fase-6-pasiva-presente': {
+    slug: 'fase-6-pasiva-presente', icono: '♻️', zona: 'CÓMO SE HACEN LAS COSAS', titulo: 'Así se cuida nuestra escuela',
+    bajada: 'Usa la voz pasiva para destacar una acción o su resultado en el presente.', color: '#31865b', suave: '#e5f8ed', valor: 'Cuidado compartido y responsabilidad',
+    historia: [
+      { emoji: '📄', texto: 'Paper is collected in every classroom.' },
+      { emoji: '♻️', texto: 'Useful sheets are reused for notes.' },
+      { emoji: '🧴', texto: 'Plastic is separated from other waste.' },
+      { emoji: '🌱', texto: 'The garden is watered with collected rainwater.' },
+      { emoji: '🏫', texto: 'Our school is cared for by the whole community.' },
+    ],
+    palabras: [
+      { en: 'is collected', es: 'es recolectado', emoji: '📦' }, { en: 'are reused', es: 'son reutilizados', emoji: '♻️' },
+      { en: 'is separated', es: 'es separado', emoji: '🗂️' }, { en: 'is watered', es: 'es regado', emoji: '💧' },
+      { en: 'by', es: 'por', emoji: '👥' }, { en: 'result', es: 'resultado', emoji: '✅' },
+    ],
+    constructor: {
+      inicios: ['Paper is', 'Plastic is', 'Glass is', 'Old notebooks are'],
+      acciones: ['collected', 'reused', 'separated', 'stored'],
+      finales: ['in our classroom.', 'by the students.', 'for another activity.', 'with care.'],
+    },
+    retos: [
+      { frase: 'Paper ___ collected at school.', correcta: 'is', opciones: ['are', 'is', 'was'], ayuda: 'Paper es singular y la acción es presente.' },
+      { frase: 'The bottles are ___.', correcta: 'reused', opciones: ['reuse', 'reused', 'reusing'], ayuda: 'La pasiva usa be + participio: are reused.' },
+      { frase: 'The garden is watered ___ the students.', correcta: 'by', opciones: ['at', 'by', 'on'], ayuda: 'By introduce quién realiza la acción.' },
+      { frase: 'Old notebooks ___ stored safely.', correcta: 'are', opciones: ['is', 'are', 'was'], ayuda: 'Notebooks es plural: usamos are.' },
+    ],
+    aplicaciones: [
+      { emoji: '🔬', titulo: 'Al explicar procesos', texto: 'Describir cómo se realiza una actividad.' },
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Destacar resultados y normas compartidas.' },
+      { emoji: '♻️', titulo: 'Al cuidar el ambiente', texto: 'Explicar cómo se separan y reutilizan materiales.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
