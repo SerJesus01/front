@@ -927,6 +927,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🌱', titulo: 'Para el bienestar', texto: 'Proponer decisiones saludables y responsables.' },
     ],
   },
+  'fase-8-would-like': {
+    slug: 'fase-8-would-like', icono: '🍽️', zona: 'ELEGIR CON AMABILIDAD', titulo: 'Me gustaría, por favor',
+    bajada: 'Usa would like para expresar lo que deseas y ofrecer algo de manera amable.', color: '#735b9b', suave: '#f2edfb', valor: 'Cortesía y gratitud',
+    historia: [
+      { emoji: '🥪', texto: 'Our class is planning a healthy snack table.' },
+      { emoji: '🍎', texto: 'I would like an apple and some water, please.' },
+      { emoji: '💬', texto: 'Leo asks, “Would you like a sandwich?”' },
+      { emoji: '😊', texto: '“Yes, please. I would like one,” Mia answers.' },
+      { emoji: '🤝', texto: 'We choose, offer and respond with courtesy.' },
+    ],
+    palabras: [
+      { en: 'I would like', es: 'me gustaría', emoji: '😊' }, { en: 'Would you like...?', es: '¿te gustaría...?', emoji: '💬' },
+      { en: 'please', es: 'por favor', emoji: '🤲' }, { en: 'thank you', es: 'gracias', emoji: '🙏' },
+      { en: 'offer', es: 'ofrecer', emoji: '🎁' }, { en: 'choose', es: 'elegir', emoji: '☝️' },
+    ],
+    constructor: {
+      inicios: ['I would like', 'We would like', 'Would you like', 'My friend would like'],
+      acciones: ['to join', 'to try', 'some water with', 'a place in'],
+      finales: ['the activity.', 'this game.', 'the snack, please.', 'our team.'],
+    },
+    retos: [
+      { frase: 'I ___ like some water, please.', correcta: 'would', opciones: ['am', 'would', 'do'], ayuda: 'Would like expresa un deseo con cortesía.' },
+      { frase: 'Would you like ___ join our team?', correcta: 'to', opciones: ['for', 'to', 'at'], ayuda: 'Antes de una acción usamos would like to + verbo.' },
+      { frase: 'She would like ___ apple.', correcta: 'an', opciones: ['an', 'to', 'some'], ayuda: 'Con una cosa usamos would like + sustantivo.' },
+      { frase: '___ you like a sandwich?', correcta: 'Would', opciones: ['Are', 'Would', 'Have'], ayuda: 'Would you like...? sirve para ofrecer algo.' },
+    ],
+    aplicaciones: [
+      { emoji: '🍽️', titulo: 'Al pedir algo', texto: 'Expresar una elección con cortesía.' },
+      { emoji: '🎁', titulo: 'Al ofrecer', texto: 'Invitar a otra persona a elegir o participar.' },
+      { emoji: '🏫', titulo: 'En una actividad', texto: 'Decir a qué equipo o tarea te gustaría unirte.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
