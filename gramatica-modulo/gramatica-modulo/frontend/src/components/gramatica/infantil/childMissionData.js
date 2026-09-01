@@ -1791,6 +1791,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🌍', titulo: 'Al proponer un cambio', texto: 'Explicar por qué una acción ayuda al entorno.' },
     ],
   },
+  'fase-16-conectores-contraste': {
+    slug: 'fase-16-conectores-contraste', icono: '🌗', zona: 'DOS LADOS DE UNA IDEA', titulo: 'Es diferente, pero funciona',
+    bajada: 'Usa but, however y although para conectar ideas que contrastan.', color: '#735b9b', suave: '#f2edfb', valor: 'Apertura y respeto por distintas perspectivas',
+    historia: [
+      { emoji: '📚', texto: 'Mia likes studying with music, but Leo prefers a quiet room.' },
+      { emoji: '🎧', texto: 'Music helps Mia focus. However, it can distract Leo.' },
+      { emoji: '🤫', texto: 'Although they learn differently, both complete their work.' },
+      { emoji: '🤝', texto: 'They choose separate spaces and meet later to compare notes.' },
+      { emoji: '⭐', texto: 'Different preferences can lead to the same good result.' },
+    ],
+    palabras: [
+      { en: 'but', es: 'pero', emoji: '↔️' }, { en: 'however', es: 'sin embargo', emoji: '🔀' },
+      { en: 'although', es: 'aunque', emoji: '🌗' }, { en: 'different', es: 'diferente', emoji: '🎨' },
+      { en: 'contrast', es: 'contraste', emoji: '⚖️' }, { en: 'perspective', es: 'perspectiva', emoji: '👀' },
+    ],
+    constructor: {
+      inicios: ['I like reading, but', 'The task is difficult. However,', 'Although it is raining,', 'We have different ideas, but'],
+      acciones: ['my friend likes drawing', 'we can solve it', 'we can work inside', 'we listen respectfully'],
+      finales: ['.', '.', '.', '.'],
+    },
+    retos: [
+      { frase: 'The route is long, ___ it is beautiful.', correcta: 'but', opciones: ['because', 'but', 'so'], ayuda: 'But conecta dos ideas que contrastan.' },
+      { frase: 'The task was difficult. ___, we completed it.', correcta: 'However', opciones: ['In addition', 'However', 'Because'], ayuda: 'However inicia una nueva idea en contraste.' },
+      { frase: '___ it was cold, we enjoyed the walk.', correcta: 'Although', opciones: ['So', 'Although', 'And'], ayuda: 'Although presenta una dificultad que no impidió el resultado.' },
+      { frase: 'I am tired, ___ I will finish my part.', correcta: 'but', opciones: ['but', 'because', 'also'], ayuda: 'Las ideas son opuestas: cansancio y decisión de terminar.' },
+    ],
+    aplicaciones: [
+      { emoji: '💬', titulo: 'Al expresar una opinión', texto: 'Reconocer otro punto de vista antes de explicar el tuyo.' },
+      { emoji: '📝', titulo: 'Al escribir', texto: 'Conectar ventajas, dificultades y excepciones.' },
+      { emoji: '🤝', titulo: 'Al resolver diferencias', texto: 'Mostrar que dos preferencias pueden ser válidas.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
