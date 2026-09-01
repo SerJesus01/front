@@ -1951,6 +1951,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏫', titulo: 'En la escuela', texto: 'Comprender horarios, fechas y calendarios.' },
     ],
   },
+  'fase-17-preposiciones-lugar': {
+    slug: 'fase-17-preposiciones-lugar', icono: '📍', zona: 'DESCRIBE EL ESPACIO', titulo: 'Un lugar para cada cosa',
+    bajada: 'Usa referencias como behind, opposite, above, below y among para ubicar con mayor precisión.', color: '#735b9b', suave: '#f2edfb', valor: 'Orden y orientación',
+    historia: [
+      { emoji: '🗺️', texto: 'Our class studies a map of the community around the school.' },
+      { emoji: '📚', texto: 'The library is opposite the park.' },
+      { emoji: '🌳', texto: 'A small garden is behind the community center.' },
+      { emoji: '🚏', texto: 'The bus sign is above the bench, and a recycling bin is among the trees.' },
+      { emoji: '🧭', texto: 'Precise locations help us guide other people safely.' },
+    ],
+    palabras: [
+      { en: 'behind', es: 'detrás de', emoji: '↩️' }, { en: 'opposite', es: 'enfrente de', emoji: '↔️' },
+      { en: 'above', es: 'arriba de', emoji: '⬆️' }, { en: 'below', es: 'abajo de', emoji: '⬇️' },
+      { en: 'among', es: 'entre varios', emoji: '🌳' }, { en: 'inside', es: 'dentro de', emoji: '🏠' },
+    ],
+    constructor: {
+      inicios: ['The garden is', 'The library is', 'The sign is', 'The recycling bin is'],
+      acciones: ['behind', 'opposite', 'above', 'among'],
+      finales: ['the school.', 'the park.', 'the door.', 'the trees.'],
+    },
+    retos: [
+      { frase: 'The garden is ___ the building.', correcta: 'behind', opciones: ['behind', 'above', 'among'], ayuda: 'Behind significa detrás de.' },
+      { frase: 'The library is ___ the park.', correcta: 'opposite', opciones: ['below', 'opposite', 'inside'], ayuda: 'Opposite indica que está enfrente.' },
+      { frase: 'The clock is ___ the door.', correcta: 'above', opciones: ['among', 'behind', 'above'], ayuda: 'Above indica una posición superior.' },
+      { frase: 'The bench is ___ the trees.', correcta: 'among', opciones: ['opposite', 'among', 'above'], ayuda: 'Among ubica algo dentro de un grupo de varios elementos.' },
+    ],
+    aplicaciones: [
+      { emoji: '🗺️', titulo: 'Al leer un mapa', texto: 'Relacionar edificios, señales y puntos de referencia.' },
+      { emoji: '🧭', titulo: 'Al orientar a alguien', texto: 'Explicar con precisión dónde está un lugar.' },
+      { emoji: '🏫', titulo: 'Al organizar espacios', texto: 'Indicar la posición correcta de objetos y materiales.' },
+    ],
+  },
 };
 
 export const CHILD_MISSION_SLUGS = new Set(Object.keys(CHILD_MISSIONS));
