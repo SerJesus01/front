@@ -1055,6 +1055,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏠', titulo: 'En casa', texto: 'Describir la ubicación de tus pertenencias.' },
     ],
   },
+  'fase-10-wh-questions': {
+    slug: 'fase-10-wh-questions', icono: '🔎', zona: 'PREGUNTAR PARA DESCUBRIR', titulo: 'Las preguntas que abren caminos',
+    bajada: 'Usa what, where, when, who, why y how para encontrar la información que necesitas.', color: '#356f92', suave: '#e8f4fa', valor: 'Curiosidad y escucha atenta',
+    historia: [
+      { emoji: '🌱', texto: 'Our class is planning a day to care for the school garden.' },
+      { emoji: '❓', texto: 'What do we need? We need gloves and small bags.' },
+      { emoji: '📍', texto: 'Where will we meet? We will meet near the garden.' },
+      { emoji: '⏰', texto: 'When does the activity begin? It begins at nine.' },
+      { emoji: '🤝', texto: 'Clear questions help every team understand the plan.' },
+    ],
+    palabras: [
+      { en: 'what', es: 'qué/cuál', emoji: '💡' }, { en: 'where', es: 'dónde', emoji: '📍' },
+      { en: 'when', es: 'cuándo', emoji: '⏰' }, { en: 'who', es: 'quién', emoji: '👤' },
+      { en: 'why', es: 'por qué', emoji: '🤔' }, { en: 'how', es: 'cómo', emoji: '🧭' },
+    ],
+    constructor: {
+      inicios: ['What do', 'Where does', 'When do', 'How can'],
+      acciones: ['we need', 'the activity begin', 'the students meet', 'our team help'],
+      finales: ['for the project?', 'after class?', 'on Friday?', 'the garden?'],
+    },
+    retos: [
+      { frase: '___ do you live?', correcta: 'Where', opciones: ['When', 'Where', 'Who'], ayuda: 'Where pregunta por un lugar.' },
+      { frase: '___ does the class begin?', correcta: 'When', opciones: ['When', 'Why', 'What'], ayuda: 'When pregunta por un momento u horario.' },
+      { frase: '___ is your science partner?', correcta: 'Who', opciones: ['How', 'Where', 'Who'], ayuda: 'Who pregunta por una persona.' },
+      { frase: '___ can we save water?', correcta: 'How', opciones: ['How', 'When', 'Who'], ayuda: 'How pregunta por la manera de hacer algo.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'En clase', texto: 'Pedir los datos necesarios para una actividad.' },
+      { emoji: '🧭', titulo: 'Al visitar un lugar', texto: 'Preguntar horarios, ubicaciones e indicaciones.' },
+      { emoji: '🤝', titulo: 'En equipo', texto: 'Aclarar quién hará cada tarea y cómo.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
