@@ -1759,6 +1759,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🤝', titulo: 'Al planear en equipo', texto: 'Sumar propuestas de diferentes personas.' },
     ],
   },
+  'fase-16-conectores-causales': {
+    slug: 'fase-16-conectores-causales', icono: '🎯', zona: 'CAUSA Y RESULTADO', titulo: 'Explica el porqué',
+    bajada: 'Usa because para presentar una razón y so para mostrar su resultado.', color: '#b06b33', suave: '#fff3e4', valor: 'Pensamiento responsable y explicaciones claras',
+    historia: [
+      { emoji: '☀️', texto: 'It is a very warm day, so our garden needs attention.' },
+      { emoji: '💧', texto: 'We water early because less water evaporates then.' },
+      { emoji: '🌱', texto: 'The soil is dry, so we add a little water to each pot.' },
+      { emoji: '🧴', texto: 'We use reusable bottles because we want to reduce plastic waste.' },
+      { emoji: '🧠', texto: 'Understanding causes helps us choose better actions.' },
+    ],
+    palabras: [
+      { en: 'because', es: 'porque', emoji: '🤔' }, { en: 'so', es: 'por eso/así que', emoji: '➡️' },
+      { en: 'reason', es: 'razón', emoji: '💡' }, { en: 'result', es: 'resultado', emoji: '🎯' },
+      { en: 'cause', es: 'causa', emoji: '🔍' }, { en: 'explain', es: 'explicar', emoji: '🗣️' },
+    ],
+    constructor: {
+      inicios: ['We reuse paper because', 'The soil is dry, so', 'I ask questions because', 'It is raining, so'],
+      acciones: ['we protect trees', 'we add water', 'I want to understand', 'we work inside'],
+      finales: ['.', '.', '.', '.'],
+    },
+    retos: [
+      { frase: 'We save water ___ it is valuable.', correcta: 'because', opciones: ['so', 'because', 'but'], ayuda: 'Because introduce la razón.' },
+      { frase: 'The bin is full, ___ we empty it.', correcta: 'so', opciones: ['because', 'so', 'although'], ayuda: 'So presenta el resultado.' },
+      { frase: 'I practice ___ I want to improve.', correcta: 'because', opciones: ['because', 'so', 'and'], ayuda: 'La segunda idea explica por qué practicas.' },
+      { frase: 'We finished early, ___ we helped another team.', correcta: 'so', opciones: ['but', 'because', 'so'], ayuda: 'Ayudar fue el resultado de terminar temprano.' },
+    ],
+    aplicaciones: [
+      { emoji: '🧠', titulo: 'Al justificar una decisión', texto: 'Explicar la razón de una elección.' },
+      { emoji: '🧪', titulo: 'En ciencias', texto: 'Relacionar una causa con su resultado.' },
+      { emoji: '🌍', titulo: 'Al proponer un cambio', texto: 'Explicar por qué una acción ayuda al entorno.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
