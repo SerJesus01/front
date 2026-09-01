@@ -735,6 +735,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🛠️', titulo: 'Al describir resultados', texto: 'Centrarte en lo construido, reparado o preparado.' },
     ],
   },
+  'fase-7-going-to': {
+    slug: 'fase-7-going-to', icono: '🧭', zona: 'PLANES CON INTENCIÓN', titulo: 'Lo que voy a hacer',
+    bajada: 'Usa going to para expresar una intención o un plan decidido.', color: '#356f92', suave: '#e8f4fa', valor: 'Organización y compromiso',
+    historia: [
+      { emoji: '📅', texto: 'This weekend, my family is going to visit my grandparents.' },
+      { emoji: '🥗', texto: 'My mom is going to prepare a healthy lunch.' },
+      { emoji: '🌱', texto: 'My dad and I are going to work in the garden.' },
+      { emoji: '📚', texto: 'My sister is going to bring a book for Grandma.' },
+      { emoji: '🤝', texto: 'We are going to enjoy our time and help with the chores.' },
+    ],
+    palabras: [
+      { en: 'plan', es: 'plan', emoji: '📋' }, { en: 'intention', es: 'intención', emoji: '🎯' },
+      { en: 'going to', es: 'ir a', emoji: '➡️' }, { en: 'this weekend', es: 'este fin de semana', emoji: '📅' },
+      { en: 'prepare', es: 'preparar', emoji: '🎒' }, { en: 'visit', es: 'visitar', emoji: '🏠' },
+    ],
+    constructor: {
+      inicios: ['Tomorrow, I am', 'This weekend, we are', 'After school, she is', 'On Saturday, he is'],
+      acciones: ['going to study', 'going to visit', 'going to help', 'going to prepare'],
+      finales: ['after lunch.', 'with the family.', 'for the activity.', 'at home.'],
+    },
+    retos: [
+      { frase: 'I am ___ to study tonight.', correcta: 'going', opciones: ['go', 'going', 'went'], ayuda: 'La estructura es am/is/are + going to.' },
+      { frase: 'She ___ going to help her mom.', correcta: 'is', opciones: ['am', 'are', 'is'], ayuda: 'Con she usamos is going to.' },
+      { frase: 'We are going to ___ our grandparents.', correcta: 'visit', opciones: ['visited', 'visiting', 'visit'], ayuda: 'Después de going to usamos el verbo base.' },
+      { frase: 'They ___ going to prepare lunch.', correcta: 'are', opciones: ['is', 'are', 'am'], ayuda: 'Con they usamos are.' },
+    ],
+    aplicaciones: [
+      { emoji: '📚', titulo: 'Al estudiar', texto: 'Explicar qué tarea o proyecto planeas hacer.' },
+      { emoji: '🏠', titulo: 'En familia', texto: 'Organizar visitas y responsabilidades.' },
+      { emoji: '🌱', titulo: 'En actividades', texto: 'Comunicar una intención antes de comenzar.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
