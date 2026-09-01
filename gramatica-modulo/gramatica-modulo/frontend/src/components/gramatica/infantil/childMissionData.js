@@ -1727,6 +1727,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🌍', titulo: 'Al cuidar el entorno', texto: 'Describir acciones responsables que practicas con frecuencia.' },
     ],
   },
+  'fase-16-conectores-adicion': {
+    slug: 'fase-16-conectores-adicion', icono: '➕', zona: 'SUMA TUS IDEAS', titulo: 'Una idea y otra más',
+    bajada: 'Usa and, also, too e in addition para agregar información relacionada.', color: '#356f92', suave: '#e8f4fa', valor: 'Colaboración y expresión completa',
+    historia: [
+      { emoji: '🌱', texto: 'Our class is creating a plan for a greener school.' },
+      { emoji: '💧', texto: 'We will save water and reuse paper.' },
+      { emoji: '♻️', texto: 'We will also separate recyclable materials.' },
+      { emoji: '🌳', texto: 'We want to plant a tree, too. In addition, we will care for the garden.' },
+      { emoji: '🤝', texto: 'Connected ideas turn small actions into a stronger plan.' },
+    ],
+    palabras: [
+      { en: 'and', es: 'y', emoji: '➕' }, { en: 'also', es: 'también', emoji: '🔗' },
+      { en: 'too', es: 'también, al final', emoji: '🔚' }, { en: 'in addition', es: 'además', emoji: '📌' },
+      { en: 'another idea', es: 'otra idea', emoji: '💡' }, { en: 'connect', es: 'conectar', emoji: '🧩' },
+    ],
+    constructor: {
+      inicios: ['We save water', 'We also', 'Our family recycles', 'In addition, we'],
+      acciones: ['and reuse paper', 'care for plants', 'at home, too', 'clean the park'],
+      finales: ['at school.', 'every week.', '.', 'with our group.'],
+    },
+    retos: [
+      { frase: 'We read ___ write in English.', correcta: 'and', opciones: ['but', 'and', 'because'], ayuda: 'And une dos acciones relacionadas.' },
+      { frase: 'She ___ helps in the garden.', correcta: 'also', opciones: ['also', 'too', 'because'], ayuda: 'Also suele colocarse antes del verbo principal.' },
+      { frase: 'My brother recycles, ___.', correcta: 'too', opciones: ['also', 'too', 'and'], ayuda: 'Too suele aparecer al final.' },
+      { frase: 'We planted herbs. ___, we made signs.', correcta: 'In addition', opciones: ['However', 'In addition', 'Because'], ayuda: 'In addition agrega una idea completa.' },
+    ],
+    aplicaciones: [
+      { emoji: '📝', titulo: 'Al ampliar un texto', texto: 'Agregar detalles sin escribir ideas aisladas.' },
+      { emoji: '🗣️', titulo: 'Al presentar', texto: 'Conectar varias acciones de un proyecto.' },
+      { emoji: '🤝', titulo: 'Al planear en equipo', texto: 'Sumar propuestas de diferentes personas.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
