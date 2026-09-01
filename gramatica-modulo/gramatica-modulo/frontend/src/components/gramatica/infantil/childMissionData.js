@@ -607,6 +607,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🎯', titulo: 'Al reflexionar', texto: 'Reconocer cuánto tiempo llevas aprendiendo.' },
     ],
   },
+  'fase-5-for-since-ago': {
+    slug: 'fase-5-for-since-ago', icono: '⏳', zona: 'MEDIR EL TIEMPO', titulo: 'Durante, desde y hace',
+    bajada: 'Distingue for, since y ago según hables de duración, inicio o tiempo terminado.', color: '#735b9b', suave: '#f2edfb', valor: 'Precisión y constancia',
+    historia: [
+      { emoji: '🎹', texto: 'Emma has played the piano for three years.' },
+      { emoji: '📅', texto: 'She has practiced at this school since 2023.' },
+      { emoji: '🎵', texto: 'She joined the school group two years ago.' },
+      { emoji: '⏱️', texto: 'For shows a duration, and since shows a starting point.' },
+      { emoji: '⬅️', texto: 'Ago looks back from now to a finished past moment.' },
+    ],
+    palabras: [
+      { en: 'for three years', es: 'durante tres años', emoji: '📏' }, { en: 'since Monday', es: 'desde el lunes', emoji: '📍' },
+      { en: 'two days ago', es: 'hace dos días', emoji: '⬅️' }, { en: 'duration', es: 'duración', emoji: '⏳' },
+      { en: 'starting point', es: 'punto de inicio', emoji: '🚩' }, { en: 'past moment', es: 'momento pasado', emoji: '🕰️' },
+    ],
+    constructor: {
+      inicios: ['I compare', 'I identify', 'I explain', 'I check'],
+      acciones: ['the duration in', 'the starting point in', 'the past time in', 'the time marker in'],
+      finales: ['“for two weeks.”', '“since Monday.”', '“three days ago.”', '“since 2024.”'],
+    },
+    retos: [
+      { frase: 'I have studied here ___ two years.', correcta: 'for', opciones: ['since', 'ago', 'for'], ayuda: 'Two years es una duración: usamos for.' },
+      { frase: 'She has lived here ___ 2022.', correcta: 'since', opciones: ['for', 'since', 'ago'], ayuda: '2022 es el punto de inicio: usamos since.' },
+      { frase: 'We started the project a week ___.', correcta: 'ago', opciones: ['for', 'since', 'ago'], ayuda: 'Ago cuenta hacia atrás desde ahora.' },
+      { frase: 'They have practiced ___ Monday.', correcta: 'since', opciones: ['ago', 'for', 'since'], ayuda: 'Monday marca el inicio.' },
+    ],
+    aplicaciones: [
+      { emoji: '📚', titulo: 'Al hablar de estudios', texto: 'Decir cuánto tiempo llevas aprendiendo.' },
+      { emoji: '🎨', titulo: 'En actividades', texto: 'Explicar cuándo comenzaste un pasatiempo.' },
+      { emoji: '📖', titulo: 'Al contar hechos', texto: 'Ubicar un evento terminado en el pasado.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
