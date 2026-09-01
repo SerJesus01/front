@@ -543,6 +543,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🌎', titulo: 'En comunidad', texto: 'Contar acciones que siguen teniendo efecto.' },
     ],
   },
+  'fase-5-just-already-yet': {
+    slug: 'fase-5-just-already-yet', icono: '✅', zona: 'AVANCES DEL DÍA', titulo: 'Ya, recién y todavía',
+    bajada: 'Usa already, just y yet para comunicar el avance de una tarea.', color: '#b06b33', suave: '#fff3e4', valor: 'Responsabilidad y comunicación honesta',
+    historia: [
+      { emoji: '📝', texto: 'I have already finished my homework.' },
+      { emoji: '🎒', texto: 'My sister has just prepared her backpack.' },
+      { emoji: '🧹', texto: 'We have already cleaned our room.' },
+      { emoji: '🍽️', texto: 'My dad has not prepared dinner yet.' },
+      { emoji: '🤝', texto: 'We check what is ready and help with what is still pending.' },
+    ],
+    palabras: [
+      { en: 'already', es: 'ya', emoji: '✅' }, { en: 'just', es: 'recién/acabar de', emoji: '✨' },
+      { en: 'yet', es: 'todavía/ya', emoji: '⏳' }, { en: 'finished', es: 'terminado', emoji: '🏁' },
+      { en: 'prepared', es: 'preparado', emoji: '🎒' }, { en: 'pending', es: 'pendiente', emoji: '📌' },
+    ],
+    constructor: {
+      inicios: ['I have already', 'We have just', 'She has already', 'He has just'],
+      acciones: ['finished', 'started', 'checked', 'prepared'],
+      finales: ['the homework.', 'the project.', 'the plan.', 'the materials.'],
+    },
+    retos: [
+      { frase: 'I have ___ finished my homework.', correcta: 'already', opciones: ['yet', 'already', 'tomorrow'], ayuda: 'Already comunica que algo ya ocurrió.' },
+      { frase: 'She has ___ arrived.', correcta: 'just', opciones: ['just', 'yet', 'ago'], ayuda: 'Just indica que ocurrió hace muy poco.' },
+      { frase: 'Have you finished ___?', correcta: 'yet', opciones: ['already', 'just', 'yet'], ayuda: 'Yet suele ir al final de preguntas.' },
+      { frase: 'We have not started ___.', correcta: 'yet', opciones: ['yet', 'just', 'yesterday'], ayuda: 'En una negación, yet significa todavía.' },
+    ],
+    aplicaciones: [
+      { emoji: '📝', titulo: 'Con las tareas', texto: 'Informar qué terminaste y qué falta.' },
+      { emoji: '👥', titulo: 'En equipo', texto: 'Coordinar avances sin repetir trabajo.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Comunicar responsabilidades cumplidas.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
