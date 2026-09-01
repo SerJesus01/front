@@ -1631,6 +1631,38 @@ export const CHILD_MISSIONS = {
       { emoji: '💬', titulo: 'Al dar una opinión', texto: 'Explicar una preferencia sin menospreciar a otros.' },
     ],
   },
+  'fase-15-superlativos': {
+    slug: 'fase-15-superlativos', icono: '🏆', zona: 'DESTACA ENTRE VARIOS', titulo: 'Lo más especial del recorrido',
+    bajada: 'Usa the + superlativo para destacar una cualidad dentro de un grupo de tres o más.', color: '#b06b33', suave: '#fff3e4', valor: 'Reconocimiento sin competir de forma negativa',
+    historia: [
+      { emoji: '🌳', texto: 'Our family visits three nature trails during the holidays.' },
+      { emoji: '🥾', texto: 'The river trail is the longest route.' },
+      { emoji: '🌄', texto: 'The hill trail has the most beautiful morning view.' },
+      { emoji: '🐦', texto: 'The forest trail is the quietest place to observe birds.' },
+      { emoji: '❤️', texto: 'Each place is different, and we appreciate what makes it special.' },
+    ],
+    palabras: [
+      { en: 'the longest', es: 'el más largo', emoji: '📏' }, { en: 'the shortest', es: 'el más corto', emoji: '🤏' },
+      { en: 'the quietest', es: 'el más tranquilo', emoji: '🤫' }, { en: 'the most beautiful', es: 'el más hermoso', emoji: '🌄' },
+      { en: 'the best', es: 'el mejor', emoji: '⭐' }, { en: 'in the group', es: 'del grupo', emoji: '👥' },
+    ],
+    constructor: {
+      inicios: ['This is', 'That trail is', 'Our garden has', 'Today was'],
+      acciones: ['the shortest', 'the quietest', 'the most colorful', 'the best'],
+      finales: ['route.', 'place.', 'flowers.', 'day of the trip.'],
+    },
+    retos: [
+      { frase: 'This is ___ trail in the park.', correcta: 'the longest', opciones: ['longer', 'the longest', 'the more long'], ayuda: 'Entre varios usamos the + superlativo.' },
+      { frase: 'It is ___ place to read.', correcta: 'the quietest', opciones: ['quieter', 'quietest', 'the quietest'], ayuda: 'El superlativo lleva the.' },
+      { frase: 'That is ___ view on the route.', correcta: 'the most beautiful', opciones: ['more beautiful', 'the most beautiful', 'beautifulest'], ayuda: 'Con adjetivos largos usamos the most.' },
+      { frase: 'This is ___ idea of the three.', correcta: 'the best', opciones: ['better', 'the best', 'the goodest'], ayuda: 'El superlativo irregular de good es the best.' },
+    ],
+    aplicaciones: [
+      { emoji: '📝', titulo: 'Al hacer una reseña', texto: 'Destacar una característica dentro de varias opciones.' },
+      { emoji: '🌄', titulo: 'Al contar un viaje', texto: 'Describir el lugar más largo, tranquilo o hermoso.' },
+      { emoji: '⭐', titulo: 'Al reconocer logros', texto: 'Celebrar cualidades sin convertir todo en una competencia.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
