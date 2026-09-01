@@ -575,6 +575,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏠', titulo: 'En casa', texto: 'Comunicar responsabilidades cumplidas.' },
     ],
   },
+  'fase-5-ever-how-long': {
+    slug: 'fase-5-ever-how-long', icono: '🧭', zona: 'EXPERIENCIAS Y DURACIÓN', titulo: '¿Alguna vez? ¿Desde cuándo?',
+    bajada: 'Pregunta por experiencias y por el tiempo que una situación ha continuado.', color: '#356f92', suave: '#e8f4fa', valor: 'Curiosidad y escucha respetuosa',
+    historia: [
+      { emoji: '🗣️', texto: 'Have you ever participated in a science fair?' },
+      { emoji: '🔬', texto: 'Yes, I have. I enjoy building simple experiments.' },
+      { emoji: '⏳', texto: 'How long have you studied science?' },
+      { emoji: '📚', texto: 'I have studied it for three years.' },
+      { emoji: '🤝', texto: 'We ask questions and listen carefully to each answer.' },
+    ],
+    palabras: [
+      { en: 'ever', es: 'alguna vez', emoji: '❓' }, { en: 'never', es: 'nunca', emoji: '🚫' },
+      { en: 'how long', es: 'desde hace cuánto', emoji: '⏳' }, { en: 'experience', es: 'experiencia', emoji: '🧭' },
+      { en: 'for', es: 'durante/desde hace', emoji: '📏' }, { en: 'since', es: 'desde', emoji: '📍' },
+    ],
+    constructor: {
+      inicios: ['Have you ever', 'Has she ever', 'How long have you', 'How long has he'],
+      acciones: ['lived in', 'studied at', 'worked with', 'belonged to'],
+      finales: ['this city?', 'this school?', 'that team?', 'the science club?'],
+    },
+    retos: [
+      { frase: 'Have you ___ visited a museum?', correcta: 'ever', opciones: ['ever', 'ago', 'yet'], ayuda: 'Ever pregunta si ocurrió en algún momento.' },
+      { frase: 'How ___ have you studied English?', correcta: 'long', opciones: ['many', 'long', 'old'], ayuda: 'How long pregunta por duración.' },
+      { frase: 'I have ___ tried that activity.', correcta: 'never', opciones: ['never', 'last', 'ago'], ayuda: 'Never comunica que no ha ocurrido.' },
+      { frase: 'She has studied here ___ two years.', correcta: 'for', opciones: ['since', 'ago', 'for'], ayuda: 'For acompaña una cantidad de tiempo.' },
+    ],
+    aplicaciones: [
+      { emoji: '🤝', titulo: 'Al conocer personas', texto: 'Preguntar por experiencias con respeto.' },
+      { emoji: '🏫', titulo: 'En la escuela', texto: 'Hablar del tiempo en un curso o actividad.' },
+      { emoji: '🎯', titulo: 'Al reflexionar', texto: 'Reconocer cuánto tiempo llevas aprendiendo.' },
+    ],
+  },
   'fase-7-will-shall': {
     slug: 'fase-7-will-shall', icono: '🚀', zona: 'PLANES Y RESPONSABILIDAD', titulo: 'Mis planes para mañana',
     bajada: 'Usa will para expresar decisiones, promesas y acciones futuras.', color: '#735b9b', suave: '#f2edfb', valor: 'Responsabilidad y cumplimiento',
