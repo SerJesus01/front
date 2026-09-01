@@ -1983,6 +1983,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏫', titulo: 'Al organizar espacios', texto: 'Indicar la posición correcta de objetos y materiales.' },
     ],
   },
+  'fase-17-preposiciones-direccion': {
+    slug: 'fase-17-preposiciones-direccion', icono: '🧭', zona: 'SIGUE EL RECORRIDO', titulo: 'Del punto de partida a la meta',
+    bajada: 'Usa toward, across, through, along, past e into para describir un movimiento.', color: '#39766a', suave: '#e8f7f2', valor: 'Atención y movilidad segura',
+    historia: [
+      { emoji: '🚶', texto: 'Our family walks from home to a community book fair.' },
+      { emoji: '🌳', texto: 'We walk along the tree-lined street toward the park.' },
+      { emoji: '🚸', texto: 'We cross the road at the marked crossing and continue through the park.' },
+      { emoji: '🏛️', texto: 'We go past the museum and into the community center.' },
+      { emoji: '🛡️', texto: 'Following clear directions helps us travel together safely.' },
+    ],
+    palabras: [
+      { en: 'toward', es: 'hacia', emoji: '➡️' }, { en: 'across', es: 'de un lado al otro', emoji: '🚸' },
+      { en: 'through', es: 'a través de/dentro de', emoji: '🌳' }, { en: 'along', es: 'a lo largo de', emoji: '🛣️' },
+      { en: 'past', es: 'pasando junto a', emoji: '⏩' }, { en: 'into', es: 'hacia dentro de', emoji: '🚪' },
+    ],
+    constructor: {
+      inicios: ['Walk', 'Go', 'Continue', 'Turn and move'],
+      acciones: ['along the street', 'through the park', 'past the library', 'toward the entrance'],
+      finales: ['.', '.', '.', '.'],
+    },
+    retos: [
+      { frase: 'Walk ___ the path until the bridge.', correcta: 'along', opciones: ['into', 'along', 'above'], ayuda: 'Along significa seguir el trayecto de un camino.' },
+      { frase: 'Go ___ the park to reach the library.', correcta: 'through', opciones: ['through', 'below', 'opposite'], ayuda: 'Through indica entrar, atravesar y salir de un espacio.' },
+      { frase: 'Walk ___ the museum and turn right.', correcta: 'past', opciones: ['among', 'past', 'at'], ayuda: 'Past significa pasar junto a un punto de referencia.' },
+      { frase: 'Move ___ the exit sign.', correcta: 'toward', opciones: ['toward', 'on', 'between'], ayuda: 'Toward expresa movimiento en dirección a algo.' },
+    ],
+    aplicaciones: [
+      { emoji: '🧭', titulo: 'Al dar una ruta', texto: 'Explicar cómo avanzar entre varios puntos.' },
+      { emoji: '🗺️', titulo: 'Al seguir un mapa', texto: 'Interpretar caminos, cruces y referencias.' },
+      { emoji: '🛡️', titulo: 'Al moverte con seguridad', texto: 'Comprender indicaciones dentro de una escuela o comunidad.' },
+    ],
+  },
 };
 
 export const CHILD_MISSION_SLUGS = new Set(Object.keys(CHILD_MISSIONS));
