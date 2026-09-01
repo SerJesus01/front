@@ -1535,6 +1535,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🌍', titulo: 'Al cuidar el ambiente', texto: 'Hablar del uso de agua, energía o plástico.' },
     ],
   },
+  'fase-14-little-few': {
+    slug: 'fase-14-little-few', icono: '🤏', zona: 'PEQUEÑAS CANTIDADES', titulo: 'Un poco puede ser suficiente',
+    bajada: 'Usa a few con elementos contables y a little con cantidades incontables.', color: '#39766a', suave: '#e8f7f2', valor: 'Moderación y aprovechamiento',
+    historia: [
+      { emoji: '🌱', texto: 'We need a few seeds for each pot in the school garden.' },
+      { emoji: '💧', texto: 'We add a little water, not too much.' },
+      { emoji: '🥄', texto: 'A few students label the pots while the others clean.' },
+      { emoji: '⏱️', texto: 'We have a little time to check every plant.' },
+      { emoji: '♻️', texto: 'Using the right amount protects our resources.' },
+    ],
+    palabras: [
+      { en: 'a few seeds', es: 'unas pocas semillas', emoji: '🌱' }, { en: 'a few minutes', es: 'unos pocos minutos', emoji: '⏱️' },
+      { en: 'a little water', es: 'un poco de agua', emoji: '💧' }, { en: 'a little time', es: 'un poco de tiempo', emoji: '⌛' },
+      { en: 'enough', es: 'suficiente', emoji: '✅' }, { en: 'amount', es: 'cantidad', emoji: '⚖️' },
+    ],
+    constructor: {
+      inicios: ['We need', 'There are', 'Please add', 'We have'],
+      acciones: ['a few seeds', 'a few tasks', 'a little water', 'a little time'],
+      finales: ['for each pot.', 'before lunch.', 'to the soil.', 'to review.'],
+    },
+    retos: [
+      { frase: 'We planted ___ seeds.', correcta: 'a few', opciones: ['a few', 'a little', 'much'], ayuda: 'Seeds es contable y plural: a few.' },
+      { frase: 'Add ___ water to the pot.', correcta: 'a little', opciones: ['a few', 'a little', 'many'], ayuda: 'Water es incontable: a little.' },
+      { frase: 'I have ___ questions.', correcta: 'a few', opciones: ['a little', 'a few', 'much'], ayuda: 'Questions se puede contar.' },
+      { frase: 'We still have ___ time.', correcta: 'a little', opciones: ['a little', 'a few', 'many'], ayuda: 'Time es incontable.' },
+    ],
+    aplicaciones: [
+      { emoji: '🫕', titulo: 'Al preparar algo', texto: 'Expresar pequeñas cantidades de ingredientes.' },
+      { emoji: '📝', titulo: 'Al organizarte', texto: 'Hablar de unas pocas tareas o un poco de tiempo.' },
+      { emoji: '🌱', titulo: 'Al cuidar recursos', texto: 'Usar solo la cantidad necesaria de agua o materiales.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
