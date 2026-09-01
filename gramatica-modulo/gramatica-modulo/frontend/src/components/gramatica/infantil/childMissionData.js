@@ -1023,6 +1023,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🔎', titulo: 'Al explorar', texto: 'Preguntar si existe algo en un lugar nuevo.' },
     ],
   },
+  'fase-9-ubicacion-basica': {
+    slug: 'fase-9-ubicacion-basica', icono: '🗺️', zona: 'ENCUENTRA Y ORGANIZA', titulo: 'El mapa de nuestro salón',
+    bajada: 'Usa preposiciones básicas para indicar con precisión dónde está cada cosa.', color: '#39766a', suave: '#e8f7f2', valor: 'Orden, orientación y colaboración',
+    historia: [
+      { emoji: '🗺️', texto: 'Our team is drawing a map of the classroom.' },
+      { emoji: '📚', texto: 'The books are on the shelf next to the door.' },
+      { emoji: '🌱', texto: 'A small plant is between the two windows.' },
+      { emoji: '🎒', texto: 'The backpacks are under the table, not in the hallway.' },
+      { emoji: '🧭', texto: 'Clear locations help everyone find and return the materials.' },
+    ],
+    palabras: [
+      { en: 'in', es: 'dentro de', emoji: '📦' }, { en: 'on', es: 'sobre/encima de', emoji: '⬆️' },
+      { en: 'under', es: 'debajo de', emoji: '⬇️' }, { en: 'next to', es: 'junto a', emoji: '↔️' },
+      { en: 'between', es: 'entre dos', emoji: '🔛' }, { en: 'in front of', es: 'delante de', emoji: '👀' },
+    ],
+    constructor: {
+      inicios: ['The notebook is', 'The backpacks are', 'Our plant is', 'The teacher is'],
+      acciones: ['on', 'under', 'next to', 'in front of'],
+      finales: ['the desk.', 'the table.', 'the window.', 'the class.'],
+    },
+    retos: [
+      { frase: 'The pencils are ___ the box.', correcta: 'in', opciones: ['in', 'on', 'between'], ayuda: 'In indica que están dentro de la caja.' },
+      { frase: 'The poster is ___ the wall.', correcta: 'on', opciones: ['under', 'on', 'in'], ayuda: 'On indica contacto con una superficie.' },
+      { frase: 'The backpack is ___ the chair.', correcta: 'under', opciones: ['between', 'under', 'in front'], ayuda: 'Under significa debajo de.' },
+      { frase: 'The plant is ___ the two windows.', correcta: 'between', opciones: ['next to', 'between', 'on'], ayuda: 'Between ubica algo en medio de dos referencias.' },
+    ],
+    aplicaciones: [
+      { emoji: '🗺️', titulo: 'Al dar indicaciones', texto: 'Explicar dónde encontrar un objeto o lugar.' },
+      { emoji: '🏫', titulo: 'Al organizar el salón', texto: 'Acordar dónde colocar los materiales.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Describir la ubicación de tus pertenencias.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
