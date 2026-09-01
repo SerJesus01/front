@@ -991,6 +991,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🎮', titulo: 'Al explicar un juego', texto: 'Comunicar reglas breves y ordenadas.' },
     ],
   },
+  'fase-9-there-is-there-are': {
+    slug: 'fase-9-there-is-there-are', icono: '🏫', zona: 'EXPLORA LOS ESPACIOS', titulo: '¿Qué hay a nuestro alrededor?',
+    bajada: 'Usa there is y there are para decir qué existe o se encuentra en un lugar.', color: '#356f92', suave: '#e8f4fa', valor: 'Observación y cuidado de los espacios comunes',
+    historia: [
+      { emoji: '🏫', texto: 'There is a new reading corner in our school.' },
+      { emoji: '📚', texto: 'There are many books on the shelves.' },
+      { emoji: '🪑', texto: 'There is not a chair near the window yet.' },
+      { emoji: '🪴', texto: 'Are there any plants? Yes, there are two.' },
+      { emoji: '✨', texto: 'We observe the space and think of ways to care for it.' },
+    ],
+    palabras: [
+      { en: 'there is', es: 'hay uno/una', emoji: '1️⃣' }, { en: 'there are', es: 'hay varios/varias', emoji: '🔢' },
+      { en: 'there is not', es: 'no hay uno/una', emoji: '🚫' }, { en: 'Are there...?', es: '¿hay varios...?', emoji: '❓' },
+      { en: 'shelf', es: 'estante', emoji: '📚' }, { en: 'corner', es: 'rincón', emoji: '📍' },
+    ],
+    constructor: {
+      inicios: ['There is', 'There are', 'There is not', 'Are there'],
+      acciones: ['a table in', 'two posters in', 'a computer in', 'any plants in'],
+      finales: ['the classroom.', 'the hallway.', 'the reading corner.', 'the garden?'],
+    },
+    retos: [
+      { frase: 'There ___ a library in our school.', correcta: 'is', opciones: ['are', 'is', 'be'], ayuda: 'A library es singular: usamos there is.' },
+      { frase: 'There ___ three windows in the room.', correcta: 'are', opciones: ['is', 'are', 'has'], ayuda: 'Three windows es plural: usamos there are.' },
+      { frase: '___ there any books on the table?', correcta: 'Are', opciones: ['Is', 'Are', 'Do'], ayuda: 'Books es plural, por eso preguntamos Are there...?' },
+      { frase: 'There is ___ a computer here.', correcta: 'not', opciones: ['no', 'not', 'do'], ayuda: 'La negación singular es there is not.' },
+    ],
+    aplicaciones: [
+      { emoji: '🏫', titulo: 'Al describir tu escuela', texto: 'Decir qué espacios y objetos hay.' },
+      { emoji: '🏠', titulo: 'En casa', texto: 'Explicar qué hay en una habitación.' },
+      { emoji: '🔎', titulo: 'Al explorar', texto: 'Preguntar si existe algo en un lugar nuevo.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
