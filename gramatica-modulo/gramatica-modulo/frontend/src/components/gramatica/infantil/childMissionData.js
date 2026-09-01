@@ -1855,6 +1855,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🏠', titulo: 'En una tarea de casa', texto: 'Coordinar un proceso familiar paso a paso.' },
     ],
   },
+  'fase-16-clausulas-relativas': {
+    slug: 'fase-16-clausulas-relativas', icono: '🔗', zona: 'AGREGA INFORMACIÓN ÚTIL', titulo: 'La persona que ayuda',
+    bajada: 'Usa who para personas, which para cosas y where para lugares al agregar una descripción.', color: '#356f92', suave: '#e8f4fa', valor: 'Reconocimiento y descripciones respetuosas',
+    historia: [
+      { emoji: '👩‍🏫', texto: 'Ms. Green is the teacher who leads our science club.' },
+      { emoji: '🤖', texto: 'We built a small robot which can sort colored blocks.' },
+      { emoji: '🏫', texto: 'The laboratory is the place where we test our ideas safely.' },
+      { emoji: '🤝', texto: 'Leo is the classmate who always checks the instructions.' },
+      { emoji: '⭐', texto: 'Extra information helps us identify people, things and places.' },
+    ],
+    palabras: [
+      { en: 'who', es: 'que/quien, personas', emoji: '👤' }, { en: 'which', es: 'que/el cual, cosas', emoji: '📦' },
+      { en: 'where', es: 'donde, lugares', emoji: '📍' }, { en: 'that', es: 'que, personas o cosas', emoji: '🔗' },
+      { en: 'describe', es: 'describir', emoji: '📝' }, { en: 'identify', es: 'identificar', emoji: '🔍' },
+    ],
+    constructor: {
+      inicios: ['She is the student', 'This is the book', 'The library is the place', 'We use a bottle'],
+      acciones: ['who helps everyone', 'which explains the project', 'where we study', 'that can be reused'],
+      finales: ['.', '.', '.', '.'],
+    },
+    retos: [
+      { frase: 'Leo is the student ___ designed the poster.', correcta: 'who', opciones: ['which', 'where', 'who'], ayuda: 'Who agrega información sobre una persona.' },
+      { frase: 'This is the box ___ holds the seeds.', correcta: 'which', opciones: ['who', 'which', 'where'], ayuda: 'Which describe una cosa.' },
+      { frase: 'The garden is the place ___ we plant herbs.', correcta: 'where', opciones: ['who', 'which', 'where'], ayuda: 'Where agrega información sobre un lugar.' },
+      { frase: 'A reusable cup is an object ___ reduces waste.', correcta: 'that', opciones: ['where', 'who', 'that'], ayuda: 'That puede describir una cosa.' },
+    ],
+    aplicaciones: [
+      { emoji: '👤', titulo: 'Al presentar a alguien', texto: 'Agregar una cualidad o explicar lo que hace.' },
+      { emoji: '📦', titulo: 'Al describir un objeto', texto: 'Explicar para qué sirve sin iniciar otra frase.' },
+      { emoji: '📍', titulo: 'Al hablar de un lugar', texto: 'Contar qué sucede o qué hacemos allí.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
