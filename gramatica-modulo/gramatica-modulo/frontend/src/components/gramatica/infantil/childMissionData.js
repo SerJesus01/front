@@ -1311,6 +1311,38 @@ export const CHILD_MISSIONS = {
       { emoji: '🔎', titulo: 'Al devolver algo', texto: 'Explicar claramente a quién pertenece.' },
     ],
   },
+  'fase-13-a-an-the': {
+    slug: 'fase-13-a-an-the', icono: '🔍', zona: 'UNO O UNO EN ESPECIAL', titulo: 'Una pista, un objeto',
+    bajada: 'Usa a o an para presentar algo y the cuando ya sabemos exactamente de qué hablamos.', color: '#356f92', suave: '#e8f4fa', valor: 'Atención y comunicación precisa',
+    historia: [
+      { emoji: '🔍', texto: 'Our teacher gives us a clue for a classroom treasure hunt.' },
+      { emoji: '🍊', texto: '“Find an orange card near a window.”' },
+      { emoji: '🪟', texto: 'There are three windows, but the window beside the door is open.' },
+      { emoji: '📄', texto: 'We find the card and read the next clue together.' },
+      { emoji: '🧠', texto: 'Small words help us identify something general or specific.' },
+    ],
+    palabras: [
+      { en: 'a book', es: 'un libro', emoji: '📘' }, { en: 'an apple', es: 'una manzana', emoji: '🍎' },
+      { en: 'the book', es: 'el libro específico', emoji: '📖' }, { en: 'consonant sound', es: 'sonido consonante', emoji: '🗣️' },
+      { en: 'vowel sound', es: 'sonido vocal', emoji: '🔊' }, { en: 'specific', es: 'específico', emoji: '🎯' },
+    ],
+    constructor: {
+      inicios: ['I see', 'We need', 'She found', 'Please open'],
+      acciones: ['a notebook', 'an eraser', 'a reusable bottle', 'the box'],
+      finales: ['on the desk.', 'for the activity.', 'near the garden.', 'beside the door.'],
+    },
+    retos: [
+      { frase: 'I need ___ pencil.', correcta: 'a', opciones: ['a', 'an', 'the'], ayuda: 'Pencil comienza con sonido consonante y se presenta por primera vez.' },
+      { frase: 'She has ___ orange.', correcta: 'an', opciones: ['a', 'an', 'the'], ayuda: 'Orange comienza con sonido vocal: usamos an.' },
+      { frase: 'Open ___ book on your desk.', correcta: 'the', opciones: ['a', 'an', 'the'], ayuda: 'Hablamos del libro específico que está en tu escritorio.' },
+      { frase: 'There is ___ umbrella near the door.', correcta: 'an', opciones: ['an', 'a', 'the'], ayuda: 'Umbrella comienza con sonido vocal.' },
+    ],
+    aplicaciones: [
+      { emoji: '🗣️', titulo: 'Al describir algo', texto: 'Presentar un objeto y luego volver a mencionarlo.' },
+      { emoji: '🏫', titulo: 'Al seguir indicaciones', texto: 'Reconocer si se habla de cualquier objeto o uno específico.' },
+      { emoji: '📝', titulo: 'Al escribir', texto: 'Hacer que una descripción sea clara y natural.' },
+    ],
+  },
   'fase-16-condicionales-if': {
     slug: 'fase-16-condicionales-if', icono: '🌎', zona: 'GUARDIANES DE LA NATURALEZA', titulo: 'Si cuidamos, protegemos',
     bajada: 'Conecta una acción responsable con su resultado usando if.', color: '#31865b', suave: '#e5f8ed', valor: 'Respeto y cuidado del medio ambiente',
